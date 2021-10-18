@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, Transition } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 
 export const Header: React.FC = () => {
   return (
@@ -33,69 +33,33 @@ export const Header: React.FC = () => {
           </div>
         </Menu.Button>
         <Menu.Items className="absolute right-0 w-56 mt-2  origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="px-1 py-1 ">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-purple-500 text-white" : "text-gray-900"
-                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                >
-                  Edit
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-purple-500 text-white" : "text-gray-900"
-                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                >
-                  Duplicate
-                </button>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-purple-500 text-white" : "text-gray-900"
-                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                >
-                  Archive
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-purple-500 text-white" : "text-gray-900"
-                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                >
-                  Move
-                </button>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-purple-500 text-white" : "text-gray-900"
-                  } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                >
-                  Delete
-                </button>
-              )}
-            </Menu.Item>
+          <div className="p-1">
+            {HeaderMenuOption.map((option) => {
+              return (
+                <Menu.Item key={option.id}>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-purple-500 text-white" : "text-gray-900"
+                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    >
+                      {option.value}
+                    </button>
+                  )}
+                </Menu.Item>
+              );
+            })}
           </div>
         </Menu.Items>
       </Menu>
     </header>
   );
 };
+
+const HeaderMenuOption = [
+  { id: "1", value: "Edit" },
+  { id: "2", value: "Duplicate" },
+  { id: "3", value: "Archive" },
+  { id: "4", value: "Move" },
+  { id: "5", value: "Delete" },
+];
