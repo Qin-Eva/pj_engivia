@@ -3,6 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "@headlessui/react";
 
+type option = {
+  readonly id: string;
+  readonly value: string;
+};
+
+const HeaderMenuOption: option[] = [
+  { id: "1", value: "Edit" },
+  { id: "2", value: "Duplicate" },
+  { id: "3", value: "Archive" },
+  { id: "4", value: "Move" },
+  { id: "5", value: "Delete" },
+];
+
 export const Header: React.FC = () => {
   return (
     <header className="h-16 px-8 bg-white shadow-sm flex justify-between items-center">
@@ -55,11 +68,3 @@ export const Header: React.FC = () => {
     </header>
   );
 };
-
-const HeaderMenuOption = [
-  { id: "1", value: "Edit" },
-  { id: "2", value: "Duplicate" },
-  { id: "3", value: "Archive" },
-  { id: "4", value: "Move" },
-  { id: "5", value: "Delete" },
-];
