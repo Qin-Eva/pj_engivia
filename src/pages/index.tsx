@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         <p>プライマリーボタンです</p>
         <PrimaryButton></PrimaryButton>
         <p>セカンダリーボタンです</p>
-        {/* <SecondaryButton></SecondaryButton> */}
+        <SecondaryButton></SecondaryButton>
       </main>
 
       <footer className={styles.footer}>
