@@ -7,3 +7,6 @@
 ```bash
 yarn dev
 ```
+# pass
+絶対パス　baseUrl: src
+
