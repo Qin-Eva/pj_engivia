@@ -1,29 +1,42 @@
-// import Header from "../components/Header";
+// import Header from "components/Header";
 import Head from "next/head";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarWeek,faGraduationCap } from '@fortawesome/free-solid-svg-icons';
+import type { NextPage } from "next";
+
+type ITEMS = {
+  id: number;
+  title: string;
+  date: string;
+  status: string;
+  count: string;
+}
 
 const ITEMS = [
    {
+     id: "1",
     href: "/",
     title: "第4回エンジビアの泉",
     date: "2021年9月8日",
     status: "放送前・エンジビア募集中",
     count: "エンジビア数"
   },{
+    id: "2",
     href: "/",
     title: "第3回エンジビアの泉",
     date: "2021年8月18日",
     status: "放送済み",
     count: "エンジビア数"
   }, {
+    id: "3",
     href: "/",
     title: "第2回エンジビアの泉",
     date: "2021年7月12日",
     status: "放送済み",
     count: "エンジビア数"
   }, {
+    id: "4",
     href: "/",
     title: "第1回エンジビアの泉",
     date: "2021年5月24日",
@@ -32,8 +45,7 @@ const ITEMS = [
   }
 ];
 
-const broadcastIndex = () =>
-{
+const broadcastIndex: NextPage = () => {
   return <>
   <Head>
     <title>放送一覧ページ</title>
@@ -43,11 +55,13 @@ const broadcastIndex = () =>
         <div className="text-4xl w-3/5 mx-auto mb-5">放送一覧</div>
         <div className="bg-white w-3/5 mx-auto">
         <div>
-        {ITEMS.map(item => {
+        {ITEMS.map((item) => {
           return (
+            <>
+            <div key={item.id}></div>
             <div className="flex border border-gray-100">
             <div className="h-24">
-              <Link href={item.href}>
+              <Link href={item.href} passHref>
                 <h1 className="text-blue-400 ml-5 mt-5">{item.title}</h1>
               </Link>
               <div className="flex">
@@ -63,6 +77,7 @@ const broadcastIndex = () =>
               </div>
             </div>
             </div>
+            </>
           )
         })}
         </div>
