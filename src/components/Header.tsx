@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "@headlessui/react";
+import { useEffect, useState } from 'react'
+import { supabase } from '../utilities/supabase'
 
 type option = {
   readonly id: string;
@@ -17,6 +19,28 @@ const HeaderMenuOption: option[] = [
 ];
 
 export const Header: React.FC = () => {
+  const [session, setSession] = useState()
+
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session as any)
+      }
+    )
+
+    return () => {
+      authListener?.unsubscribe()
+    }
+  }, [])
+
+  function signInWithGithub() {
+    supabase.auth.signIn({ provider: 'github' })
+  }
+
+  function signOut() {
+    supabase.auth.signOut()
+  }
+
   return (
     <header className="h-16 px-8 bg-white shadow-sm flex justify-between items-center">
       <Link href="/" passHref>
@@ -34,37 +58,60 @@ export const Header: React.FC = () => {
           </span>
         </div>
       </Link>
-      <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button className="hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-          <div className="rounded-full  w-8 h-8">
-            <Image
-              src="/Avatar.png"
-              alt="ユーザー写真"
-              width="32"
-              height="32px"
-            />
-          </div>
-        </Menu.Button>
-        <Menu.Items className="absolute right-0 w-56 mt-2  origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="p-1">
-            {HeaderMenuOption.map((option) => {
-              return (
-                <Menu.Item key={option.id}>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        active ? "bg-purple-500 text-white" : "text-gray-900"
+      {session ? (
+        <Menu as="div" className="relative inline-block text-left">
+          <Menu.Button className="hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            <div className="rounded-full  w-8 h-8">
+              <Image
+                src="/Avatar.png"
+                alt="ユーザー写真"
+                width="32"
+                height="32px"
+              />
+            </div>
+          </Menu.Button>
+          <Menu.Items className="absolute right-0 w-56 mt-2  origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="p-1">
+              {HeaderMenuOption.map((option) => {
+                return (
+                  <Menu.Item key={option.id}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          active ? "bg-purple-500 text-white" : "text-gray-900"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                      >
+                        {option.value}
+                      </button>
+                    )}
+                  </Menu.Item>
+                );
+              })}
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? "bg-purple-500 text-white" : "text-gray-900"
                       } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    >
-                      {option.value}
-                    </button>
-                  )}
-                </Menu.Item>
-              );
-            })}
-          </div>
-        </Menu.Items>
-      </Menu>
+                    onClick={() => signOut()}
+                  >
+                    ログアウト
+                  </button>
+                )}
+              </Menu.Item>
+            </div>
+          </Menu.Items>
+        </Menu>
+      ) : (
+          <button onClick={() => signInWithGithub()}>
+            <Image
+              src="/GitHub-Mark.png"
+              alt="GitHub Login Logo"
+              width="32px"
+              height="32px"
+            ></Image>
+          </button>
+      )}
     </header>
   );
 };
