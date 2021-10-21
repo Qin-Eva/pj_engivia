@@ -1,12 +1,14 @@
-import { ReactNode } from 'react'
+import { ReactNode, VFC } from 'react'
 import Head from "next/head";
 import { Header } from "components/Header";
 
-interface Props {
+type Props = {
   children: ReactNode
 }
 
-export default function Layout({ children }: Props) {
+const Layout: VFC<Props> = (props) => {
+  const { children } = props;
+
   return (
     <>
       <Head>
@@ -21,3 +23,5 @@ export default function Layout({ children }: Props) {
     </>
   )
 }
+
+export default Layout
