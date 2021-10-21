@@ -61,16 +61,16 @@ const broadcastIndex: NextPage = () => {
             <div key={item.id}></div>
             <div className="flex border border-gray-100">
             <div className="h-24">
-              <Link href={item.href} passHref>
-                <h1 className="text-blue-400 ml-5 mt-5">{item.title}</h1>
-              </Link>
+             <h1 className="text-blue-400 ml-5 mt-5">{item.title}</h1>
               <div className="flex">
               <FontAwesomeIcon className="text-gray-500 mt-3 ml-5" icon={faCalendarWeek} />
               <h3 className="text-gray-400 ml-2 mt-2">{item.date}</h3>
               </div>
             </div>
             <div className="ml-96 pl-24">
+            <Link href={item.href} passHref>
               <h4 className="mt-5">{item.status}</h4>
+              </Link>
               <div className="flex">
               <FontAwesomeIcon className="mt-3" icon={faGraduationCap} />
               <h5 className="text-gray-400 mt-2 ml-2">{item.count}</h5>
