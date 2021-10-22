@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "@headlessui/react";
 import { useEffect, useState } from 'react'
-import { supabase } from '../utilities/supabase'
+import { supabase } from '../utils/supabase'
 
 type option = {
   readonly id: string;
