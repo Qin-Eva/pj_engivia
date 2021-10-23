@@ -1,10 +1,10 @@
-import { ReactNode, VFC } from 'react'
+import { ReactNode, VFC } from "react";
 import Head from "next/head";
 import { Header } from "components/Header";
 
 type Props = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 const Layout: VFC<Props> = (props) => {
   const { children } = props;
@@ -18,10 +18,10 @@ const Layout: VFC<Props> = (props) => {
       </Head>
       <main>
         <Header />
-        {children}
+        <div className="py-10">{children}</div>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
