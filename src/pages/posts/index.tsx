@@ -12,7 +12,7 @@ const Posts: NextPage = () => {
         <div className="flex items-center flex-col">
           {/* TODO: 放送済みアイコンのコンポーネント */}
           <div className="text-center mt-10">
-            <p className="inline-block bg-gray-200 text-gray-900 text-sm  rounded-full py-1 px-3">
+            <p className="inline-block bg-gray-200 text-gray-900 text-sm rounded-full py-1 px-3">
               放送済み
             </p>
           </div>
