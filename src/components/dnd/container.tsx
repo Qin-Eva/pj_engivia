@@ -17,7 +17,7 @@ export const Container: VFC<Props> = ({ id, items, title }) => {
 
   return (
     <div className="bg-gray-100 p-2 m-2 flex-1">
-      <h3 className="bg-gray-300 h-12 flex justify-center items-center rounded-md">
+      <h3 className="bg-gray-300 h-12 flex justify-center items-center rounded-md font-semibold">
         {title}
       </h3>
       <SortableContext

@@ -9,7 +9,7 @@ interface Props {
 
 export const Item: VFC<Props> = ({ id }) => {
   return (
-    <div className="w-full items-center justify-center my-2.5 bg-white rounded-md p-4">
+    <div className="w-full items-center justify-center my-2.5 bg-white rounded-md p-4 shadow-md">
       <p className="text-base">
         id: {id} HTMLにはポータルという便利な要素がある
       </p>
