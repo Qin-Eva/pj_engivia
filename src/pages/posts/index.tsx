@@ -2,7 +2,7 @@ import { Post } from 'components/Post'
 import Head from 'next/head'
 import type { NextPage } from 'next'
 
-const PostList: NextPage = () => {
+const Posts: NextPage = () => {
   return (
     <>
       <Head>
@@ -41,4 +41,4 @@ const PostList: NextPage = () => {
   )
 }
 
-export default PostList
+export default Posts
