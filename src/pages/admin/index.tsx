@@ -162,7 +162,6 @@ const AdminAll = () => {
             items={items.container2}
             title="フィーチャー後"
           />
-          <DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
         </DndContext>
       </div>
     </div>
