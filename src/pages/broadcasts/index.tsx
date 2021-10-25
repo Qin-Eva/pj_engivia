@@ -44,13 +44,15 @@ const broadcastIndex: NextPage = () => {
     <div className="bg-gray-200 h-screen">
       <h2 className="text-4xl w-3/5 mx-auto mb-5">放送一覧</h2>
         <div className="w-3/5 mx-auto">
-        {ITEMS.map((item) => {
-          return (
-            <div  key={item.id} className="mt-[2px]">
-              <BroadcastCard {...item} />
-            </div>
-          )
-        })}
+          <ul>
+            {ITEMS.map((item) => {
+              return (
+                <li key={item.id} className="mt-[2px]">
+                  <BroadcastCard {...item} />
+                </li>
+              )
+            })}
+          </ul>
       </div>
     </div>
   </>

@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { VFC, useMemo } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarWeek, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,7 @@ export type TCard = {
   count: number;
 }
 
-export const BroadcastCard: FC<TCard> = (props) => {
+export const BroadcastCard: VFC<TCard> = (props) => {
   const { title, href, date, status, count } = { ...props }
   const statusText = useMemo(() => {
     switch (status) {
