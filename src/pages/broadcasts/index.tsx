@@ -1,4 +1,3 @@
-// import Header from "components/Header";
 import Head from "next/head";
 import type { NextPage } from "next";
 import { BroadcastCard } from 'components/BroadcastCard';
