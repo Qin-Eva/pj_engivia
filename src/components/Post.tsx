@@ -26,8 +26,8 @@ export const Post: VFC = () => {
         </div>
         <div className="flex items-end py-5 px-9 bg-[#FEF3C7] text-blue-600 font-extrabold">
           {/* TODO: へぇ数をpropsより取得 */}
-          <p className=" text-[36px]">85</p>
-          <p className=" text-[24px]">へぇ</p>
+          <p className="text-[36px]">85</p>
+          <p className="text-[24px]">へぇ</p>
         </div>
       </div>
     </div>
