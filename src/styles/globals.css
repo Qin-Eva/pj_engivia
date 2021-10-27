@@ -27,21 +27,17 @@ button:hover {
 }
 
 /* へぇボタンのCSS */
-.btn-emergency {
+.hee-btn {
   position: relative;
   display: block;
   width: 193px;
   height: 120px;
 }
-.btn-emergency:hover .btn-emergency-top {
+.hee-btn:active .btn-top {
   top: 10px;
   height: 50px;
 }
-.btn-emergency:active .btn-emergency-top {
-  top: 20px;
-  height: 40px;
-}
-.btn-emergency-top {
+.btn-top {
   position: absolute;
   top: 0;
   left: 20px;
@@ -53,7 +49,7 @@ button:hover {
   border-radius: 0 0 50% 50%;
   background: #1b79c9;
 }
-.btn-emergency-top:before {
+.btn-top:before {
   position: absolute;
   top: -30px;
   left: 0;
@@ -63,7 +59,7 @@ button:hover {
   border-radius: 80px / 30px;
   background: #3299ea;
 }
-.btn-emergency-top span {
+.btn-top span {
   font-size: 38px;
   font-weight: bold;
   position: absolute;
@@ -75,7 +71,7 @@ button:hover {
   text-align: center;
   color: #edecece0;
 }
-.btn-emergency-bottom {
+.btn-bottom {
   position: absolute;
   top: 38px;
   left: 0;
