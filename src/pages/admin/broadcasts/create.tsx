@@ -1,4 +1,3 @@
-// 放送作成ページ /admin/bradcasts/create
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import Link from 'next/link'
@@ -9,12 +8,12 @@ const createBroadcast: NextPage = () => {
       <Head>
         <title>放送作成ページ</title>
       </Head>
-      <div className="bg-gray-200 h-screen">
+      <div className="bg-gray-100 h-screen">
         <div className="text-4xl w-3/5 mx-auto mb-5">放送を作成</div>
-        <div className="h-40 w-3/5 mx-auto">
+        <div className="h-24 w-3/5 mx-auto">
           <div>
             <input
-              className="h-10 w-5/6 my-10"
+              className="h-10 w-5/6 my-5 rounded"
               name="title"
               id="title"
               type="text"
@@ -25,7 +24,7 @@ const createBroadcast: NextPage = () => {
           </div>
           <div>
             <input
-              className="h-10 w-5/6 my-10"
+              className="h-10 w-5/6 my-5 rounded"
               name="date"
               id="date"
               type="text"
@@ -36,11 +35,11 @@ const createBroadcast: NextPage = () => {
           </div>
         </div>
         <div className="flex mt-20 w-3/5 mx-auto">
-          <div className="text-red-300 w-40 mx-24 mt-12">
-            {/* ボタン機能に変更？ */}
+          <div className="text-white ml-48 mt-6 bg-blue-500 rounded-md h-12 w-32 text-center py-3">
+            {/* ボタン機能に変更が必要？ */}
             <Link href="/">投稿する</Link>
           </div>
-          <div className="text-blue-500 mx-24 mt-12 bg-blue-100">
+          <div className="text-blue-500 ml-10 mr-24 mt-6 bg-blue-100 rounded-md h-12 w-32 text-center py-3">
             <Link href="/">キャンセル</Link>
           </div>
         </div>
