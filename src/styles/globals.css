@@ -25,3 +25,64 @@ button {
 button:hover {
   opacity: 0.7; 
 }
+
+/* へぇボタンのCSS */
+.btn-emergency {
+  position: relative;
+  display: block;
+  width: 193px;
+  height: 120px;
+}
+.btn-emergency:hover .btn-emergency-top {
+  top: 10px;
+  height: 50px;
+}
+.btn-emergency:active .btn-emergency-top {
+  top: 20px;
+  height: 40px;
+}
+.btn-emergency-top {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 160px;
+  height: 60px;
+  margin-top: 30px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-radius: 0 0 50% 50%;
+  background: #1b79c9;
+}
+.btn-emergency-top:before {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 160px;
+  height: 60px;
+  content: '';
+  border-radius: 80px / 30px;
+  background: #3299ea;
+}
+.btn-emergency-top span {
+  font-size: 38px;
+  font-weight: bold;
+  position: absolute;
+  top: -35px;
+  left: 0;
+  width: 100%;
+  -webkit-transform: scaleY(0.75);
+  transform: scaleY(0.75);
+  text-align: center;
+  color: #edecece0;
+}
+.btn-emergency-bottom {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: 193px;
+  height: 70px;
+  border-radius: 100px / 40px;
+  background: #d8e4ea;
+  -webkit-box-shadow: 0 8px 0 #c4cacc;
+  box-shadow: 0 8px 0 #c4cacc;
+}
