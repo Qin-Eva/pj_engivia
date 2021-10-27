@@ -18,7 +18,7 @@ const createBroadcast: NextPage = () => {
               id="title"
               type="text"
               placeholder="タイトルを入力する"
-              aria-required="true"
+              // aria-required="true"
               // aria-invalid={errors.name ? 'true' : 'false'}
             />
           </div>
@@ -29,7 +29,7 @@ const createBroadcast: NextPage = () => {
               id="date"
               type="text"
               placeholder="2021/09/03"
-              aria-required="true"
+              // aria-required="true"
               // aria-invalid={errors.name ? 'true' : 'false'}
             />
           </div>
