@@ -1,12 +1,21 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Layout from "components/Layout"
+import { NextPage } from 'next'
+import Layout from 'components/Layout'
+import { useRouter } from 'next/router'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
+  const router = useRouter()
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      {router.pathname !== '/login' ? (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      ) : (
+        <Component {...pageProps} />
+      )}
+    </>
   )
 }
 export default MyApp

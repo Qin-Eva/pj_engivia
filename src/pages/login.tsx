@@ -1,11 +1,6 @@
 import type { NextPage } from "next";
 import Image from "next/image";
-import { supabase } from "utils/supabase";
-
-const handleLogin = () =>
-  supabase.auth.signIn({
-    provider: "github",
-  });
+import { LoginWithGithub, Logout } from "utils/firebase";
 
 const Login: NextPage = () => {
   return (
@@ -36,7 +31,7 @@ const Login: NextPage = () => {
               height="20px"
             />
           </div>
-          <div className="mt-10 cursor-pointer" onClick={handleLogin}>
+          <div className="mt-10 cursor-pointer" onClick={LoginWithGithub}>
             <Image
               src="/login/Signin.png"
               alt="泉"
