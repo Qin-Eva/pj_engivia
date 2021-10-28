@@ -5,7 +5,7 @@ type Props = {
   is_streamed: number
 }
 
-export const StreamTitle: VFC<Props> = (props) => {
+export const TitleWithLabel: VFC<Props> = (props) => {
   const status = useMemo(() => {
     switch (props.is_streamed) {
       case 1:
@@ -28,9 +28,7 @@ export const StreamTitle: VFC<Props> = (props) => {
 
   return (
     <div className="text-center">
-      <div
-        className={`inline text-sm rounded-full py-1 px-3 ${status?.color}`}
-      >
+      <div className={`inline text-sm rounded-full py-1 px-3 ${status?.color}`}>
         {status?.text}
       </div>
       <h1 className="text-gray-900 font-bold text-3xl mt-4">{props.title}</h1>

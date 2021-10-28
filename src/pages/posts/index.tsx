@@ -1,7 +1,7 @@
 import { Post } from 'components/Post'
 import Head from 'next/head'
 import type { NextPage } from 'next'
-import { StreamTitle } from 'components/StreamTitle'
+import { TitleWithLabel } from 'components/TitleWithLabel'
 
 const Posts: NextPage = () => {
   return (
@@ -11,7 +11,7 @@ const Posts: NextPage = () => {
       </Head>
       <div className="min-h-screen">
         <div className="flex items-center flex-col">
-          <StreamTitle title="第n回エンジビアの泉" is_streamed={1} />
+          <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
           {/* TODO: アーカイブ動画のpropsに変更 */}
           <iframe
             className="mt-8"
