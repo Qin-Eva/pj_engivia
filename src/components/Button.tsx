@@ -11,10 +11,10 @@ export const Button: FC<Props> = (({ children, type, onClick }) => {
     let className = '';
     switch (type) {
       case 'primary':
-        className = 'bg-blue-500 rounded-sm py-2 px-5 text-white';
+        className = 'text-white bg-[#0284C7] rounded-md te  xt-center py-3 px-4';
         break;
       case 'secondary':
-        className = 'bg-blue-200 rounded-sm py-2 px-5 text-blue-700';
+        className = 'text-blue-500 bg-blue-100 rounded-md text-center py-3 px-4';
         break;
       case 'onAir':
         className = 'bg-green-100 text-green-600 rounded-full px-5 m-2 text-sm';

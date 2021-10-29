@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { Button } from 'components/Button'
 
 const createBroadcast: NextPage = () => {
   return (
@@ -9,11 +10,11 @@ const createBroadcast: NextPage = () => {
         <title>放送作成ページ</title>
       </Head>
       <div className="bg-gray-100 h-screen">
-        <div className="text-4xl w-3/5 mx-auto mb-5">放送を作成</div>
-        <div className="h-24 w-3/5 mx-auto">
+        <div className="text-4xl w-3/5 mx-auto mb-5 font-medium">放送を作成</div>
+        <div className="w-3/5 mx-auto">
           <div>
             <input
-              className="h-10 w-5/6 my-5 rounded"
+              className="px-[13px] py-[9px] mt-5 w-full rounded-[6px] border border-solid border-[2px]"
               name="title"
               id="title"
               type="text"
@@ -24,7 +25,7 @@ const createBroadcast: NextPage = () => {
           </div>
           <div>
             <input
-              className="h-10 w-5/6 my-5 rounded"
+              className="px-[13px] py-[9px] w-full mt-[32px] rounded-[6px] border border-solid border-[2px]"
               name="date"
               id="date"
               type="text"
@@ -34,13 +35,16 @@ const createBroadcast: NextPage = () => {
             />
           </div>
         </div>
-        <div className="flex mt-20 w-3/5 mx-auto">
-          <div className="text-white ml-48 mt-6 bg-blue-500 rounded-md h-12 w-32 text-center py-3">
-            {/* ボタン機能に変更が必要？ */}
-            <Link href="/">投稿する</Link>
+        <div className="mt-[32px] flex justify-center w-3/5 mx-auto">
+          <div className='mr-[32px]'>
+            <Button type='primary' onClick={() => { console.log('test') }} >
+            保存する
+            </Button>
           </div>
-          <div className="text-blue-500 ml-10 mr-24 mt-6 bg-blue-100 rounded-md h-12 w-32 text-center py-3">
-            <Link href="/">キャンセル</Link>
+          <div>
+            <Button type='secondary' onClick={() => { console.log('test') }} >
+              キャンセル
+            </Button>
           </div>
         </div>
       </div>
