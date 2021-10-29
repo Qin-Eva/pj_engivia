@@ -3,9 +3,9 @@ import React, { VFC } from 'react'
 export const HeeButton: VFC = () => {
   return (
     <div className="flex">
-      <button style={{ opacity: 1 }} className="hee-btn cursor-pointer">
+      <button style={{ opacity: 1 }} className="hee-btn">
         <span className="btn-bottom"></span>
-        <span className="btn-top">
+        <span className="btn-top cursor-pointer">
           <span>へぇ</span>
         </span>
       </button>
