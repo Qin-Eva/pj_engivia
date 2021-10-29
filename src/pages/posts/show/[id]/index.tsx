@@ -49,8 +49,8 @@ const PostStandBy: NextPage = () => {
               />
             )
         })}
+        </div>
       </div>
-    </div>
     </>
   )
 }
