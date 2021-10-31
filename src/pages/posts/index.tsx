@@ -1,6 +1,7 @@
 import { Post } from 'components/Post'
 import Head from 'next/head'
 import type { NextPage } from 'next'
+import { TitleWithLabel } from 'components/TitleWithLabel'
 
 const Posts: NextPage = () => {
   return (
@@ -10,16 +11,7 @@ const Posts: NextPage = () => {
       </Head>
       <div className="min-h-screen">
         <div className="flex items-center flex-col">
-          {/* TODO: 放送済みアイコンのコンポーネント */}
-          <div className="text-center mt-10">
-            <p className="inline-block bg-gray-200 text-gray-900 text-sm rounded-full py-1 px-3">
-              放送済み
-            </p>
-          </div>
-          {/* TODO: 放送回のコンポーネント */}
-          <h1 className="text-gray-900 font-bold text-3xl mt-4">
-            第n回エンジビアの泉
-          </h1>
+          <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
           {/* TODO: アーカイブ動画のpropsに変更 */}
           <iframe
             className="mt-8"

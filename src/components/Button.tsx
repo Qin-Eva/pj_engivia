@@ -8,17 +8,17 @@ type Props = {
 
 export const Button: FC<Props> = ({ children, type, onClick }) => {
   const buttonType = () => {
-    let classNme = '';
+    let className = '';
     switch (type) {
       case 'primary':
-        classNme = 'bg-blue-500 rounded-sm py-2 px-5 text-white';
+        className = 'text-white bg-[#0284C7] rounded-md te  xt-center py-3 px-4';
         break;
       case 'secondary':
-        classNme = 'bg-blue-200 rounded-sm py-2 px-5 text-blue-700';
+        className = 'text-blue-500 bg-blue-100 rounded-md text-center py-3 px-4';
         break;
     }
 
-    return classNme;
+    return className;
   };
 
   return (

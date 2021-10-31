@@ -1,17 +1,22 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import Layout from 'components/Layout';
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { NextPage } from 'next'
+import Layout from 'components/Layout'
+import { useRouter } from 'next/router'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-
-  function MyApp({ Component, pageProps }: AppProps) {
-    return (
-      <Layout>
+const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
+  const router = useRouter()
+  return (
+    <>
+      {router.pathname !== '/login' ? (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      ) : (
         <Component {...pageProps} />
-      </Layout>
-    );
-  }
+      )}
+    </>
+  )
 }
 
 export default MyApp;
