@@ -27,7 +27,7 @@ const Post = () => {
       <div className="mt-[32px] flex justify-center">
         <div className="mr-[32px]">
           <Button type="primary" onClick={() => console.log('click')}>
-            保存する
+            編集する
           </Button>
         </div>
         <div>
