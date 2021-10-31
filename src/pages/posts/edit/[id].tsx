@@ -3,7 +3,7 @@ import { TitleWithLabel } from 'components/TitleWithLabel'
 import Button from 'components/Button'
 import { useState } from 'react'
 
-const Post = () => {
+const PostEdit = () => {
   const [text, setText] = useState<string>(
     'HTMLにはポータルという便利な要素がある'
   )
@@ -37,4 +37,4 @@ const Post = () => {
   )
 }
 
-export default Post
+export default PostEdit

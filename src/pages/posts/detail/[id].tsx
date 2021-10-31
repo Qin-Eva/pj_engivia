@@ -3,7 +3,7 @@ import { TitleWithLabel } from 'components/TitleWithLabel'
 import Image from 'next/image'
 import Button from 'components/Button'
 
-const Post = () => {
+const PostDetail = () => {
   return (
     <div className="w-[700px] mx-auto">
       <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
@@ -40,4 +40,4 @@ const Post = () => {
   )
 }
 
-export default Post
+export default PostDetail
