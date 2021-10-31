@@ -18,5 +18,4 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
     </>
   )
 }
-
 export default MyApp
