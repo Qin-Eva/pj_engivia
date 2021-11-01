@@ -1,8 +1,9 @@
 import { Button } from 'components/Button'
 import React, { useCallback, useState } from 'react'
 import { TitleWithLabel } from 'components/TitleWithLabel'
+import type { NextPage } from 'next'
 
-const Post = () => {
+const Post: NextPage = () => {
   const [text, setText] = useState('')
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -17,10 +18,11 @@ const Post = () => {
       <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
       <form onSubmit={submitForm} className="mt-[32px]">
         <textarea
-          className="textarea font-[24px]"
+          className="textarea font-[24px] placeholder-gray-500 placeholder-opacity-30"
+          style={{ fontWeight: 'bold' }}
           placeholder="エンジビアを入力する"
           value={text}
-          rows={4}
+          rows={3}
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setText(e.target.value)
           }
