@@ -1,6 +1,8 @@
-import * as firebase from "firebase/app";
-import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
-import { getDatabase } from "firebase/database";
+import * as firebase from 'firebase/app'
+import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
+import { getDatabase } from 'firebase/database'
+import { getFirestore, collection } from 'firebase/firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 export const config = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -17,27 +19,28 @@ const app = firebase.initializeApp(config)
 // export const auth = firebase.auth();
 // export const Firebase = firebase;
 
-const db = getDatabase(app);
-const auth = getAuth(app);
+const db = getDatabase(app)
+const auth = getAuth(app)
 
 export const LoginWithGithub = () => {
-  const provider = new GithubAuthProvider();
+  const provider = new GithubAuthProvider()
   signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const token = credential?.accessToken;
+    .then((result) => {
+      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+      const credential = GithubAuthProvider.credentialFromResult(result)
+      const token = credential?.accessToken
 
-    const user = result.user;
-    console.log(user);
-    location.assign("/");
-  }).catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    const email = error.email;
-    const credential = GithubAuthProvider.credentialFromError(error);
-  });
-};
+      const user = result.user
+      console.log(user)
+      location.assign('/')
+    })
+    .catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      const email = error.email
+      const credential = GithubAuthProvider.credentialFromError(error)
+    })
+}
 
 // ログイン状態の検知
 export const listenAuthState = (dispatch: any) => {
@@ -45,28 +48,40 @@ export const listenAuthState = (dispatch: any) => {
     if (user) {
       // User is signed in.
       dispatch({
-        type: "login",
+        type: 'login',
         payload: {
           user,
         },
-      });
+      })
     } else {
       // User is signed out.
       // ...
       dispatch({
-        type: "logout",
-      });
+        type: 'logout',
+      })
     }
-  });
-};
+  })
+}
 
 export const firebaseUser = () => {
-  return firebase.auth().currentUser;
-};
+  return firebase.auth().currentUser
+}
 
 // Logout
 export const Logout = () => {
   auth.signOut().then(() => {
-    window.location.reload();
-  });
-};
+    window.location.reload()
+  })
+}
+
+// リアルタイム実装
+export const FirestoreCollection = (col: string) => {
+  const [value, loading, error] = useCollection(
+    collection(getFirestore(app), col),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  )
+
+  return { value, loading, error }
+}

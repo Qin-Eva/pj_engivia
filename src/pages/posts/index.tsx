@@ -2,8 +2,11 @@ import { Post } from 'components/Post'
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
+import { FirestoreCollection } from 'utils/firebase'
 
 const Posts: NextPage = () => {
+  const { value, loading, error } = FirestoreCollection('tests')
+
   return (
     <>
       <Head>
@@ -23,10 +26,13 @@ const Posts: NextPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
-          {/* TODO: mapで投稿を表示 */}
-          <Post />
-          <Post />
-          <Post />
+          {value?.docs.map((doc) => {
+            return (
+              <ul key={doc.id}>
+                <Post id={doc.data().id} title={doc.data().title} />
+              </ul>
+            )
+          })}
         </div>
       </div>
     </>
