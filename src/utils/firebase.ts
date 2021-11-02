@@ -1,6 +1,8 @@
 import * as firebase from 'firebase/app'
 import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
+import { getFirestore, collection } from 'firebase/firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 export const config = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -70,4 +72,16 @@ export const Logout = () => {
   auth.signOut().then(() => {
     window.location.reload()
   })
+}
+
+// リアルタイム実装
+export const FirestoreCollection = (col: string) => {
+  const [value, loading, error] = useCollection(
+    collection(getFirestore(app), col),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  )
+
+  return { value, loading, error }
 }
