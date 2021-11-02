@@ -10,11 +10,13 @@ const createBroadcast: NextPage = () => {
         <title>放送作成ページ</title>
       </Head>
       <div className="bg-gray-100 h-screen">
-        <div className="text-4xl w-3/5 mx-auto mb-5 font-medium">放送を作成</div>
+        <div className="text-4xl w-3/5 mx-auto mb-5 font-medium">
+          放送を作成
+        </div>
         <div className="w-3/5 mx-auto">
           <div>
             <input
-              className="px-[13px] py-[9px] mt-5 w-full rounded-[6px] border border-solid border-[2px]"
+              className="px-[13px] py-[9px] mt-5 w-full rounded-[6px] border-solid border-[2px]"
               name="title"
               id="title"
               type="text"
@@ -25,7 +27,7 @@ const createBroadcast: NextPage = () => {
           </div>
           <div>
             <input
-              className="px-[13px] py-[9px] w-full mt-[32px] rounded-[6px] border border-solid border-[2px]"
+              className="px-[13px] py-[9px] w-full mt-[32px] rounded-[6px] border-solid border-[2px]"
               name="date"
               id="date"
               type="text"
@@ -36,13 +38,23 @@ const createBroadcast: NextPage = () => {
           </div>
         </div>
         <div className="mt-[32px] flex justify-center w-3/5 mx-auto">
-          <div className='mr-[32px]'>
-            <Button type='primary' onClick={() => { console.log('test') }} >
-            保存する
+          <div className="mr-[32px]">
+            <Button
+              type="primary"
+              onClick={() => {
+                console.log('test')
+              }}
+            >
+              保存する
             </Button>
           </div>
           <div>
-            <Button type='secondary' onClick={() => { console.log('test') }} >
+            <Button
+              type="secondary"
+              onClick={() => {
+                console.log('test')
+              }}
+            >
               キャンセル
             </Button>
           </div>
