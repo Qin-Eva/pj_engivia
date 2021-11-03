@@ -1,9 +1,10 @@
 import React from 'react'
+import { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import Image from 'next/image'
 import Button from 'components/Button'
 
-const PostDetail = () => {
+const PostDetail: NextPage = () => {
   return (
     <div className="w-[700px] mx-auto">
       <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />

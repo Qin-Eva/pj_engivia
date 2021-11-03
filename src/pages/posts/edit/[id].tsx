@@ -1,9 +1,10 @@
 import React from 'react'
+import { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import Button from 'components/Button'
 import { useState } from 'react'
 
-const PostEdit = () => {
+const PostEdit: NextPage = () => {
   const [text, setText] = useState<string>(
     'HTMLにはポータルという便利な要素がある'
   )
