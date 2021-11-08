@@ -10,16 +10,16 @@ export const config = {
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 }
 
 // !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
-const app = firebase.initializeApp(config)
+export const app = firebase.initializeApp(config)
 
 // export const auth = firebase.auth();
 // export const Firebase = firebase;
 
-const db = getDatabase(app)
+export const db = getDatabase(app)
 const auth = getAuth(app)
 
 export const LoginWithGithub = () => {
@@ -50,14 +50,14 @@ export const listenAuthState = (dispatch: any) => {
       dispatch({
         type: 'login',
         payload: {
-          user,
-        },
+          user
+        }
       })
     } else {
       // User is signed out.
       // ...
       dispatch({
-        type: 'logout',
+        type: 'logout'
       })
     }
   })
@@ -79,7 +79,7 @@ export const FirestoreCollection = (col: string) => {
   const [value, loading, error] = useCollection(
     collection(getFirestore(app), col),
     {
-      snapshotListenOptions: { includeMetadataChanges: true },
+      snapshotListenOptions: { includeMetadataChanges: true }
     }
   )
 
