@@ -1,28 +1,28 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { Button } from 'components/Button'
-// import { db } from 'utils/firebase'
-import { app } from 'utils/firebase'
-import {
-  query,
-  collection,
-  where,
-  getFirestore,
-  getDocs
-} from 'firebase/firestore'
-import { useEffect } from 'react'
+import { addStream } from 'lib/streamImpl'
+import type { TStream } from 'lib/streamImpl'
+import { useCallback, useState } from 'react'
 
 const CreateBroadcast: NextPage = () => {
-  useEffect(() => {
-    ;(async (): void => {
-      const db = getFirestore(app)
-      const q = query(collection(db, 'users'), where('id', '==', 1))
-      const querySnapshot = await getDocs(q)
-      querySnapshot.forEach((doc) => {
-        console.log(doc.data())
-      })
-    })()
-  }, [])
+  const [title, setTitle] = useState<string>('')
+  const [date, setDate] = useState<string>('')
+
+  const clickHandler = useCallback(async (): void => {
+    if (title === '' || date === '') {
+      return
+    }
+    const data: TStream = {
+      hee_count: 0,
+      is_streamed: 1,
+      title: title,
+      created_at: date,
+      updated_at: date
+    }
+    addStream(data)
+  }, [title, date])
 
   return (
     <>
@@ -37,19 +37,27 @@ const CreateBroadcast: NextPage = () => {
           <div>
             <input
               className="py-[9px] px-[13px] mt-5 w-full rounded-[6px] border-[2px] border-solid"
+              required={title ?? true}
               name="title"
               id="title"
               type="text"
               placeholder="タイトルを入力する"
+              onChange={(e) => {
+                setTitle(e.target.value)
+              }}
             />
           </div>
           <div>
             <input
               className="py-[9px] px-[13px] mt-[32px] w-full rounded-[6px] border-[2px] border-solid"
+              required
               name="date"
               id="date"
-              type="text"
+              type="date"
               placeholder="2021/09/03"
+              onChange={(e) => {
+                setDate(e.target.value)
+              }}
             />
           </div>
         </div>
@@ -58,21 +66,16 @@ const CreateBroadcast: NextPage = () => {
             <Button
               type="primary"
               onClick={() => {
-                console.log('test')
+                clickHandler()
               }}
             >
               保存する
             </Button>
           </div>
           <div>
-            <Button
-              type="secondary"
-              onClick={() => {
-                console.log('test')
-              }}
-            >
-              キャンセル
-            </Button>
+            <Link href="/broadcasts">
+              <a>キャンセル</a>
+            </Link>
           </div>
         </div>
       </div>

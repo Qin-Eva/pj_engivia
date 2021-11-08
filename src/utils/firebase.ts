@@ -1,6 +1,5 @@
 import * as firebase from 'firebase/app'
 import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
-import { getDatabase } from 'firebase/database'
 import { getFirestore, collection } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
@@ -19,8 +18,9 @@ export const app = firebase.initializeApp(config)
 // export const auth = firebase.auth();
 // export const Firebase = firebase;
 
-export const db = getDatabase(app)
+// const db = getDatabase(app)
 const auth = getAuth(app)
+export const db = getFirestore(app)
 
 export const LoginWithGithub = () => {
   const provider = new GithubAuthProvider()
