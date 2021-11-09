@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from 'components/Button'
 import { addStream } from 'lib/streamImpl'
 import type { TStream } from 'lib/streamImpl'
-import { useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 
 const CreateBroadcast: NextPage = () => {
   const [title, setTitle] = useState<string>('')
@@ -42,8 +42,8 @@ const CreateBroadcast: NextPage = () => {
               id="title"
               type="text"
               placeholder="タイトルを入力する"
-              onChange={(e) => {
-                setTitle(e.target.value)
+              onChange={(e: ChangeEvent) => {
+                setTitle(() => e.target.value as string)
               }}
             />
           </div>
@@ -54,9 +54,8 @@ const CreateBroadcast: NextPage = () => {
               name="date"
               id="date"
               type="date"
-              placeholder="2021/09/03"
-              onChange={(e) => {
-                setDate(e.target.value)
+              onChange={(e: ChangeEvent) => {
+                setDate(() => e.target.value as string)
               }}
             />
           </div>

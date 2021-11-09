@@ -12,8 +12,7 @@ export type TStream = {
 export const addStream = async (data: TStream): void => {
   try {
     await addDoc(collection(db, 'Streams'), data)
-  } catch (e) {
-    console.error(e)
+  } catch (e: Error) {
     throw new Error('放送は登録できませんでした。')
   }
 }
