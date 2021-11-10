@@ -1,5 +1,10 @@
 import * as firebase from 'firebase/app'
-import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
+import {
+  getAuth,
+  signInWithPopup,
+  GithubAuthProvider,
+  onAuthStateChanged
+} from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
 import { getFirestore, collection } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
@@ -10,7 +15,7 @@ export const config = {
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 }
 
 // !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
@@ -20,7 +25,7 @@ const app = firebase.initializeApp(config)
 // export const Firebase = firebase;
 
 const db = getDatabase(app)
-const auth = getAuth(app)
+export const auth = getAuth(app)
 
 export const LoginWithGithub = () => {
   const provider = new GithubAuthProvider()
@@ -43,28 +48,31 @@ export const LoginWithGithub = () => {
 }
 
 // ログイン状態の検知
-export const listenAuthState = (dispatch: any) => {
-  return firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      // User is signed in.
-      dispatch({
-        type: 'login',
-        payload: {
-          user,
-        },
-      })
-    } else {
-      // User is signed out.
-      // ...
-      dispatch({
-        type: 'logout',
-      })
-    }
-  })
-}
+// export const listenAuthState = (dispatch: any) => {
+//   const resetStatus = useResetRecoilState(loginUserState)
+
+//   return onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       // User is signed in.
+//       dispatch({
+//         type: 'login',
+//         payload: {
+//           user
+//         }
+//       })
+//     } else {
+//       // User is signed out.
+//       // ...
+//       dispatch({
+//         type: 'logout'
+//       }),
+//         resetStatus()
+//     }
+//   })
+// }
 
 export const firebaseUser = () => {
-  return firebase.auth().currentUser
+  return auth.currentUser
 }
 
 // Logout
@@ -79,7 +87,7 @@ export const FirestoreCollection = (col: string) => {
   const [value, loading, error] = useCollection(
     collection(getFirestore(app), col),
     {
-      snapshotListenOptions: { includeMetadataChanges: true },
+      snapshotListenOptions: { includeMetadataChanges: true }
     }
   )
 
