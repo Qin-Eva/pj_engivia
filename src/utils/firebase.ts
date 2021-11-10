@@ -1,12 +1,8 @@
 import * as firebase from 'firebase/app'
-import {
-  getAuth,
-  signInWithPopup,
-  GithubAuthProvider,
-  onAuthStateChanged
-} from 'firebase/auth'
+import { getAuth, GithubAuthProvider, signInWithPopup } from 'firebase/auth'
+import type { User } from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
-import { getFirestore, collection } from 'firebase/firestore'
+import { getFirestore, collection, DocumentData, FirestoreError, QuerySnapshot } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
 export const config = {
@@ -27,7 +23,7 @@ const app = firebase.initializeApp(config)
 const db = getDatabase(app)
 export const auth = getAuth(app)
 
-export const LoginWithGithub = () => {
+export const LoginWithGithub = (): void => {
   const provider = new GithubAuthProvider()
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -36,7 +32,6 @@ export const LoginWithGithub = () => {
       const token = credential?.accessToken
 
       const user = result.user
-      console.log(user)
       location.assign('/')
     })
     .catch((error) => {
@@ -47,43 +42,26 @@ export const LoginWithGithub = () => {
     })
 }
 
-// ログイン状態の検知
-// export const listenAuthState = (dispatch: any) => {
-//   const resetStatus = useResetRecoilState(loginUserState)
-
-//   return onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       // User is signed in.
-//       dispatch({
-//         type: 'login',
-//         payload: {
-//           user
-//         }
-//       })
-//     } else {
-//       // User is signed out.
-//       // ...
-//       dispatch({
-//         type: 'logout'
-//       }),
-//         resetStatus()
-//     }
-//   })
-// }
-
-export const firebaseUser = () => {
+export const firebaseUser = (): User | null => {
   return auth.currentUser
 }
 
 // Logout
-export const Logout = () => {
+export const Logout = (): void => {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   auth.signOut().then(() => {
     window.location.reload()
   })
 }
 
 // リアルタイム実装
-export const FirestoreCollection = (col: string) => {
+export const FirestoreCollection = (
+  col: string
+): {
+  value: QuerySnapshot<DocumentData> | undefined
+  loading: boolean
+  error: FirestoreError | undefined
+} => {
   const [value, loading, error] = useCollection(
     collection(getFirestore(app), col),
     {
