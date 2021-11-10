@@ -3,10 +3,14 @@ import Head from 'next/head'
 import type { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import { FirestoreCollection } from 'utils/firebase'
+import { useRecoilValue } from 'recoil'
+import { loginUserState } from 'store/auth'
 
 const Posts: NextPage = () => {
   const { value, loading, error } = FirestoreCollection('tests')
+  const loginUser = useRecoilValue(loginUserState)
 
+  console.log(loginUser)
   return (
     <>
       <Head>
