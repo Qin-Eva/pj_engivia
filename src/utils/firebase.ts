@@ -1,8 +1,19 @@
 import * as firebase from 'firebase/app'
-import { getAuth, GithubAuthProvider, signInWithPopup } from 'firebase/auth'
+import {
+  getAuth,
+  GithubAuthProvider,
+  signInWithPopup,
+  signOut
+} from 'firebase/auth'
 import type { User } from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
-import { getFirestore, collection, DocumentData, FirestoreError, QuerySnapshot } from 'firebase/firestore'
+import {
+  getFirestore,
+  collection,
+  DocumentData,
+  FirestoreError,
+  QuerySnapshot
+} from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
 export const config = {
@@ -48,10 +59,13 @@ export const firebaseUser = (): User | null => {
 
 // Logout
 export const Logout = (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  auth.signOut().then(() => {
-    window.location.reload()
-  })
+  signOut(auth)
+    .then(() => {
+      window.location.reload()
+    })
+    .catch((error) => {
+      const errorMessage = error.errorMessage
+    })
 }
 
 // リアルタイム実装
