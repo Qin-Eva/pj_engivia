@@ -10,14 +10,13 @@ const Posts: NextPage = () => {
   const { value, loading, error } = FirestoreCollection('tests')
   const loginUser = useRecoilValue(loginUserState)
 
-  console.log(loginUser)
   return (
     <>
       <Head>
         <title>投稿一覧ページ</title>
       </Head>
       <div className="min-h-screen">
-        <div className="flex items-center flex-col">
+        <div className="flex flex-col items-center">
           <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
           {/* TODO: アーカイブ動画のpropsに変更 */}
           <iframe
