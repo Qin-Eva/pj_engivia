@@ -6,7 +6,6 @@ import {
   signOut
 } from 'firebase/auth'
 import type { User } from 'firebase/auth'
-import { getDatabase } from 'firebase/database'
 import {
   getFirestore,
   collection,
@@ -25,14 +24,9 @@ export const config = {
   appId: process.env.NEXT_PUBLIC_APP_ID
 }
 
-// !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
-const app = firebase.initializeApp(config)
-
-// export const auth = firebase.auth();
-// export const Firebase = firebase;
-
-const db = getDatabase(app)
+export const app = firebase.initializeApp(config)
 export const auth = getAuth(app)
+export const db = getFirestore(app)
 
 export const LoginWithGithub = (): void => {
   const provider = new GithubAuthProvider()

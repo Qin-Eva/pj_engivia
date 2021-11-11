@@ -2,53 +2,83 @@ import Head from 'next/head'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { Button } from 'components/Button'
+import { addStream } from 'lib/streamImpl'
+import type { TStream } from 'lib/streamImpl'
+import { ChangeEvent, useCallback, useState } from 'react'
 
-const createBroadcast: NextPage = () => {
+const CreateBroadcast: NextPage = () => {
+  const [title, setTitle] = useState<string>('')
+  const [date, setDate] = useState<string>('')
+
+  const clickHandler = useCallback(async (): void => {
+    if (title === '' || date === '') {
+      return
+    }
+    const data: TStream = {
+      hee_count: 0,
+      is_streamed: 1,
+      title: title,
+      created_at: date,
+      updated_at: date
+    }
+    addStream(data)
+  }, [title, date])
+
   return (
     <>
       <Head>
         <title>放送作成ページ</title>
       </Head>
-      <div className="bg-gray-100 h-screen">
-        <div className="text-4xl w-3/5 mx-auto mb-5 font-medium">放送を作成</div>
-        <div className="w-3/5 mx-auto">
+      <div className="h-screen bg-gray-100">
+        <div className="mx-auto mb-5 w-3/5 text-4xl font-medium">
+          放送を作成
+        </div>
+        <div className="mx-auto w-3/5">
           <div>
             <input
-              className="px-[13px] py-[9px] mt-5 w-full rounded-[6px] border border-solid border-[2px]"
+              className="py-[9px] px-[13px] mt-5 w-full rounded-[6px] border-[2px] border-solid"
+              required={title ?? true}
               name="title"
               id="title"
               type="text"
               placeholder="タイトルを入力する"
-              // aria-required="true"
-              // aria-invalid={errors.name ? 'true' : 'false'}
+              onChange={(e: ChangeEvent) => {
+                setTitle(() => e.target.value as string)
+              }}
             />
           </div>
           <div>
             <input
-              className="px-[13px] py-[9px] w-full mt-[32px] rounded-[6px] border border-solid border-[2px]"
+              className="py-[9px] px-[13px] mt-[32px] w-full rounded-[6px] border-[2px] border-solid"
+              required
               name="date"
               id="date"
-              type="text"
-              placeholder="2021/09/03"
-              // aria-required="true"
-              // aria-invalid={errors.name ? 'true' : 'false'}
+              type="date"
+              onChange={(e: ChangeEvent) => {
+                setDate(() => e.target.value as string)
+              }}
             />
           </div>
         </div>
-        <div className="mt-[32px] flex justify-center w-3/5 mx-auto">
-          <div className='mr-[32px]'>
-            <Button type='primary' onClick={() => { console.log('test') }} >
-            保存する
+        <div className="flex justify-center mx-auto mt-[32px] w-3/5">
+          <div className="mr-[32px]">
+            <Button
+              type="primary"
+              onClick={() => {
+                clickHandler()
+              }}
+            >
+              保存する
             </Button>
           </div>
           <div>
-            <Button type='secondary' onClick={() => { console.log('test') }} >
-              キャンセル
-            </Button>
+            <Link href="/broadcasts">
+              <a>キャンセル</a>
+            </Link>
           </div>
         </div>
       </div>
     </>
   )
 }
-export default createBroadcast
+export default CreateBroadcast
