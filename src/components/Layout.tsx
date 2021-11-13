@@ -1,6 +1,10 @@
-import { ReactNode, VFC } from 'react'
+import { ReactNode, useEffect, VFC } from 'react'
 import Head from 'next/head'
 import { Header } from 'components/Header'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useResetRecoilState, useSetRecoilState } from 'recoil'
+import { loginUserState } from 'store/auth'
+import { auth } from 'utils/firebase'
 
 type Props = {
   children: ReactNode
@@ -8,6 +12,20 @@ type Props = {
 
 const Layout: VFC<Props> = (props) => {
   const { children } = props
+
+  const setLoginUser = useSetRecoilState(loginUserState)
+  const resetStatus = useResetRecoilState(loginUserState)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user != null) {
+        const uid = user.uid
+        setLoginUser(uid)
+      } else {
+        resetStatus()
+      }
+    })
+  }, [resetStatus, setLoginUser])
 
   return (
     <>

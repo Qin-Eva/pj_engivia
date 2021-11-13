@@ -7,18 +7,18 @@ import { RecoilRoot } from 'recoil'
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter()
+
+
   return (
-    <>
+    <RecoilRoot>
       {router.pathname !== '/login' ? (
-        <RecoilRoot>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </RecoilRoot>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       ) : (
         <Component {...pageProps} />
       )}
-    </>
+    </RecoilRoot>
   )
 }
 export default MyApp
