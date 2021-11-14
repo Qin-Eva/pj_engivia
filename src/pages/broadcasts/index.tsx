@@ -9,64 +9,32 @@ const ITEMS: TCard[] = [
     href: '/',
     title: '第4回エンジビアの泉',
     date: '2021年9月8日',
-    isStreamed: 1,
-    heeCount: 1
+    status: 1,
+    count: 1
   },
   {
     id: '2',
     href: '/',
     title: '第3回エンジビアの泉',
     date: '2021年8月18日',
-    isStreamed: 2,
-    heeCount: 3
+    status: 2,
+    count: 3
   },
   {
     id: '3',
     href: '/',
     title: '第2回エンジビアの泉',
     date: '2021年7月12日',
-    isStreamed: 3,
-    heeCount: 6
+    status: 3,
+    count: 6
   },
   {
     id: '4',
     href: '/',
     title: '第1回エンジビアの泉',
     date: '2021年5月24日',
-    isStreamed: 3,
-    heeCount: 4
-  },
-  {
-    id: '4',
-    href: '/',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    isStreamed: 3,
-    heeCount: 4
-  },
-  {
-    id: '4',
-    href: '/',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    isStreamed: 3,
-    heeCount: 4
-  },
-  {
-    id: '4',
-    href: '/',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    isStreamed: 3,
-    heeCount: 4
-  },
-  {
-    id: '4',
-    href: '/',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    isStreamed: 3,
-    heeCount: 4
+    status: 3,
+    count: 4
   }
 ]
 
@@ -76,10 +44,10 @@ const broadcastIndex: NextPage = () => {
       <Head>
         <title>放送一覧ページ</title>
       </Head>
-      <div className="h-[calc(100vh-64px-5rem)]">
+      <div className="h-screen bg-gray-200">
         <h2 className="mx-auto mb-5 w-3/5 text-4xl">放送一覧</h2>
         <div className="mx-auto w-3/5">
-          <ul className="overflow-y-auto h-[calc(100vh-64px-150px)]">
+          <ul>
             {ITEMS.map((item) => {
               return (
                 <li key={item.id} className="mt-[2px]">

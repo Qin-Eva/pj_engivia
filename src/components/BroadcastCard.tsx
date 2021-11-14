@@ -11,12 +11,17 @@ export type TCard = {
   href: string
   title: string
   date: string
-  isStreamed: number
-  heeCount: number
+  status: number
+  count: number
 }
 
-export const BroadcastCard: VFC<TCard> = (props) => {
-  const { title, href, date, isStreamed, heeCount } = { ...props }
+export const BroadcastCard: VFC<TCard> = ({
+  title,
+  href,
+  date,
+  status,
+  count
+}) => {
   const statusText = useMemo(() => {
     switch (isStreamed) {
       case 1:
@@ -30,7 +35,7 @@ export const BroadcastCard: VFC<TCard> = (props) => {
 
   return (
     <Link href={href}>
-      <a className="flex justify-between p-5 bg-white hover:opacity-50 transition duration-300">
+      <a className="block flex justify-between p-5 bg-white hover:opacity-50 transition duration-300">
         <div className="">
           <h3 className="text-[14px] text-blue-400">{title}</h3>
           <div className="flex items-center mt-[8px]">
@@ -46,9 +51,9 @@ export const BroadcastCard: VFC<TCard> = (props) => {
         <div className="flex flex-col items-end">
           <span
             className={`text-[12px] rounded-full px-2 py-1 float-right
-              ${isStreamed === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
-              ${isStreamed === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
-              ${isStreamed === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
+              ${status === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
+              ${status === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
+              ${status === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
           >
             {statusText}
           </span>
@@ -57,7 +62,7 @@ export const BroadcastCard: VFC<TCard> = (props) => {
               <FontAwesomeIcon icon={faGraduationCap} />
             </figure>
             <span className="text-[14px] text-gray-400">
-              エンジビア数 {heeCount}
+              エンジビア数 {count}
             </span>
           </div>
         </div>

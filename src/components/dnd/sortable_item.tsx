@@ -32,7 +32,7 @@ export const SortableItem: VFC<Props> = ({ id }) => {
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition,
+    transition
   }
 
   return (

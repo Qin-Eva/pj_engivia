@@ -6,7 +6,8 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     'tailwindcss/classnames-order': 'warn',
     'tailwindcss/no-custom-classname': 'warn',
-    'tailwindcss/no-contradicting-classname': 'error'
+    'tailwindcss/no-contradicting-classname': 'error',
+    '@typescript-eslint/naming-convention': 'off'
   },
   extends: [
     'eslint:recommended',

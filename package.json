@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write 'src/**/*.tsx' 'src/**/*.ts'"
   },
   "dependencies": {
     "@dnd-kit/core": "^4.0.1",

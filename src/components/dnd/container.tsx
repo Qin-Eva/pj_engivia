@@ -12,7 +12,7 @@ interface Props {
 
 export const Container: VFC<Props> = ({ id, items, title }) => {
   const { setNodeRef } = useDroppable({
-    id,
+    id
   })
 
   return (
