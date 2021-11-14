@@ -3,65 +3,6 @@ import { getStreams } from 'lib/streamImpl'
 import { useEffect, useState } from 'react'
 import type { TCard } from 'components/BroadcastCard'
 
-const ITEMS: TCard[] = [
-  {
-    id: '1',
-    title: '第4回エンジビアの泉',
-    date: '2021年9月8日',
-    is_streamed: 1,
-    hee_count: 1
-  },
-  {
-    id: '2',
-    title: '第3回エンジビアの泉',
-    date: '2021年8月18日',
-    is_streamed: 2,
-    hee_count: 3
-  },
-  {
-    id: '3',
-    title: '第2回エンジビアの泉',
-    date: '2021年7月12日',
-    is_streamed: 3,
-    hee_count: 6
-  },
-  {
-    id: '4',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
-  },
-  {
-    id: '5',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
-  },
-  {
-    id: '6',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
-  },
-  {
-    id: '7',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
-  },
-  {
-    id: '8',
-    title: '第1回エンジビアの泉',
-    date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
-  }
-]
-
 export const initialState: TCard[] = []
 
 const Broadcasts: React.VFC = () => {
