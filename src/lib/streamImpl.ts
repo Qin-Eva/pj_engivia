@@ -1,6 +1,6 @@
 import { collection, addDoc, getDocs, query } from 'firebase/firestore'
 import { db } from 'utils/firebase'
-import { DocumentSnapshot } from '@firebase/firestore'
+import { QuerySnapshot, DocumentData } from '@firebase/firestore'
 
 export type TStream = {
   hee_count: number
@@ -10,11 +10,10 @@ export type TStream = {
   updated_at: string
 }
 
-export const getStreams = async (): Promise<DocumentSnapshot> => {
+export const getStreams = async (): Promise<QuerySnapshot<DocumentData>> => {
   try {
     const q = query(collection(db, 'Streams'))
-    const streams = await getDocs(q)
-    return streams
+    return await getDocs(q)
   } catch (e: Error) {
     throw new Error('放送を取得できませんでした。')
   }

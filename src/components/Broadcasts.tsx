@@ -66,7 +66,6 @@ export const initialState: TCard[] = []
 
 const Broadcasts: React.VFC = () => {
   const [castsArray, setCastsArray] = useState<TCard[]>([])
-  const [flg, setFlg] = useState<boolean>(false)
 
   // 放送の一覧取得
   useEffect(() => {
@@ -74,14 +73,17 @@ const Broadcasts: React.VFC = () => {
       try {
         const streams = await getStreams()
         streams.forEach((stream) => {
-          setCastsArray((prev) => [...prev, stream.data()])
+          const data = {
+            ...stream.data(),
+            id: stream.id
+          }
+          setCastsArray((prev) => [...prev, data])
         })
       } catch (e) {
         console.error(e)
       }
     })()
-    return setFlg(true)
-  }, [flg])
+  }, [])
 
   return (
     <div className="h-[calc(100vh-64px-5rem)]">
