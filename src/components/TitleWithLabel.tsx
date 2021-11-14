@@ -11,17 +11,17 @@ export const TitleWithLabel: VFC<Props> = (props) => {
       case 1:
         return {
           text: '放送前・エンジビア募集中',
-          color: 'bg-[#FFEDD5] text-[#C2410C]',
+          color: 'bg-[#FFEDD5] text-[#C2410C]'
         }
       case 2:
         return {
           text: '放送中',
-          color: 'bg-green-100 text-green-800',
+          color: 'bg-green-100 text-green-800'
         }
       case 3:
         return {
           text: '放送済み',
-          color: 'bg-gray-200 text-gray-900',
+          color: 'bg-gray-200 text-gray-900'
         }
     }
   }, [props.is_streamed])

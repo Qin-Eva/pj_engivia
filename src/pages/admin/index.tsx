@@ -6,7 +6,7 @@ import {
   KeyboardSensor,
   PointerSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from '@dnd-kit/core'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { Container } from 'components/dnd/container'
@@ -22,14 +22,14 @@ const AdminAll = () => {
   const [items, setItems] = useState<Items>({
     root: ['1', '2', '3'],
     container1: ['4', '5', '6'],
-    container2: ['7', '8', '9'],
+    container2: ['7', '8', '9']
   })
   const [activeId, setActiveId] = useState<string | null>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
+      coordinateGetter: sortableKeyboardCoordinates
     })
   )
 
@@ -93,13 +93,13 @@ const AdminAll = () => {
       return {
         ...prev,
         [activeContainer]: [
-          ...prev[activeContainer].filter((item) => item !== active.id),
+          ...prev[activeContainer].filter((item) => item !== active.id)
         ],
         [overContainer]: [
           ...prev[overContainer].slice(0, newIndex),
           items[activeContainer][activeIndex],
-          ...prev[overContainer].slice(newIndex, prev[overContainer].length),
-        ],
+          ...prev[overContainer].slice(newIndex, prev[overContainer].length)
+        ]
       }
     })
   }
@@ -126,11 +126,7 @@ const AdminAll = () => {
     if (activeIndex !== overIndex) {
       setItems((items) => ({
         ...items,
-        [overContainer]: arrayMove(
-          items[overContainer],
-          activeIndex,
-          overIndex
-        ),
+        [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex)
       }))
     }
 
