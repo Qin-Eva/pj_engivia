@@ -11,14 +11,14 @@ export type TCard = {
   href: string
   title: string
   date: string
-  is_streamed: number
-  hee_count: number
+  isStreamed: number
+  heeCount: number
 }
 
 export const BroadcastCard: VFC<TCard> = (props) => {
-  const { title, href, date, is_streamed, hee_count } = { ...props }
+  const { title, href, date, isStreamed, heeCount } = { ...props }
   const statusText = useMemo(() => {
-    switch (is_streamed) {
+    switch (isStreamed) {
       case 1:
         return '放送前・エンジビア募集中'
       case 2:
@@ -26,7 +26,7 @@ export const BroadcastCard: VFC<TCard> = (props) => {
       case 3:
         return '放送済み'
     }
-  }, [is_streamed])
+  }, [isStreamed])
 
   return (
     <Link href={href}>
@@ -46,9 +46,9 @@ export const BroadcastCard: VFC<TCard> = (props) => {
         <div className="flex flex-col items-end">
           <span
             className={`text-[12px] rounded-full px-2 py-1 float-right
-              ${is_streamed === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
-              ${is_streamed === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
-              ${is_streamed === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
+              ${isStreamed === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
+              ${isStreamed === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
+              ${isStreamed === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
           >
             {statusText}
           </span>
@@ -57,7 +57,7 @@ export const BroadcastCard: VFC<TCard> = (props) => {
               <FontAwesomeIcon icon={faGraduationCap} />
             </figure>
             <span className="text-[14px] text-gray-400">
-              エンジビア数 {hee_count}
+              エンジビア数 {heeCount}
             </span>
           </div>
         </div>

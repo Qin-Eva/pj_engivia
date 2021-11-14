@@ -9,64 +9,64 @@ const ITEMS: TCard[] = [
     href: '/',
     title: '第4回エンジビアの泉',
     date: '2021年9月8日',
-    is_streamed: 1,
-    hee_count: 1
+    isStreamed: 1,
+    heeCount: 1
   },
   {
     id: '2',
     href: '/',
     title: '第3回エンジビアの泉',
     date: '2021年8月18日',
-    is_streamed: 2,
-    hee_count: 3
+    isStreamed: 2,
+    heeCount: 3
   },
   {
     id: '3',
     href: '/',
     title: '第2回エンジビアの泉',
     date: '2021年7月12日',
-    is_streamed: 3,
-    hee_count: 6
+    isStreamed: 3,
+    heeCount: 6
   },
   {
     id: '4',
     href: '/',
     title: '第1回エンジビアの泉',
     date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
+    isStreamed: 3,
+    heeCount: 4
   },
   {
     id: '4',
     href: '/',
     title: '第1回エンジビアの泉',
     date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
+    isStreamed: 3,
+    heeCount: 4
   },
   {
     id: '4',
     href: '/',
     title: '第1回エンジビアの泉',
     date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
+    isStreamed: 3,
+    heeCount: 4
   },
   {
     id: '4',
     href: '/',
     title: '第1回エンジビアの泉',
     date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
+    isStreamed: 3,
+    heeCount: 4
   },
   {
     id: '4',
     href: '/',
     title: '第1回エンジビアの泉',
     date: '2021年5月24日',
-    is_streamed: 3,
-    hee_count: 4
+    isStreamed: 3,
+    heeCount: 4
   }
 ]
 
