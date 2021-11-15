@@ -11,8 +11,9 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { Container } from 'components/dnd/container'
 import { Item } from 'components/dnd/sortable_item'
+import Layout from 'components/Layout'
 
-interface Items {
+type Items = {
   root: string[]
   container1: string[]
   container2: string[]
@@ -53,7 +54,7 @@ const AdminAll = () => {
     const { active, over, draggingRect } = event
     const { id } = active
     const { id: overId } = over
-    let Rect = event.over.rect
+    const Rect = event.over.rect
 
     // Find the containers
     const activeContainer = findContainer(id) as keyof Items
@@ -165,3 +166,7 @@ const AdminAll = () => {
 }
 
 export default AdminAll
+
+AdminAll.getLayout = (page) => {
+  return <Layout>{page}</Layout>
+}
