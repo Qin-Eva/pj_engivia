@@ -18,7 +18,7 @@ const Layout: VFC<Props> = (props) => {
       </Head>
       <main>
         <Header />
-        <div className="py-10">{children}</div>
+        <div className="py-10 bg-gray-200">{children}</div>
       </main>
     </>
   )

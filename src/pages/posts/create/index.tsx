@@ -4,6 +4,7 @@ import { TitleWithLabel } from 'components/TitleWithLabel'
 import type { NextPage } from 'next'
 import toast, { Toaster } from 'react-hot-toast'
 import { createPostData } from 'lib/posts'
+import Layout from 'components/Layout'
 
 const Post: NextPage = () => {
   const [text, setText] = useState('')
@@ -47,3 +48,7 @@ const Post: NextPage = () => {
 }
 
 export default Post
+
+Post.getLayout = (page) => {
+  return <Layout>{page}</Layout>
+}
