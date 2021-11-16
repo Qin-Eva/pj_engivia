@@ -86,5 +86,5 @@ const CreateBroadcast: NextPage = () => {
 export default CreateBroadcast
 
 CreateBroadcast.getLayout = (page) => {
-  return <Layout> {page}</Layout>
+  return <Layout>{page}</Layout>
 }
