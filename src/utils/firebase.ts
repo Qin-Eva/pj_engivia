@@ -69,6 +69,7 @@ export const LoginWithGithub = async (): Promise<void> => {
         created_at: Timestamp.fromDate(new Date()),
         id: id === 0 ? 1 : id,
         name: result.user.displayName,
+        photo:result.user.photoURL,
         role_id: 2,
         mail: result.user.email
       })
