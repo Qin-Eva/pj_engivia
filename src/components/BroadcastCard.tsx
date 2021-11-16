@@ -8,20 +8,14 @@ import {
 
 export type TCard = {
   id: string
-  href: string
   title: string
-  date: string
-  status: number
-  count: number
+  updated_at: string
+  is_streamed: number
+  hee_count: number
 }
 
-export const BroadcastCard: VFC<TCard> = ({
-  title,
-  href,
-  date,
-  status,
-  count
-}) => {
+export const BroadcastCard: VFC<TCard> = (props) => {
+  const { title, updated_at, is_streamed, hee_count } = { ...props }
   const statusText = useMemo(() => {
     switch (status) {
       case 1:
@@ -34,8 +28,8 @@ export const BroadcastCard: VFC<TCard> = ({
   }, [status])
 
   return (
-    <Link href={href}>
-      <a className="block flex justify-between p-5 bg-white hover:opacity-50 transition duration-300">
+    <Link href={'/'}>
+      <a className="flex justify-between p-5 bg-white hover:opacity-50 transition duration-300">
         <div className="">
           <h3 className="text-[14px] text-blue-400">{title}</h3>
           <div className="flex items-center mt-[8px]">
@@ -45,15 +39,15 @@ export const BroadcastCard: VFC<TCard> = ({
                 icon={faCalendarWeek}
               />
             </figure>
-            <span className="ml-[8px] text-gray-400">{date}</span>
+            <span className="ml-[8px] text-gray-400">{updated_at}</span>
           </div>
         </div>
         <div className="flex flex-col items-end">
           <span
-            className={`text-[12px] rounded-full px-2 py-1 float-right
-              ${status === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
-              ${status === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
-              ${status === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
+            className={`text-[12px] rounded-full px-2 py-1 float-righ
+              ${is_streamed === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
+              ${is_streamed === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
+              ${is_streamed === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
           >
             {statusText}
           </span>
@@ -62,7 +56,7 @@ export const BroadcastCard: VFC<TCard> = ({
               <FontAwesomeIcon icon={faGraduationCap} />
             </figure>
             <span className="text-[14px] text-gray-400">
-              エンジビア数 {count}
+              エンジビア数 {hee_count}
             </span>
           </div>
         </div>
