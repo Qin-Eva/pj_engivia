@@ -5,6 +5,7 @@ import { TitleWithLabel } from 'components/TitleWithLabel'
 import { FirestoreCollection } from 'utils/firebase'
 import { useRecoilValue } from 'recoil'
 import { loginUserState } from 'store/auth'
+import RecoilProvider from 'components/RecoilProvider'
 
 const Posts: NextPage = () => {
   const { value, loading, error } = FirestoreCollection('tests')
@@ -43,3 +44,7 @@ const Posts: NextPage = () => {
 }
 
 export default Posts
+
+Posts.getLayout = (page) => {
+  return <RecoilProvider>{page}</RecoilProvider>
+}
