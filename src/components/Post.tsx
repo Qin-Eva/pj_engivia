@@ -1,17 +1,20 @@
 import { VFC } from 'react'
 import Image from 'next/image'
 
-export const Post: VFC = () => {
+type Props = {
+  id: number
+  title: string
+}
+
+export const Post: VFC<Props> = (props) => {
   return (
     <div className="w-[700px] h-[300px] bg-white p-8 mt-4">
       {/* TODO: idをpropsより取得 */}
       <p className="text-blue-600 text-2xl font-bold text-center">
-        エンジビア1
+        エンジビア{props.id}
       </p>
       {/* TODO: エンジビアをpropsより取得 */}
-      <p className="text-gray-900 text-4xl mt-6">
-        HTMLにはポータルという便利な要素がある
-      </p>
+      <p className="text-gray-900 text-4xl mt-6">{props.title}</p>
       <div className="flex justify-between items-end">
         {/* TODO: ユーザーデータをpropsより取得 */}
         <div className="flex items-center">

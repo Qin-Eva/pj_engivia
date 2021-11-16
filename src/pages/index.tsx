@@ -1,10 +1,7 @@
-import type { NextPage } from "next";
+import type { NextPage } from 'next'
 
-const Home: NextPage = ({children}) => {
-  return (
-    <div className="min-h-screen">
-    </div>
-  );
-};
+const Home: NextPage = ({ children }) => {
+  return <div className="min-h-screen"></div>
+}
 
-export default Home;
+export default Home

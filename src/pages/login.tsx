@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
-import Image from "next/image";
-import { LoginWithGithub, Logout } from "utils/firebase";
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import { LoginWithGithub, Logout } from 'utils/firebase'
 
 const Login: NextPage = () => {
   return (
@@ -50,7 +50,7 @@ const Login: NextPage = () => {
         />
       </figure>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

@@ -1,40 +1,30 @@
-import { FC, memo, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react'
 
 type Props = {
-  children: ReactNode;
-  type: 'primary' | 'secondary' | 'onAir' | 'afterOnAir' | 'beforeOnAir';
-  onClick: () => void;
-};
+  children: ReactNode
+  type: 'primary' | 'secondary'
+  onClick: () => void
+}
 
-export const Button: FC<Props> = (({ children, type, onClick }) => {
+export const Button: FC<Props> = ({ children, type, onClick }) => {
   const buttonType = () => {
-    let className = '';
+    let className = ''
     switch (type) {
       case 'primary':
-        className = 'bg-blue-500 rounded-sm py-2 px-5 text-white';
-        break;
+        className = 'text-white bg-[#0284C7] rounded-md te  xt-center py-3 px-4'
+        break
       case 'secondary':
-        className = 'bg-blue-200 rounded-sm py-2 px-5 text-blue-700';
-        break;
-      case 'onAir':
-        className = 'bg-green-100 text-green-600 rounded-full px-5 m-2 text-sm';
-        break;
-      case 'afterOnAir':
-        className =
-          'bg-gray-200　text-gray-400 rounded-full py-1 px-5 m-2 text-sm';
-        break;
-      case 'beforeOnAir':
-        className =
-          'bg-yellow-300 text-yellow-700 rounded-full py-1 px-5 m-2 text-sm';
+        className = 'text-blue-500 bg-blue-100 rounded-md text-center py-3 px-4'
+        break
     }
 
-    return className;
-  };
+    return className
+  }
 
   return (
     <button className={buttonType()} onClick={onClick}>
       {children}
     </button>
-  );
-});
-export default memo(Button);
+  )
+}
+export default memo(Button)

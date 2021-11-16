@@ -1,20 +1,20 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Menu } from "@headlessui/react";
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Menu } from '@headlessui/react'
 
 type option = {
-  readonly id: string;
-  readonly value: string;
-};
+  readonly id: string
+  readonly value: string
+}
 
 const HeaderMenuOption: option[] = [
-  { id: "1", value: "Edit" },
-  { id: "2", value: "Duplicate" },
-  { id: "3", value: "Archive" },
-  { id: "4", value: "Move" },
-  { id: "5", value: "Delete" },
-];
+  { id: '1', value: 'Edit' },
+  { id: '2', value: 'Duplicate' },
+  { id: '3', value: 'Archive' },
+  { id: '4', value: 'Move' },
+  { id: '5', value: 'Delete' }
+]
 
 export const Header: React.FC = () => {
   return (
@@ -53,18 +53,18 @@ export const Header: React.FC = () => {
                   {({ active }) => (
                     <button
                       className={`${
-                        active ? "bg-purple-500 text-white" : "text-gray-900"
+                        active ? 'bg-purple-500 text-white' : 'text-gray-900'
                       } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                     >
                       {option.value}
                     </button>
                   )}
                 </Menu.Item>
-              );
+              )
             })}
           </div>
         </Menu.Items>
       </Menu>
     </header>
-  );
-};
+  )
+}
