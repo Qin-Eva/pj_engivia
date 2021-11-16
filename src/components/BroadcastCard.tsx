@@ -23,7 +23,7 @@ export const BroadcastCard: VFC<TCard> = ({
   count
 }) => {
   const statusText = useMemo(() => {
-    switch (isStreamed) {
+    switch (status) {
       case 1:
         return '放送前・エンジビア募集中'
       case 2:
@@ -31,7 +31,7 @@ export const BroadcastCard: VFC<TCard> = ({
       case 3:
         return '放送済み'
     }
-  }, [isStreamed])
+  }, [status])
 
   return (
     <Link href={href}>
