@@ -1,9 +1,9 @@
 import * as firebase from 'firebase/app'
 import {
+  signOut,
   getAuth,
-  GithubAuthProvider,
   signInWithPopup,
-  signOut
+  GithubAuthProvider
 } from 'firebase/auth'
 import type { User } from 'firebase/auth'
 import {
@@ -11,7 +11,14 @@ import {
   collection,
   DocumentData,
   FirestoreError,
-  QuerySnapshot
+  QuerySnapshot,
+  Timestamp,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  where
 } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
@@ -25,25 +32,54 @@ export const config = {
 }
 
 export const app = firebase.initializeApp(config)
+
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 
-export const LoginWithGithub = (): void => {
+export const LoginWithGithub = async (): Promise<void> => {
   const provider = new GithubAuthProvider()
   signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-      const credential = GithubAuthProvider.credentialFromResult(result)
-      const token = credential?.accessToken
-
-      const user = result.user
-      location.assign('/')
+    .then(async (result) => {
+      // すでに登録済みかを確認
+      const mailSnapshot = await getDocs(
+        query(
+          collection(db, 'users'),
+          where('name', '==', result.user.displayName),
+          where('mail', '==', result.user.email)
+        )
+      )
+      let isSignup = false
+      mailSnapshot.forEach((doc) => {
+        if (doc.exists()) {
+          return (isSignup = true)
+        } else {
+          return (isSignup = false)
+        }
+      })
+      if (isSignup) {
+        // サインアップしているのでこの先の処理は行わない
+        return null
+      }
+      const docSnap = await getDocs(
+        query(collection(db, 'users'), orderBy('created_at', 'desc'), limit(1))
+      )
+      let id: number = 0 // 初期化
+      docSnap.forEach((doc) => {
+        id = Number(doc.data().id) + 1
+      })
+      // users追加
+      await addDoc(collection(db, 'users'), {
+        created_at: Timestamp.fromDate(new Date()),
+        id: id === 0 ? 1 : id,
+        name: result.user.displayName,
+        photo: result.user.photoURL,
+        role_id: 2,
+        mail: result.user.email
+      })
+      // location.assign('/')
     })
     .catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-      const email = error.email
-      const credential = GithubAuthProvider.credentialFromError(error)
+      console.error(error)
     })
 }
 
