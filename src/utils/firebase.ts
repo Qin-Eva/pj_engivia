@@ -59,17 +59,12 @@ export const LoginWithGithub = async (): Promise<void> => {
       docSnap.forEach((doc) => {
         id = Number(doc.data().id) + 1
       })
-      // mail追加
-      await addDoc(collection(db, 'mail'), {
-        name: result.user.displayName,
-        adress: result.user.email
-      })
       // users追加
       await addDoc(collection(db, 'users'), {
         created_at: Timestamp.fromDate(new Date()),
         id: id === 0 ? 1 : id,
         name: result.user.displayName,
-        photo:result.user.photoURL,
+        photo: result.user.photoURL,
         role_id: 2,
         mail: result.user.email
       })
