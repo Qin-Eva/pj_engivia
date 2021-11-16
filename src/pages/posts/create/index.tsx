@@ -2,23 +2,32 @@ import { Button } from 'components/Button'
 import React, { useCallback, useState } from 'react'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import type { NextPage } from 'next'
+import toast, { Toaster } from 'react-hot-toast'
+import { createPostData } from 'lib/posts'
 
 const Post: NextPage = () => {
   const [text, setText] = useState('')
-  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+
+  const onClick = (): void => {
+    if (text === '') {
+      toast.error('入力して下さい')
+      return
+    }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    toast.promise(createPostData(text, 'user'), {
+      loading: '保存中',
+      success: '保存できました',
+      error: '保存に失敗しました'
+    })
   }
 
-  const onClick = useCallback(() => {
-    alert('aaa')
-  }, [])
-
   return (
-    <div className="w-3/5 mx-auto">
+    <div className="mx-auto w-3/5">
+      <Toaster />
       <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
-      <form onSubmit={submitForm} className="mt-[32px]">
+      <div className="mt-[32px]">
         <textarea
-          className="textarea font-[24px] placeholder-gray-500 placeholder-opacity-30"
+          className="placeholder-gray-500 placeholder-opacity-30 textarea text-[24px]"
           style={{ fontWeight: 'bold' }}
           placeholder="エンジビアを入力する"
           value={text}
@@ -27,12 +36,12 @@ const Post: NextPage = () => {
             setText(e.target.value)
           }
         />
-        <div className="mt-[32px] flex justify-center">
+        <div className="flex justify-center mt-[32px]">
           <Button type="primary" onClick={onClick}>
             保存する
           </Button>
         </div>
-      </form>
+      </div>
     </div>
   )
 }
