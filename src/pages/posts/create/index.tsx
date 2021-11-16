@@ -2,7 +2,7 @@ import { Button } from 'components/Button'
 import React, { useCallback, useState } from 'react'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import type { NextPage } from 'next'
-import { Layout } from 'components/Layout'
+import Layout from 'components/Layout'
 
 const Post: NextPage = () => {
   const [text, setText] = useState('')
