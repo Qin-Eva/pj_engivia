@@ -7,6 +7,6 @@ type UserState = {
 
 export const loginUserState = atom<UserState>({
   key: 'loginUser',
-  default: { email: '', photoURL: '' },
+  default: { email: null, photoURL: null },
   dangerouslyAllowMutability: true
 })
