@@ -2,6 +2,7 @@ import { Button } from 'components/Button'
 import React, { useCallback, useState } from 'react'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import type { NextPage } from 'next'
+import { Layout } from 'components/Layout'
 
 const Post: NextPage = () => {
   const [text, setText] = useState('')
@@ -14,11 +15,11 @@ const Post: NextPage = () => {
   }, [])
 
   return (
-    <div className="w-3/5 mx-auto">
+    <div className="mx-auto w-3/5">
       <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
       <form onSubmit={submitForm} className="mt-[32px]">
         <textarea
-          className="textarea font-[24px] placeholder-gray-500 placeholder-opacity-30"
+          className="placeholder-gray-500 placeholder-opacity-30 textarea font-[24px]"
           style={{ fontWeight: 'bold' }}
           placeholder="エンジビアを入力する"
           value={text}
@@ -27,7 +28,7 @@ const Post: NextPage = () => {
             setText(e.target.value)
           }
         />
-        <div className="mt-[32px] flex justify-center">
+        <div className="flex justify-center mt-[32px]">
           <Button type="primary" onClick={onClick}>
             保存する
           </Button>
@@ -38,3 +39,7 @@ const Post: NextPage = () => {
 }
 
 export default Post
+
+Post.getLayout = (page) => {
+  return <Layout>{page}</Layout>
+}
