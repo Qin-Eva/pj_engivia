@@ -3,7 +3,8 @@ import Head from 'next/head'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import { UserCard } from 'components/UserCard'
 import type { TUserCard } from 'components/UserCard'
-import Layout from 'components/Layout'
+import { HeeButton } from 'components/HeeButton'
+import { Layout } from 'components/Layout'
 
 const UserCardData: TUserCard[] = [
   {
@@ -38,7 +39,9 @@ const PostStandBy: NextPage = () => {
             </p>
           </div>
         </div>
-        <div className="absolute top-[670px]">へぇー</div>
+        <div className="absolute top-[670px] left-1/2 -translate-x-1/2">
+          <HeeButton />
+        </div>
         <div className="fixed top-[100px] right-4">
           {UserCardData.map((i) => {
             return (
