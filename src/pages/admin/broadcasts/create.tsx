@@ -5,7 +5,7 @@ import { Button } from 'components/Button'
 import { addStream } from 'lib/streamImpl'
 import type { TStream } from 'lib/streamImpl'
 import { ChangeEvent, useCallback, useState } from 'react'
-import Layout from 'components/Layout'
+import RecoilProvider from 'components/RecoilProvider'
 
 const CreateBroadcast: NextPage = () => {
   const [title, setTitle] = useState<string>('')
@@ -86,5 +86,5 @@ const CreateBroadcast: NextPage = () => {
 export default CreateBroadcast
 
 CreateBroadcast.getLayout = (page) => {
-  return <Layout>{page}</Layout>
+  return <RecoilProvider>{page}</RecoilProvider>
 }

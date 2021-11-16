@@ -1,9 +1,18 @@
 import * as firebase from 'firebase/app'
-import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
 import {
-  collection,
-  Timestamp,
+  signOut,
+  getAuth,
+  signInWithPopup,
+  GithubAuthProvider
+} from 'firebase/auth'
+import type { User } from 'firebase/auth'
+import {
   getFirestore,
+  collection,
+  DocumentData,
+  FirestoreError,
+  QuerySnapshot,
+  Timestamp,
   addDoc,
   getDocs,
   query,
@@ -22,10 +31,9 @@ export const config = {
   appId: process.env.NEXT_PUBLIC_APP_ID
 }
 
-// !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 export const app = firebase.initializeApp(config)
 
-const auth = getAuth(app)
+export const auth = getAuth(app)
 export const db = getFirestore(app)
 
 export const LoginWithGithub = async (): Promise<void> => {
@@ -75,40 +83,29 @@ export const LoginWithGithub = async (): Promise<void> => {
     })
 }
 
-// ログイン状態の検知
-export const listenAuthState = (dispatch: any) => {
-  return firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      // User is signed in.
-      dispatch({
-        type: 'login',
-        payload: {
-          user
-        }
-      })
-    } else {
-      // User is signed out.
-      // ...
-      dispatch({
-        type: 'logout'
-      })
-    }
-  })
-}
-
-export const firebaseUser = () => {
-  return firebase.auth().currentUser
+export const firebaseUser = (): User | null => {
+  return auth.currentUser
 }
 
 // Logout
-export const Logout = () => {
-  auth.signOut().then(() => {
-    window.location.reload()
-  })
+export const Logout = (): void => {
+  signOut(auth)
+    .then(() => {
+      window.location.reload()
+    })
+    .catch((error) => {
+      const errorMessage = error.errorMessage
+    })
 }
 
 // リアルタイム実装
-export const FirestoreCollection = (col: string) => {
+export const FirestoreCollection = (
+  col: string
+): {
+  value: QuerySnapshot<DocumentData> | undefined
+  loading: boolean
+  error: FirestoreError | undefined
+} => {
   const [value, loading, error] = useCollection(
     collection(getFirestore(app), col),
     {

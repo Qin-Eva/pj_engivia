@@ -11,7 +11,7 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { Container } from 'components/dnd/container'
 import { Item } from 'components/dnd/sortable_item'
-import Layout from 'components/Layout'
+import RecoilProvider from 'components/RecoilProvider'
 
 type Items = {
   root: string[]
@@ -168,5 +168,5 @@ const AdminAll = () => {
 export default AdminAll
 
 AdminAll.getLayout = (page) => {
-  return <Layout>{page}</Layout>
+  return <RecoilProvider>{page}</RecoilProvider>
 }

@@ -4,7 +4,7 @@ import { TitleWithLabel } from 'components/TitleWithLabel'
 import type { NextPage } from 'next'
 import toast, { Toaster } from 'react-hot-toast'
 import { createPostData } from 'lib/posts'
-import Layout from 'components/Layout'
+import RecoilProvider from 'components/RecoilProvider'
 
 const Post: NextPage = () => {
   const [text, setText] = useState('')
@@ -28,7 +28,7 @@ const Post: NextPage = () => {
       <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
       <div className="mt-[32px]">
         <textarea
-          className="placeholder-gray-500 placeholder-opacity-30 textarea text-[24px]"
+          className="text-[24px] placeholder-gray-500 placeholder-opacity-30 textarea"
           style={{ fontWeight: 'bold' }}
           placeholder="エンジビアを入力する"
           value={text}
@@ -50,5 +50,5 @@ const Post: NextPage = () => {
 export default Post
 
 Post.getLayout = (page) => {
-  return <Layout>{page}</Layout>
+  return <RecoilProvider>{page}</RecoilProvider>
 }

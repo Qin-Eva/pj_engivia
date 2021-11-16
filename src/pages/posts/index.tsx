@@ -3,10 +3,13 @@ import Head from 'next/head'
 import type { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import { FirestoreCollection } from 'utils/firebase'
-import Layout from 'components/Layout'
+import { useRecoilValue } from 'recoil'
+import { loginUserState } from 'store/auth'
+import RecoilProvider from 'components/RecoilProvider'
 
 const Posts: NextPage = () => {
   const { value, loading, error } = FirestoreCollection('tests')
+  const loginUser = useRecoilValue(loginUserState)
 
   return (
     <>
@@ -43,5 +46,5 @@ const Posts: NextPage = () => {
 export default Posts
 
 Posts.getLayout = (page) => {
-  return <Layout>{page}</Layout>
+  return <RecoilProvider>{page}</RecoilProvider>
 }
