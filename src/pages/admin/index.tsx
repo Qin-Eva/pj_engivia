@@ -6,13 +6,14 @@ import {
   KeyboardSensor,
   PointerSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from '@dnd-kit/core'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { Container } from 'components/dnd/container'
 import { Item } from 'components/dnd/sortable_item'
+import RecoilProvider from 'components/RecoilProvider'
 
-interface Items {
+type Items = {
   root: string[]
   container1: string[]
   container2: string[]
@@ -22,14 +23,14 @@ const AdminAll = () => {
   const [items, setItems] = useState<Items>({
     root: ['1', '2', '3'],
     container1: ['4', '5', '6'],
-    container2: ['7', '8', '9'],
+    container2: ['7', '8', '9']
   })
   const [activeId, setActiveId] = useState<string | null>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
+      coordinateGetter: sortableKeyboardCoordinates
     })
   )
 
@@ -53,7 +54,7 @@ const AdminAll = () => {
     const { active, over, draggingRect } = event
     const { id } = active
     const { id: overId } = over
-    let Rect = event.over.rect
+    const Rect = event.over.rect
 
     // Find the containers
     const activeContainer = findContainer(id) as keyof Items
@@ -93,13 +94,13 @@ const AdminAll = () => {
       return {
         ...prev,
         [activeContainer]: [
-          ...prev[activeContainer].filter((item) => item !== active.id),
+          ...prev[activeContainer].filter((item) => item !== active.id)
         ],
         [overContainer]: [
           ...prev[overContainer].slice(0, newIndex),
           items[activeContainer][activeIndex],
-          ...prev[overContainer].slice(newIndex, prev[overContainer].length),
-        ],
+          ...prev[overContainer].slice(newIndex, prev[overContainer].length)
+        ]
       }
     })
   }
@@ -126,11 +127,7 @@ const AdminAll = () => {
     if (activeIndex !== overIndex) {
       setItems((items) => ({
         ...items,
-        [overContainer]: arrayMove(
-          items[overContainer],
-          activeIndex,
-          overIndex
-        ),
+        [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex)
       }))
     }
 
@@ -169,3 +166,7 @@ const AdminAll = () => {
 }
 
 export default AdminAll
+
+AdminAll.getLayout = (page) => {
+  return <RecoilProvider>{page}</RecoilProvider>
+}

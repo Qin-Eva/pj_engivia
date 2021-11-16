@@ -1,11 +1,11 @@
-import type { NextPage } from "next";
-import Image from "next/image";
-import { LoginWithGithub, Logout } from "utils/firebase";
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import { LoginWithGithub } from 'utils/firebase'
 
 const Login: NextPage = () => {
   return (
     <div className="flex">
-      <div className="w-5/12 flex justify-center items-center">
+      <div className="flex justify-center items-center w-5/12">
         <div className="text-center">
           <div className="block">
             <Image
@@ -41,7 +41,7 @@ const Login: NextPage = () => {
           </div>
         </div>
       </div>
-      <figure className="w-7/12 h-screen relative">
+      <figure className="relative w-7/12 h-screen">
         <Image
           src="/login/login_top_img.png"
           alt="泉"
@@ -50,7 +50,7 @@ const Login: NextPage = () => {
         />
       </figure>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

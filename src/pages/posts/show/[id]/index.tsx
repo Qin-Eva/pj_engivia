@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import { UserCard } from 'components/UserCard'
 import type { TUserCard } from 'components/UserCard'
+import Layout from 'components/Layout'
 
 const UserCardData: TUserCard[] = [
   {
@@ -19,7 +20,7 @@ const UserCardData: TUserCard[] = [
     username: '鈴木サンダー',
     img: '/Avatar.png',
     hee: 18
-  },
+  }
 ]
 
 const PostStandBy: NextPage = () => {
@@ -28,18 +29,18 @@ const PostStandBy: NextPage = () => {
       <Head>
         <title>投稿詳細ページ</title>
       </Head>
-      <div className="w-[704px] mx-auto">
+      <div className="mx-auto w-[704px]">
         <div className="relative">
-          <TitleWithLabel title='第4回エンジビアの泉' is_streamed={2} />
-          <div className="mt-8 bg-white rounded-md shadow inline-block w-[700px] h-[100px]">
-            <p className="m-8 text-4xl w-[640px] h-[40px]">
+          <TitleWithLabel title="第4回エンジビアの泉" is_streamed={2} />
+          <div className="inline-block mt-8 w-[700px] h-[100px] bg-white rounded-md shadow">
+            <p className="m-8 w-[640px] h-[40px] text-4xl">
               次のエンジビアをお待ちください
             </p>
           </div>
         </div>
         <div className="absolute top-[670px]">へぇー</div>
-        <div className='fixed right-4 top-[100px]'>
-          {UserCardData.map(i => {
+        <div className="fixed top-[100px] right-4">
+          {UserCardData.map((i) => {
             return (
               <UserCard
                 key={i.username}
@@ -48,7 +49,7 @@ const PostStandBy: NextPage = () => {
                 hee={i.hee}
               />
             )
-        })}
+          })}
         </div>
       </div>
     </>
@@ -56,3 +57,7 @@ const PostStandBy: NextPage = () => {
 }
 
 export default PostStandBy
+
+PostStandBy.getLayout = (page) => {
+  return <Layout>{page}</Layout>
+}
