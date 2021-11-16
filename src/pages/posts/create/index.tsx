@@ -9,7 +9,7 @@ import RecoilProvider from 'components/RecoilProvider'
 const Post: NextPage = () => {
   const [text, setText] = useState('')
 
-  const onClick = (): void => {
+  const onClick = useCallback((): void => {
     if (text === '') {
       toast.error('入力して下さい')
       return
@@ -20,7 +20,7 @@ const Post: NextPage = () => {
       success: '保存できました',
       error: '保存に失敗しました'
     })
-  }
+  }, [text])
 
   return (
     <div className="mx-auto w-3/5">
