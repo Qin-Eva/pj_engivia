@@ -12,7 +12,7 @@ export type TStream = {
 
 export const getStreams = async (): Promise<QuerySnapshot<DocumentData>> => {
   try {
-    const q = query(collection(db, 'Streams'))
+    const q = query(collection(db, 'streams'))
     return await getDocs(q)
   } catch (e: Error) {
     throw new Error('放送を取得できませんでした。')
