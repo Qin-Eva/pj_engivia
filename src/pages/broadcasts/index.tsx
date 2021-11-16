@@ -44,9 +44,9 @@ const broadcastIndex: NextPage = () => {
       <Head>
         <title>放送一覧ページ</title>
       </Head>
-      <div className="bg-gray-200 h-screen">
-        <h2 className="text-4xl w-3/5 mx-auto mb-5">放送一覧</h2>
-        <div className="w-3/5 mx-auto">
+      <div className="h-screen bg-gray-200">
+        <h2 className="mx-auto mb-5 w-3/5 text-4xl">放送一覧</h2>
+        <div className="mx-auto w-3/5">
           <ul>
             {ITEMS.map((item) => {
               return (
