@@ -2,22 +2,31 @@ import { Button } from 'components/Button'
 import React, { useCallback, useState } from 'react'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import type { NextPage } from 'next'
+import toast, { Toaster } from 'react-hot-toast'
+import { createPostData } from 'lib/posts'
 import RecoilProvider from 'components/RecoilProvider'
 
 const Post: NextPage = () => {
   const [text, setText] = useState('')
-  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
 
-  const onClick = useCallback(() => {
-    alert('aaa')
-  }, [])
+  const onClick = useCallback((): void => {
+    if (text === '') {
+      toast.error('入力して下さい')
+      return
+    }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    toast.promise(createPostData(text, 'user'), {
+      loading: '保存中',
+      success: '保存できました',
+      error: '保存に失敗しました'
+    })
+  }, [text])
 
   return (
     <div className="mx-auto w-3/5">
+      <Toaster />
       <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
-      <form onSubmit={submitForm} className="mt-[32px]">
+      <div className="mt-[32px]">
         <textarea
           className="text-[24px] placeholder-gray-500 placeholder-opacity-30 textarea"
           style={{ fontWeight: 'bold' }}
@@ -33,7 +42,7 @@ const Post: NextPage = () => {
             保存する
           </Button>
         </div>
-      </form>
+      </div>
     </div>
   )
 }

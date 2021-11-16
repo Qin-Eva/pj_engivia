@@ -1,3 +1,6 @@
+import { addDoc, collection } from '@firebase/firestore'
+import { db } from 'utils/firebase'
+
 const apiUrl = 'https://jsonplaceholder.typicode.com/posts'
 
 type PostType = {
@@ -38,4 +41,20 @@ export const getPostData = async (id: string) => {
   const res = await fetch(`${apiUrl}/${id}/`)
   const post = await res.json()
   return post
+}
+
+export const createPostData = async (
+  content: string,
+  user: string
+): Promise<void> => {
+  await addDoc(collection(db, 'posts'), {
+    id: 1,
+    user_id: 1,
+    stream_id: 1,
+    content: content,
+    created_at: new Date(),
+    updated_at: new Date(),
+    created_by: user,
+    updated_by: user
+  })
 }
