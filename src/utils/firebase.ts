@@ -1,15 +1,7 @@
 import * as firebase from 'firebase/app'
 import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth'
-import {
-  collection,
-  Timestamp,
-  getFirestore,
-  addDoc,
-  getDocs,
-  query,
-  orderBy,
-  limit,
-} from 'firebase/firestore'
+import { getFirestore, collection } from 'firebase/firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 export const config = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -17,16 +9,17 @@ export const config = {
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 }
 
 // !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
-const app = firebase.initializeApp(config)
+export const app = firebase.initializeApp(config)
 
-const db = getFirestore(app)
-export const auth = getAuth(app)
 
-interface authResponse {
+const auth = getAuth(app)
+export const db = getFirestore(app)
+
+type authResponse = {
   created_at: Timestamp
   id: number
   name: string
@@ -35,30 +28,17 @@ interface authResponse {
 export const LoginWithGithub = () => {
   const provider = new GithubAuthProvider()
   signInWithPopup(auth, provider)
-    .then(async (result) => {
+    .then((result) => {
       // This gives you a GitHub Access Token. You can use it to access the GitHub API.
       const credential = GithubAuthProvider.credentialFromResult(result)
       const token = credential?.accessToken
-      const docSnap = await getDocs(
-        query(collection(db, 'users'), orderBy('created_at', 'desc'), limit(1))
-      )
-      let id: number = 0 // 初期化
-      docSnap.forEach((doc) => {
-        id = doc.data().id + 1
-      })
-      await addDoc(collection(db, 'users'), {
-        created_at: Timestamp.fromDate(new Date()),
-        id: id,
-        name: result.user.displayName,
-        role_id: id,
-      })
+
+      const user = result.user
+      console.log(user)
       location.assign('/')
     })
     .catch((error) => {
-      const errorCode = error.code
-      const errorMessage = error.message
-      const email = error.email
-      const credential = GithubAuthProvider.credentialFromError(error)
+      console.error(error)
     })
 }
 
@@ -70,14 +50,14 @@ export const listenAuthState = (dispatch: any) => {
       dispatch({
         type: 'login',
         payload: {
-          user,
-        },
+          user
+        }
       })
     } else {
       // User is signed out.
       // ...
       dispatch({
-        type: 'logout',
+        type: 'logout'
       })
     }
   })
@@ -92,4 +72,16 @@ export const Logout = () => {
   auth.signOut().then(() => {
     window.location.reload()
   })
+}
+
+// リアルタイム実装
+export const FirestoreCollection = (col: string) => {
+  const [value, loading, error] = useCollection(
+    collection(getFirestore(app), col),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true }
+    }
+  )
+
+  return { value, loading, error }
 }

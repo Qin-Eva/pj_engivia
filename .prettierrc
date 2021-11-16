@@ -1,1 +1,1 @@
-{ "semi": false, "trailingComma": "es5", "singleQuote": true }
+{ "semi": false, "trailingComma": "none", "singleQuote": true, "tabWidth": 2 }
