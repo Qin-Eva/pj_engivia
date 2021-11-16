@@ -14,8 +14,12 @@ export type TCard = {
   hee_count: number
 }
 
-export const BroadcastCard: VFC<TCard> = (props) => {
-  const { title, updated_at, is_streamed, hee_count } = { ...props }
+export const BroadcastCard: VFC<TCard> = ({
+  title,
+  updated_at,
+  is_streamed,
+  hee_count
+}) => {
   const statusText = useMemo(() => {
     switch (status) {
       case 1:
