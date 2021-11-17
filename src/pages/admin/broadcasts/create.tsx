@@ -30,14 +30,14 @@ const CreateBroadcast: NextPage = () => {
       <Head>
         <title>放送作成ページ</title>
       </Head>
-      <div className="h-screen bg-gray-100">
-        <div className="mx-auto mb-5 w-3/5 text-4xl font-medium">
+      <div>
+        <div className="mx-auto mb-[30px] w-3/5 text-4xl font-medium">
           放送を作成
         </div>
         <div className="mx-auto w-3/5">
           <div>
             <input
-              className="py-[9px] px-[13px] mt-5 w-full rounded-[6px] border-[2px] border-solid"
+              className="py-[9px] px-[13px] w-full rounded-[6px] border-[2px] border-solid"
               required={title ?? true}
               name="title"
               id="title"
@@ -48,9 +48,9 @@ const CreateBroadcast: NextPage = () => {
               }}
             />
           </div>
-          <div>
+          <div className="mt-[32px]">
             <input
-              className="py-[9px] px-[13px] mt-[32px] w-full rounded-[6px] border-[2px] border-solid"
+              className="py-[9px] px-[13px] w-full rounded-[6px] border-[2px] border-solid"
               required
               name="date"
               id="date"

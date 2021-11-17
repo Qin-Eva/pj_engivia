@@ -5,7 +5,7 @@ import type { TCard } from 'components/BroadcastCard'
 
 export const initialState: TCard[] = []
 
-const Broadcasts: React.VFC = () => {
+export const Broadcasts: React.VFC = () => {
   const [castsArray, setCastsArray] = useState<TCard[]>([])
 
   // 放送の一覧取得
@@ -28,7 +28,7 @@ const Broadcasts: React.VFC = () => {
 
   return (
     <div className="h-[calc(100vh-64px-5rem)]">
-      <h2 className="mx-auto mb-5 w-3/5 text-4xl">放送一覧</h2>
+      <h2 className="mx-auto mb-[30px] w-3/5 text-4xl">放送一覧</h2>
       <div className="mx-auto w-3/5">
         <ul className="overflow-y-auto h-[calc(100vh-64px-150px)]">
           {castsArray.map((item) => {
@@ -43,5 +43,3 @@ const Broadcasts: React.VFC = () => {
     </div>
   )
 }
-
-export default Broadcasts
