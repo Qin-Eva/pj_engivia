@@ -12,6 +12,10 @@ const AdminPostPage: NextPage = () => {
   const { value, loading, error } = FirestoreCollection('tests')
   const [url, setUrl] = useState<string>('')
   const handleClick = (): void => {
+    if (url === '') {
+      toast.error('入力して下さい')
+      return
+    }
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     toast.promise(postUrl(url, ''), {
       loading: '保存中',
