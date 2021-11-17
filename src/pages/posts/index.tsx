@@ -21,6 +21,7 @@ const Posts: NextPage = () => {
           <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
           {/* TODO: アーカイブ動画のpropsに変更 */}
           <iframe
+            className="mt-8"
             width="700"
             height="400"
             src="https://www.youtube.com"

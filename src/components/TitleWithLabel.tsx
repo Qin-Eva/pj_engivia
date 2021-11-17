@@ -29,7 +29,7 @@ export const TitleWithLabel: VFC<Props> = (props) => {
   }, [props.is_streamed])
 
   return (
-    <div className="mb-8 text-center">
+    <div className="text-center">
       <div className={`inline text-sm rounded-full py-1 px-3 ${status?.color}`}>
         {status?.text}
       </div>
