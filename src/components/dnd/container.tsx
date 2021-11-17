@@ -4,7 +4,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 import { SortableItem } from './sortable_item'
 
-interface Props {
+type Props = {
   id: string
   items: string[]
   title: string
@@ -16,8 +16,8 @@ export const Container: VFC<Props> = ({ id, items, title }) => {
   })
 
   return (
-    <div className="bg-gray-100 p-2 m-2 flex-1">
-      <h3 className="bg-gray-300 h-12 flex justify-center items-center rounded-md font-semibold">
+    <div className="flex-1 p-2 m-2">
+      <h3 className="flex justify-center items-center h-12 font-semibold bg-gray-300 rounded-md">
         {title}
       </h3>
       <SortableContext

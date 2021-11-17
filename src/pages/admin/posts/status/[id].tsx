@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useState } from 'react'
 import {
   DndContext,
@@ -11,14 +12,17 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { Container } from 'components/dnd/container'
 import { Item } from 'components/dnd/sortable_item'
+import RecoilProvider from 'components/RecoilProvider'
+import { NextPage } from 'next'
+import { TitleWithLabel } from 'components/TitleWithLabel'
 
-interface Items {
+type Items = {
   root: string[]
   container1: string[]
   container2: string[]
 }
 
-const AdminAll = () => {
+const AdminAll: NextPage = () => {
   const [items, setItems] = useState<Items>({
     root: ['1', '2', '3'],
     container1: ['4', '5', '6'],
@@ -33,7 +37,7 @@ const AdminAll = () => {
     })
   )
 
-  const findContainer = (id: number) => {
+  const findContainer = (id: number): string | number | undefined => {
     if (id in items) {
       return id
     }
@@ -43,17 +47,17 @@ const AdminAll = () => {
     )
   }
 
-  const handleDragStart = (event: any) => {
+  const handleDragStart = (event: any): void => {
     const { active } = event
     const { id } = active
     setActiveId(id)
   }
 
-  const handleDragOver = (event: any) => {
+  const handleDragOver = (event: any): void => {
     const { active, over, draggingRect } = event
     const { id } = active
     const { id: overId } = over
-    let Rect = event.over.rect
+    const Rect = event.over.rect
 
     // Find the containers
     const activeContainer = findContainer(id) as keyof Items
@@ -83,6 +87,7 @@ const AdminAll = () => {
         const isBelowLastItem =
           over &&
           overIndex === overItems.length - 1 &&
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           Rect.offsetTop > over.rect.offsetTop + over.rect.height
 
         const modifier = isBelowLastItem ? 1 : 0
@@ -104,7 +109,7 @@ const AdminAll = () => {
     })
   }
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: any): void => {
     const { active, over } = event
     const { id } = active
     const { id: overId } = over
@@ -136,8 +141,7 @@ const AdminAll = () => {
   return (
     <div className="mx-auto">
       <div className="flex flex-col justify-center items-center">
-        <span>放送中</span>
-        <h2>第4回エンジビアの泉</h2>
+        <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
       </div>
       <div className="flex flex-row">
         <DndContext
@@ -165,3 +169,7 @@ const AdminAll = () => {
 }
 
 export default AdminAll
+
+AdminAll.getLayout = (page) => {
+  return <RecoilProvider>{page}</RecoilProvider>
+}
