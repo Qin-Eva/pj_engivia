@@ -1,4 +1,4 @@
-import { addDoc, collection } from '@firebase/firestore'
+import { addDoc, collection, doc, setDoc } from '@firebase/firestore'
 import { db } from 'utils/firebase'
 
 const apiUrl = 'https://jsonplaceholder.typicode.com/posts'
@@ -57,4 +57,16 @@ export const createPostData = async (
     created_by: user,
     updated_by: user
   })
+}
+
+export const postUrl = async (url: string, docId: string): Promise<void> => {
+  await setDoc(
+    doc(db, 'streams', 'yauxifvy2GdHQt7pALPu'),
+    {
+      is_streamed: 3,
+      url: url,
+      updated_at: new Date()
+    },
+    { merge: true }
+  )
 }
