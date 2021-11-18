@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, setDoc } from '@firebase/firestore'
+import { addDoc, collection, doc, setDoc, Timestamp } from '@firebase/firestore'
 import { db } from 'utils/firebase'
 
 const apiUrl = 'https://jsonplaceholder.typicode.com/posts'
@@ -65,7 +65,7 @@ export const postUrl = async (url: string, docId: string): Promise<void> => {
     {
       is_streamed: 3,
       url: url,
-      updated_at: new Date()
+      updated_at: Timestamp.fromDate(new Date())
     },
     { merge: true }
   )
