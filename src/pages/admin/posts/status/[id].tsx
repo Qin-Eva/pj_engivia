@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React, { useState } from 'react'
 import {
   DndContext,
@@ -11,8 +12,10 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { Container } from 'components/dnd/container'
 import { Item } from 'components/dnd/sortable_item'
+import RecoilProvider from 'components/RecoilProvider'
+import { TitleWithLabel } from 'components/TitleWithLabel'
 
-interface Items {
+type Items = {
   root: string[]
   container1: string[]
   container2: string[]
@@ -53,7 +56,7 @@ const AdminAll = () => {
     const { active, over, draggingRect } = event
     const { id } = active
     const { id: overId } = over
-    let Rect = event.over.rect
+    const Rect = event.over.rect
 
     // Find the containers
     const activeContainer = findContainer(id) as keyof Items
@@ -134,34 +137,42 @@ const AdminAll = () => {
   }
 
   return (
-    <div className="mx-auto">
-      <div className="flex flex-col justify-center items-center">
-        <span>放送中</span>
-        <h2>第4回エンジビアの泉</h2>
+    <>
+      <Head>
+        <title>放送ステータスページ</title>
+      </Head>
+      <div className="mx-auto w-[1200px]">
+        <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
+        <div className="mt-[32px]">
+          <div className="flex flex-row">
+            <DndContext
+              sensors={sensors}
+              collisionDetection={(e) => closestCorners(e)}
+              onDragStart={(e) => handleDragStart(e)}
+              onDragOver={(e) => handleDragOver(e)}
+              onDragEnd={(e) => handleDragEnd(e)}
+            >
+              <Container id="root" items={items.root} title="フィーチャー前" />
+              <Container
+                id="container1"
+                items={items.container1}
+                title="フィーチャー中"
+              />
+              <Container
+                id="container2"
+                items={items.container2}
+                title="フィーチャー後"
+              />
+            </DndContext>
+          </div>
+        </div>
       </div>
-      <div className="flex flex-row">
-        <DndContext
-          sensors={sensors}
-          collisionDetection={(e) => closestCorners(e)}
-          onDragStart={(e) => handleDragStart(e)}
-          onDragOver={(e) => handleDragOver(e)}
-          onDragEnd={(e) => handleDragEnd(e)}
-        >
-          <Container id="root" items={items.root} title="フィーチャー前" />
-          <Container
-            id="container1"
-            items={items.container1}
-            title="フィーチャー中"
-          />
-          <Container
-            id="container2"
-            items={items.container2}
-            title="フィーチャー後"
-          />
-        </DndContext>
-      </div>
-    </div>
+    </>
   )
 }
 
 export default AdminAll
+
+AdminAll.getLayout = (page) => {
+  return <RecoilProvider>{page}</RecoilProvider>
+}

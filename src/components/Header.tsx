@@ -18,13 +18,13 @@ const HeaderMenuOption: option[] = [
 
 export const Header: React.FC = () => {
   return (
-    <header className="h-16 px-8 bg-white shadow-sm flex justify-between items-center">
+    <header className="flex justify-between items-center px-8 h-16 bg-white shadow-sm">
       <Link href="/" passHref>
         <div className="flex cursor-pointer">
-          <span className="pr-2 inline-block">
+          <span className="inline-block pr-2">
             <Image src="/Logo.png" alt="アイコン" width="29px" height="30px" />
           </span>
-          <span className="my-auto inline-block">
+          <span className="inline-block my-auto">
             <Image
               src="/Title.png"
               alt="エンジビアの泉"
@@ -34,9 +34,9 @@ export const Header: React.FC = () => {
           </span>
         </div>
       </Link>
-      <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button className="hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-          <div className="rounded-full  w-8 h-8">
+      <Menu as="div" className="inline-block relative text-left">
+        <Menu.Button className="hover:bg-opacity-30 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none">
+          <div className="w-8 h-8 rounded-full">
             <Image
               src="/Avatar.png"
               alt="ユーザー写真"
@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
             />
           </div>
         </Menu.Button>
-        <Menu.Items className="absolute right-0 w-56 mt-2  origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 mt-2 w-56 bg-white rounded-md divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right focus:outline-none">
           <div className="p-1">
             {HeaderMenuOption.map((option) => {
               return (
