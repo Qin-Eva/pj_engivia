@@ -6,6 +6,7 @@ import { addStream } from 'lib/streamImpl'
 import type { TStream } from 'lib/streamImpl'
 import { ChangeEvent, useCallback, useState } from 'react'
 import RecoilProvider from 'components/RecoilProvider'
+import { Timestamp } from '@firebase/firestore'
 
 const CreateBroadcast: NextPage = () => {
   const [title, setTitle] = useState<string>('')
@@ -19,8 +20,9 @@ const CreateBroadcast: NextPage = () => {
       hee_count: 0,
       is_streamed: 1,
       title: title,
-      created_at: date,
-      updated_at: date
+      stream_date: Timestamp.fromDate(new Date(date)),
+      created_at: Timestamp.fromDate(new Date()),
+      updated_at: Timestamp.fromDate(new Date())
     }
     addStream(data)
   }, [title, date])
@@ -56,7 +58,7 @@ const CreateBroadcast: NextPage = () => {
               id="date"
               type="date"
               onChange={(e: ChangeEvent) => {
-                setDate(() => e.target.value as string)
+                setDate(() => e.target.value)
               }}
             />
           </div>

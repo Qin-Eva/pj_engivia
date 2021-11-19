@@ -2,6 +2,7 @@ import { BroadcastCard } from 'components/BroadcastCard'
 import { getStreams } from 'lib/streamImpl'
 import { useEffect, useState } from 'react'
 import type { TCard } from 'components/BroadcastCard'
+import { formatDate } from 'utils/formatDate'
 
 export const initialState: TCard[] = []
 
@@ -13,13 +14,16 @@ export const Broadcasts: React.VFC = () => {
     ;(async (): void => {
       try {
         const streams = await getStreams()
-        streams.forEach((stream) => {
+        const docs = streams.docs.map((stream) => {
+          const streamDate = formatDate(stream.data().stream_date.toDate())
           const data = {
             ...stream.data(),
-            id: stream.id
+            id: stream.id,
+            stream_date: streamDate
           }
-          setCastsArray((prev) => [...prev, data])
+          return data
         })
+        setCastsArray(docs)
       } catch (e) {
         console.error(e)
       }
