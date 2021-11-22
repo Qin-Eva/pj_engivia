@@ -1,7 +1,6 @@
 import { ReactNode, VFC } from 'react'
 import { RecoilRoot } from 'recoil'
 import Layout from './Layout'
-import LayoutScroll from './LayoutScroll'
 
 type Props = {
   children: ReactNode
@@ -9,22 +8,12 @@ type Props = {
 }
 
 const RecoilProvider: VFC<Props> = ({ children, layoutType }) => {
-  if (layoutType === 'scroll') return scroll(children)
-  return normal(children)
-}
+  let layout = 'normal'
+  if (layoutType === 'scroll') layout = 'scroll'
 
-const scroll = (children: Pick<Props, children>): Element.JSX => {
   return (
     <RecoilRoot>
-      <LayoutScroll>{children}</LayoutScroll>
-    </RecoilRoot>
-  )
-}
-
-const normal = (children: Pick<Props, children>): ELement.JSX => {
-  return (
-    <RecoilRoot>
-      <Layout>{children}</Layout>
+      <Layout layout={layout}>{children}</Layout>
     </RecoilRoot>
   )
 }
