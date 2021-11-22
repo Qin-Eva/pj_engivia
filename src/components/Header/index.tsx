@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { VFC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Menu } from '@headlessui/react'
@@ -6,14 +6,23 @@ import { Menu } from '@headlessui/react'
 type option = {
   readonly id: string
   readonly value: string
+  readonly url: string
 }
 
 const HeaderMenuOption: option[] = [
-  { id: '1', value: 'Edit' },
-  { id: '2', value: 'Duplicate' },
-  { id: '3', value: 'Archive' },
-  { id: '4', value: 'Move' },
-  { id: '5', value: 'Delete' }
+  { id: '1', value: 'ログイン', url: '/login' },
+  { id: '2', value: '放送一覧', url: '/broadcasts' },
+  { id: '3', value: '投稿一覧', url: '/posts' },
+  { id: '4', value: '投稿編集', url: '/posts/detail/1' },
+  { id: '5', value: '投稿詳細', url: '/posts/show/1' },
+  { id: '6', value: '管理: 放送一覧(まだ画面ができてない)', url: '' },
+  { id: '7', value: '管理: 放送作成', url: '/admin/broadcasts/create' },
+  {
+    id: '8',
+    value: '管理: 放送編集(まだ画面ができてない)',
+    url: ''
+  },
+  { id: '9', value: '管理: 投稿ステータス変更', url: '/admin/posts/status/1' }
 ]
 
 export const Header: React.FC = () => {
@@ -51,13 +60,7 @@ export const Header: React.FC = () => {
               return (
                 <Menu.Item key={option.id}>
                   {({ active }) => (
-                    <button
-                      className={`${
-                        active ? 'bg-purple-500 text-white' : 'text-gray-900'
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    >
-                      {option.value}
-                    </button>
+                    <MyLink label={option.value} url={option.url} />
                   )}
                 </Menu.Item>
               )
@@ -66,5 +69,19 @@ export const Header: React.FC = () => {
         </Menu.Items>
       </Menu>
     </header>
+  )
+}
+
+type TMyLink = { url: string; label: string }
+
+const MyLink: VFC<TMyLink> = ({ url, label }) => {
+  return (
+    <Link href={url}>
+      <a
+        className={`group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+      >
+        {label}
+      </a>
+    </Link>
   )
 }
