@@ -32,7 +32,7 @@ export const Broadcasts: React.VFC = () => {
 
   return (
     <div className="h-[calc(100vh-64px-5rem)]">
-      <h2 className="mx-auto mb-[30px] w-3/5 text-4xl">放送一覧</h2>
+      {/* <h2 className="mx-auto mb-[30px] w-3/5 text-4xl">放送一覧</h2> */}
       <div className="mx-auto w-3/5">
         <ul className="overflow-y-auto h-[calc(100vh-64px-150px)]">
           {castsArray.map((item) => {
