@@ -3,6 +3,7 @@ import { getStreams } from 'lib/streamImpl'
 import { useEffect, useState } from 'react'
 import type { TCard } from 'components/BroadcastCard'
 import { formatDate } from 'utils/formatDate'
+import Link from 'next/link'
 
 export const initialState: TCard[] = []
 
@@ -32,6 +33,14 @@ export const Broadcasts: React.VFC = () => {
 
   return (
     <div className="h-[calc(100vh-64px-5rem)]">
+      <div className="flex justify-center bg-gray-200">
+        <div className="mb-[30px] w-[48%] text-4xl">放送一覧</div>
+        <div className="py-[13px] px-[25px] w-[162px] h-[50px] text-[16px] text-white bg-[#0284C7] rounded-md">
+          <Link href="/admin/broadcasts/create">
+            <a>放送を作成する</a>
+          </Link>
+        </div>
+      </div>
       <div className="mx-auto w-3/5">
         <ul className="overflow-y-auto h-[calc(100vh-64px-150px)]">
           {castsArray.map((item) => {
