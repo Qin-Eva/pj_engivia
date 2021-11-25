@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import {
   DndContext,
   KeyboardSensor,
@@ -24,6 +25,9 @@ import {
   where
 } from '@firebase/firestore'
 import { app, UpdatePost } from 'utils/firebase'
+import { useSetRecoilState } from 'recoil'
+import { isFeatureState } from 'store/auth'
+import { useEffect } from 'react'
 
 type Posts = {
   items: {
@@ -51,6 +55,7 @@ type Posts = {
 }
 
 const usePostsData = (): Posts => {
+  // TODO: stream_idを可変にする
   const [value, loading, error] = useCollection(
     query(collection(getFirestore(app), 'posts'), where('stream_id', '==', 2)),
     {
@@ -67,7 +72,7 @@ const usePostsData = (): Posts => {
     }
   })
 
-  if (data != null) {
+  if (data) {
     data.sort(function (a, b) {
       if (a.docPostId > b.docPostId) {
         return 1
@@ -87,8 +92,16 @@ const usePostsData = (): Posts => {
 }
 
 const AdminAll: NextPage = () => {
-  const router = useRouter()
   const { items, loading, error } = usePostsData()
+  const setIsFeature = useSetRecoilState(isFeatureState)
+
+  useEffect(() => {
+    if (items[2].length) {
+      setIsFeature(true)
+    } else {
+      setIsFeature(false)
+    }
+  }, [items, setIsFeature])
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -97,8 +110,32 @@ const AdminAll: NextPage = () => {
     })
   )
 
+  const handleDragOver = ({ active, over }: DragOverEvent): void => {
+    const overId = over?.id
+    if (!overId) {
+      return
+    }
+
+    const activeContainer = active.data.current?.sortable.containerId
+    const overContainer = over.data.current?.sortable.containerId
+
+    if (!overContainer) {
+      return
+    }
+
+    if (activeContainer !== overContainer) {
+      const activeDoc =
+        items[activeContainer]?.filter(
+          (item) => item.docContent === active.id
+        ) ?? []
+      const activeDocId = activeDoc[0]?.docId
+      const activePostId = activeDoc[0]?.docPostId
+      UpdatePost(activeDocId, activePostId, overContainer)
+    }
+  }
+
   const handleDragEnd = ({ over, active }: DragEndEvent): void => {
-    if (over == null) {
+    if (!over) {
       return
     }
 
@@ -123,14 +160,16 @@ const AdminAll: NextPage = () => {
         UpdatePost(activeDocId, overPostId, activeContainer)
         UpdatePost(overDocId, activePostId, activeContainer)
       } else {
-        alert('放送を開始してください')
+        const activeDoc =
+          items[activeContainer]?.filter(
+            (item) => item.docContent === active.id
+          ) ?? []
+        const activeDocId = activeDoc[0]?.docId
+        const activePostId = activeDoc[0]?.docPostId
+
+        UpdatePost(activeDocId, activePostId, overContainer)
       }
     }
-  }
-
-  const handleStream = () => {
-    // TODO: streamのis_streamedを2に更新
-    router.push('admin/posts')
   }
 
   if (loading) {
@@ -140,24 +179,22 @@ const AdminAll: NextPage = () => {
   return (
     <div className="mx-36">
       <div className="flex relative justify-center items-center">
-        <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
+        <TitleWithLabel title="第n回エンジビアの泉" is_streamed={2} />
         <div className="object-right absolute right-0 z-10">
-          <button
-            onClick={handleStream}
-            className="py-2 px-6 m-4 text-white bg-[#0284C7] rounded-md"
-          >
-            放送を開始する
-          </button>
           <Link href="/">
             <a className="py-3 px-6 m-4 text-[#0369A1] bg-[#E0F2FE] rounded-md">
-              編集する
+              放送を終了する
             </a>
           </Link>
         </div>
       </div>
 
       <div className="flex flex-row mt-8">
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+        >
           <Container id="1" items={items[1]} title="フィーチャー前" />
           <Container id="2" items={items[2]} title="フィーチャー中" />
           <Container id="3" items={items[3]} title="フィーチャー後" />
