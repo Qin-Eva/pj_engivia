@@ -18,22 +18,24 @@ export const NullItem: VFC<NullItemProps> = (props) => {
     case 'フィーチャー前':
       return null
     case 'フィーチャー中':
-      return (
-        <div className="flex justify-center items-center my-2.5">
-          {!isFeature ? (
-            <div className=" w-full h-24 rounded-md border border-gray-400 border-dashed">
-              <p className="text-base text-gray-400">フィーチャーする</p>
-            </div>
-          ) : (
+      if (!isFeature) {
+        return (
+          <div className="flex justify-center items-center my-2.5 w-full h-24 rounded-md border border-gray-400 border-dashed">
+            <p className="text-base text-gray-400 ">フィーチャーする</p>
+          </div>
+        )
+      } else {
+        return (
+          <div className="flex justify-center items-center my-2.5">
             <button
               onClick={titleCall}
               className="justify-center items-center p-4 w-48 text-white bg-[#0284C7] rounded-md shadow-md"
             >
               タイトルコールする
             </button>
-          )}
-        </div>
-      )
+          </div>
+        )
+      }
 
     case 'フィーチャー後':
       if (isFeature) {
