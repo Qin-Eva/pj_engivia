@@ -13,7 +13,7 @@ type PostType = {
 
 // 一覧取得データ
 // ソートは日付の降順（すなわち新しい日付の放送が上）
-export const getAllPostsData = async () => {
+export const getAllPostsData = async (): Promise<any> => {
   const res = await fetch(apiUrl)
   const posts = await res.json()
   const filteredPosts = posts.sort(
@@ -23,7 +23,7 @@ export const getAllPostsData = async () => {
 }
 
 // データのIDを一覧取得
-export const getAllPostIds = async () => {
+export const getAllPostIds = async (): Promise<any> => {
   const res = await fetch(apiUrl)
   const posts = await res.json()
 
@@ -37,7 +37,7 @@ export const getAllPostIds = async () => {
 }
 
 // IDから特定のデータを取得
-export const getPostData = async (id: string) => {
+export const getPostData = async (id: string): Promise<any> => {
   const res = await fetch(`${apiUrl}/${id}/`)
   const post = await res.json()
   return post
@@ -52,6 +52,7 @@ export const createPostData = async (
     user_id: 1,
     stream_id: 1,
     content: content,
+    is_featured: '1',
     created_at: new Date(),
     updated_at: new Date(),
     created_by: user,
