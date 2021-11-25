@@ -9,7 +9,7 @@ type NullItemProps = {
 export const NullItem: VFC<NullItemProps> = (props) => {
   const isFeature = useRecoilValue(isFeatureState)
 
-  const titleCall = () => {
+  const titleCall = (): void => {
     // TODO: タイトルコール
     alert('タイトルコール')
   }

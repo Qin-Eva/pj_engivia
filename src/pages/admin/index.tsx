@@ -7,7 +7,6 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  DragOverEvent,
   DragEndEvent
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
@@ -128,7 +127,7 @@ const AdminAll: NextPage = () => {
     }
   }
 
-  const handleStream = () => {
+  const handleStream = (): void => {
     // TODO: streamのis_streamedを2に更新
     router.push('admin/posts')
   }
