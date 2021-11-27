@@ -22,7 +22,8 @@ import {
   query,
   where
 } from '@firebase/firestore'
-import { app, UpdatePost } from 'utils/firebase'
+import { app } from 'utils/firebase'
+import { UpdatePost } from 'lib/posts'
 
 type Posts = {
   items: {

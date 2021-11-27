@@ -1,4 +1,4 @@
-import { addDoc, collection } from '@firebase/firestore'
+import { addDoc, collection, doc, updateDoc } from '@firebase/firestore'
 import { db } from 'utils/firebase'
 
 export const createPostData = async (
@@ -15,5 +15,16 @@ export const createPostData = async (
     updated_at: new Date(),
     created_by: user,
     updated_by: user
+  })
+}
+
+export const UpdatePost = async (
+  docId: string,
+  id: string,
+  is_featured: string
+): Promise<void> => {
+  await updateDoc(doc(db, 'posts', docId), {
+    id,
+    is_featured
   })
 }

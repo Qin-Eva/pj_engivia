@@ -18,9 +18,7 @@ import {
   query,
   orderBy,
   limit,
-  where,
-  doc,
-  updateDoc
+  where
 } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
@@ -116,15 +114,4 @@ export const FirestoreCollection = (
   )
 
   return { value, loading, error }
-}
-
-export const UpdatePost = async (
-  docId: string,
-  id: string,
-  is_featured: string
-): Promise<void> => {
-  await updateDoc(doc(db, 'posts', docId), {
-    id,
-    is_featured
-  })
 }
