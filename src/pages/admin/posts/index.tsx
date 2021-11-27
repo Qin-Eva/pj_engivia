@@ -16,83 +16,14 @@ import { Container } from 'components/dnd/container'
 import RecoilProvider from 'components/RecoilProvider'
 import { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
-import { useCollection } from 'react-firebase-hooks/firestore'
-import {
-  collection,
-  FirestoreError,
-  getFirestore,
-  query,
-  where
-} from '@firebase/firestore'
-import { app, UpdatePost } from 'utils/firebase'
 import { useSetRecoilState } from 'recoil'
 import { isFeatureState } from 'store/auth'
 import { useEffect } from 'react'
-
-type Posts = {
-  items: {
-    1: Array<{
-      docId: string
-      docPostId: string
-      docContent: string
-      docFeatured: string
-    }>
-    2: Array<{
-      docId: string
-      docPostId: string
-      docContent: string
-      docFeatured: string
-    }>
-    3: Array<{
-      docId: string
-      docPostId: string
-      docContent: string
-      docFeatured: string
-    }>
-  }
-  loading: boolean
-  error: FirestoreError | undefined
-}
-
-const usePostsData = (): Posts => {
-  // TODO: stream_idを可変にする
-  const [value, loading, error] = useCollection(
-    query(collection(getFirestore(app), 'posts'), where('stream_id', '==', 2)),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true }
-    }
-  )
-
-  const data = value?.docs.map((doc) => {
-    return {
-      docId: doc.id,
-      docPostId: doc.data().id,
-      docContent: doc.data().content,
-      docFeatured: doc.data().is_featured
-    }
-  })
-
-  if (data) {
-    data.sort(function (a, b) {
-      if (a.docPostId > b.docPostId) {
-        return 1
-      } else {
-        return -1
-      }
-    })
-  }
-
-  const items = {
-    1: data?.filter((item) => item.docFeatured === '1') ?? [],
-    2: data?.filter((item) => item.docFeatured === '2') ?? [],
-    3: data?.filter((item) => item.docFeatured === '3') ?? []
-  }
-
-  return { items, loading, error }
-}
+import { usePostsData } from 'hooks/usePostsData'
+import { UpdatePost } from 'lib/posts'
 
 const AdminAll: NextPage = () => {
-  const { items, loading, error } = usePostsData()
+  const { items, loading, error } = usePostsData(2)
   const setIsFeature = useSetRecoilState(isFeatureState)
 
   useEffect(() => {
