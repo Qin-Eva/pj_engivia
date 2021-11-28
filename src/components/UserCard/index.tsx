@@ -15,7 +15,7 @@ export const UserCard: VFC<TUserCard> = (props) => {
         <Image src={img} alt="ユーザー写真" width="32px" height="32px" />
       </figure>
       <div className="ml-4 w-[128px] text-[14px] text-gray-900">{username}</div>
-      <p className="inline-block py-[2px] px-[10px] ml-4 text-sm text-[14px] text-gray-800 bg-white rounded-full">
+      <p className="inline-block py-[2px] px-[10px] ml-4 text-[14px] text-gray-800 bg-white rounded-full">
         {hee}へぇ
       </p>
     </div>

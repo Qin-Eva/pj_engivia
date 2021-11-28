@@ -9,19 +9,19 @@ import {
 export type TCard = {
   id: string
   title: string
-  updated_at: string
+  stream_date: string
   is_streamed: number
   hee_count: number
 }
 
 export const BroadcastCard: VFC<TCard> = ({
   title,
-  updated_at,
   is_streamed,
+  stream_date,
   hee_count
 }) => {
   const statusText = useMemo(() => {
-    switch (status) {
+    switch (is_streamed) {
       case 1:
         return '放送前・エンジビア募集中'
       case 2:
@@ -29,7 +29,7 @@ export const BroadcastCard: VFC<TCard> = ({
       case 3:
         return '放送済み'
     }
-  }, [status])
+  }, [is_streamed])
 
   return (
     <Link href={'/'}>
@@ -43,7 +43,7 @@ export const BroadcastCard: VFC<TCard> = ({
                 icon={faCalendarWeek}
               />
             </figure>
-            <span className="ml-[8px] text-gray-400">{updated_at}</span>
+            <span className="ml-[8px] text-gray-400">{stream_date}</span>
           </div>
         </div>
         <div className="flex flex-col items-end">

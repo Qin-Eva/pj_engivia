@@ -1,142 +1,79 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import Link from 'next/link'
-import {
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragOverEvent,
-  DragEndEvent
-} from '@dnd-kit/core'
-import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
-import { Container } from 'components/dnd/container'
-import RecoilProvider from 'components/RecoilProvider'
-import { NextPage } from 'next'
+import Head from 'next/head'
+import { Post } from 'components/Post'
 import { TitleWithLabel } from 'components/TitleWithLabel'
-import { useSetRecoilState } from 'recoil'
-import { isFeatureState } from 'store/auth'
-import { useEffect } from 'react'
-import { usePostsData } from 'hooks/usePostsData'
-import { UpdatePost } from 'lib/posts'
+import { NextPage } from 'next'
+import { FirestoreCollection } from 'utils/firebase'
+import React, { useState } from 'react'
+import { Button } from 'components/Button'
+import { postUrl } from 'lib/posts'
+import toast, { Toaster } from 'react-hot-toast'
 
-const AdminAll: NextPage = () => {
-  const { items, loading, error } = usePostsData(2)
-  const setIsFeature = useSetRecoilState(isFeatureState)
-
-  useEffect(() => {
-    if (items[2].length) {
-      setIsFeature(true)
-    } else {
-      setIsFeature(false)
+const AdminPostPage: NextPage = () => {
+  const { value, loading, error } = FirestoreCollection('tests')
+  const [url, setUrl] = useState<string>('')
+  const handleClick = (): void => {
+    if (url === '') {
+      toast.error('入力して下さい')
+      return
     }
-  }, [items, setIsFeature])
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    toast.promise(postUrl(url, ''), {
+      loading: '保存中',
+      success: '保存できました',
+      error: '保存に失敗しました'
     })
-  )
-
-  const handleDragOver = ({ active, over }: DragOverEvent): void => {
-    const overId = over?.id
-    if (!overId) {
-      return
-    }
-
-    const activeContainer = active.data.current?.sortable.containerId
-    const overContainer = over.data.current?.sortable.containerId
-
-    if (!overContainer) {
-      return
-    }
-
-    if (activeContainer !== overContainer) {
-      const activeDoc =
-        items[activeContainer]?.filter(
-          (item) => item.docContent === active.id
-        ) ?? []
-      const activeDocId = activeDoc[0]?.docId
-      const activePostId = activeDoc[0]?.docPostId
-      UpdatePost(activeDocId, activePostId, overContainer)
-    }
   }
-
-  const handleDragEnd = ({ over, active }: DragEndEvent): void => {
-    if (!over) {
-      return
-    }
-
-    if (active.id !== over.id) {
-      const activeContainer = active.data.current?.sortable.containerId
-      const overContainer = over.data.current?.sortable.containerId || over.id
-
-      if (activeContainer === overContainer) {
-        const activeDoc =
-          items[activeContainer]?.filter(
-            (item) => item.docContent === active.id
-          ) ?? []
-        const activeDocId = activeDoc[0]?.docId
-        const activePostId = activeDoc[0]?.docPostId
-
-        const overDoc =
-          items[overContainer]?.filter((item) => item.docContent === over.id) ??
-          []
-        const overDocId = overDoc[0]?.docId
-        const overPostId = overDoc[0]?.docPostId
-
-        UpdatePost(activeDocId, overPostId, activeContainer)
-        UpdatePost(overDocId, activePostId, activeContainer)
-      } else {
-        const activeDoc =
-          items[activeContainer]?.filter(
-            (item) => item.docContent === active.id
-          ) ?? []
-        const activeDocId = activeDoc[0]?.docId
-        const activePostId = activeDoc[0]?.docPostId
-
-        UpdatePost(activeDocId, activePostId, overContainer)
-      }
-    }
-  }
-
-  if (loading) {
-    return <div>loading...</div>
-  }
-
   return (
-    <div className="mx-36">
-      <div className="flex relative justify-center items-center">
-        <TitleWithLabel title="第n回エンジビアの泉" is_streamed={2} />
-        <div className="object-right absolute right-0 z-10">
-          <Link href="/">
-            <a className="py-3 px-6 m-4 text-[#0369A1] bg-[#E0F2FE] rounded-md">
-              放送を終了する
-            </a>
-          </Link>
+    <>
+      <Head>
+        <title>投稿一覧ページ</title>
+      </Head>
+      <div className="min-h-screen">
+        <Toaster />
+        <div className="flex flex-col items-center">
+          <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
+          {/* TODO: アーカイブ動画のpropsに変更 */}
+          <iframe
+            className="mt-8"
+            width="700"
+            height="400"
+            src="https://www.youtube.com"
+            title="アーカイブ"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+          <input
+            className="py-[9px] px-[13px] mt-5 w-[700px] rounded-[6px] border-[2px] border-solid"
+            name="title"
+            id="title"
+            type="text"
+            value={url}
+            placeholder="URLを入力する"
+            onChange={(e) => {
+              setUrl(e.target.value)
+            }}
+          />
+          <div className="flex justify-center mt-[32px]">
+            <Button type="primary" onClick={handleClick}>
+              保存する
+            </Button>
+          </div>
+          {value === undefined ? (
+            <>loading</>
+          ) : (
+            value.docs.map((doc) => {
+              return (
+                <ul key={doc.id}>
+                  <Post id={doc.data().id} title={doc.data().title} />
+                </ul>
+              )
+            })
+          )}
         </div>
       </div>
-
-      <div className="flex flex-row mt-8">
-        <DndContext
-          sensors={sensors}
-          onDragOver={handleDragOver}
-          onDragEnd={handleDragEnd}
-        >
-          <Container id="1" items={items[1]} title="フィーチャー前" />
-          <Container id="2" items={items[2]} title="フィーチャー中" />
-          <Container id="3" items={items[3]} title="フィーチャー後" />
-        </DndContext>
-      </div>
-    </div>
+    </>
   )
 }
 
-export default AdminAll
-
-AdminAll.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
-}
+export default AdminPostPage

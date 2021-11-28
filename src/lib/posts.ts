@@ -1,4 +1,11 @@
-import { addDoc, collection, doc, updateDoc } from '@firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  setDoc,
+  Timestamp,
+  updateDoc
+} from '@firebase/firestore'
 import { db } from 'utils/firebase'
 
 export const createPostData = async (
@@ -27,4 +34,16 @@ export const UpdatePost = async (
     id,
     is_featured
   })
+}
+
+export const postUrl = async (url: string, docId: string): Promise<void> => {
+  await setDoc(
+    doc(db, 'streams', 'yauxifvy2GdHQt7pALPu'),
+    {
+      is_streamed: 3,
+      url: url,
+      updated_at: Timestamp.fromDate(new Date())
+    },
+    { merge: true }
+  )
 }
