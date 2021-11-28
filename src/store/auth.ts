@@ -1,12 +1,12 @@
 import { atom } from 'recoil'
 
 type UserState = {
-  email?: string
-  photoURL?: string
+  email: string | null
+  photoURL: string | null
 }
 
 export const loginUserState = atom<UserState>({
   key: 'loginUser',
-  default: { email: undefined, photoURL: undefined },
+  default: { email: null, photoURL: null },
   dangerouslyAllowMutability: true
 })
