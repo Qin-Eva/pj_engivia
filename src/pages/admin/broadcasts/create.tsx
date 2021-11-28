@@ -88,5 +88,5 @@ const CreateBroadcast: NextPage = () => {
 export default CreateBroadcast
 
 CreateBroadcast.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider layoutType="normal">{page}</RecoilProvider>
 }

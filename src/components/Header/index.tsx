@@ -2,6 +2,9 @@ import React, { VFC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Menu } from '@headlessui/react'
+import { Logout } from 'utils/firebase'
+import { useRecoilValue } from 'recoil'
+import { loginUserState } from 'store/auth'
 
 type option = {
   readonly id: string
@@ -26,6 +29,9 @@ const HeaderMenuOption: option[] = [
 ]
 
 export const Header: React.FC = () => {
+  const userState = useRecoilValue(loginUserState)
+  const photoURL = userState.photoURL
+
   return (
     <header className="flex justify-between items-center px-8 h-16 bg-white shadow-sm">
       <Link href="/" passHref>
@@ -45,12 +51,13 @@ export const Header: React.FC = () => {
       </Link>
       <Menu as="div" className="inline-block relative text-left">
         <Menu.Button className="hover:bg-opacity-30 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none">
-          <div className="w-8 h-8 rounded-full">
+          <div className="w-8 h-8">
             <Image
-              src="/Avatar.png"
+              src={photoURL}
               alt="ユーザー写真"
               width="32"
               height="32px"
+              className="rounded-full"
             />
           </div>
         </Menu.Button>
@@ -65,6 +72,7 @@ export const Header: React.FC = () => {
                 </Menu.Item>
               )
             })}
+            <button onClick={Logout}>ログアウト</button>
           </div>
         </Menu.Items>
       </Menu>

@@ -17,5 +17,5 @@ const BroadcastsIndex: NextPage = () => {
 export default BroadcastsIndex
 
 BroadcastsIndex.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider layoutType="normal">{page}</RecoilProvider>
 }

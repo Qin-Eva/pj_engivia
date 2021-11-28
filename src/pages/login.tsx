@@ -1,8 +1,22 @@
+import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { LoginWithGithub } from 'utils/firebase'
+import { useRecoilValue } from 'recoil'
+import { loginUserState } from 'store/auth'
+import RecoilProvider from 'components/RecoilProvider'
 
 const Login: NextPage = () => {
+  const router = useRouter()
+  const userState = useRecoilValue(loginUserState)
+
+  useEffect(() => {
+    if (userState.uid !== null) {
+      router.push('/broadcasts')
+    }
+  }, [userState, router])
+
   return (
     <div className="flex">
       <div className="flex justify-center items-center w-5/12">
@@ -54,3 +68,7 @@ const Login: NextPage = () => {
 }
 
 export default Login
+
+Login.getLayout = (page) => {
+  return <RecoilProvider>{page}</RecoilProvider>
+}

@@ -47,5 +47,5 @@ const PostEdit: NextPage = () => {
 export default PostEdit
 
 PostEdit.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider layoutType="normal">{page}</RecoilProvider>
 }

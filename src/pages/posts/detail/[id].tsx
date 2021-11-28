@@ -51,5 +51,5 @@ const PostDetail: NextPage = () => {
 export default PostDetail
 
 PostDetail.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider layoutType="normal">{page}</RecoilProvider>
 }

@@ -58,8 +58,8 @@ export const LoginWithGithub = async (): Promise<void> => {
         }
       })
       if (isSignup) {
-        // サインアップしているのでこの先の処理は行わない
-        return null
+        location.assign('/broadcasts')
+        return
       }
       const docSnap = await getDocs(
         query(collection(db, 'users'), orderBy('created_at', 'desc'), limit(1))
@@ -77,7 +77,7 @@ export const LoginWithGithub = async (): Promise<void> => {
         role_id: 2,
         mail: result.user.email
       })
-      // location.assign('/')
+      location.assign('/broadcasts')
     })
     .catch((error) => {
       console.error(error)

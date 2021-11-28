@@ -18,11 +18,6 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     return getLayout(<Component {...pageProps} />)
   }
 
-  if (Component.getLayoutScroll !== undefined) {
-    const getLayoutScroll = Component.getLayoutScroll ?? ((page) => page)
-    return getLayoutScroll(<Component {...pageProps} />)
-  }
-
   return <Component {...pageProps} />
 }
 

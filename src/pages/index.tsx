@@ -1,7 +1,13 @@
+import { useEffect } from 'react'
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = ({ children }) => {
-   return <div className="min-h-screen"></div>
+  const router = useRouter()
+  useEffect(() => {
+    router.push('/broadcasts')
+  }, [])
+  return <></>
 }
 
 export default Home

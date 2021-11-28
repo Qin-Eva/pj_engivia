@@ -174,5 +174,5 @@ const AdminAll = () => {
 export default AdminAll
 
 AdminAll.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider layoutType="normal">{page}</RecoilProvider>
 }

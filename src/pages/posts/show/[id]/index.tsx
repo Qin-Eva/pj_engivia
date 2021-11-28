@@ -62,5 +62,5 @@ const PostStandBy: NextPage = () => {
 export default PostStandBy
 
 PostStandBy.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider layoutType="normal">{page}</RecoilProvider>
 }

@@ -1,10 +1,8 @@
-import { ReactNode, useEffect, VFC } from 'react'
+import { ReactNode, useEffect, VFC, useState } from 'react'
 import Head from 'next/head'
 import { Header } from 'components/Header'
-import { onAuthStateChanged } from 'firebase/auth'
-import { useResetRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { loginUserState } from 'store/auth'
-import { auth } from 'utils/firebase'
 
 type Props = {
   children: ReactNode
@@ -13,22 +11,14 @@ type Props = {
 
 const Layout: VFC<Props> = (props) => {
   const { children, layout } = props
-
-  const setLoginUser = useSetRecoilState(loginUserState)
-  const resetStatus = useResetRecoilState(loginUserState)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+  const userState = useRecoilValue(loginUserState)
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user != null) {
-        const uid = user.uid
-        const email = user.email
-        const photoURL = user.photoURL
-        setLoginUser({ uid, email, photoURL })
-      } else {
-        resetStatus()
-      }
-    })
-  }, [resetStatus, setLoginUser])
+    if (userState.uid !== null) {
+      setIsLoaded(true)
+    }
+  }, [userState, setIsLoaded])
 
   return (
     <>
@@ -38,13 +28,19 @@ const Layout: VFC<Props> = (props) => {
         <link rel="icon" href="/Icon.svg" />
       </Head>
       <main>
-        <Header />
-        <div
-          className={`py-10 bg-gray-200
-          ${layout === 'normal' ? 'h-[calc(100vh-64px)]' : ''}`}
-        >
-          {children}
-        </div>
+        {isLoaded ? (
+          <>
+            <Header />
+            <div
+              className={`py-10 bg-gray-200
+                ${layout === 'normal' ? 'h-[calc(100vh-64px)]' : ''}`}
+            >
+              {children}
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </main>
     </>
   )
