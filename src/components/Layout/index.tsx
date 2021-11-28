@@ -21,7 +21,9 @@ const Layout: VFC<Props> = (props) => {
     onAuthStateChanged(auth, (user) => {
       if (user != null) {
         const uid = user.uid
-        setLoginUser(uid)
+        const email = user.email
+        const photoURL = user.photoURL
+        setLoginUser({ uid, email, photoURL })
       } else {
         resetStatus()
       }
