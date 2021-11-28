@@ -4,7 +4,7 @@ import { TitleWithLabel } from 'components/TitleWithLabel'
 import { UserCard } from 'components/UserCard'
 import type { TUserCard } from 'components/UserCard'
 import { HeeButton } from 'components/HeeButton'
-import { Layout } from 'components/Layout'
+import RecoilProvider from 'components/RecoilProvider'
 
 const UserCardData: TUserCard[] = [
   {
@@ -62,5 +62,5 @@ const PostStandBy: NextPage = () => {
 export default PostStandBy
 
 PostStandBy.getLayout = (page) => {
-  return <Layout>{page}</Layout>
+  return <RecoilProvider>{page}</RecoilProvider>
 }

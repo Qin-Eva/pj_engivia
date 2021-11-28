@@ -3,17 +3,17 @@ import Image from 'next/image'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
-interface Props {
+type Props = {
   id: string
 }
 
 export const Item: VFC<Props> = ({ id }) => {
   return (
-    <div className="w-full items-center justify-center my-2.5 bg-white rounded-md p-4 shadow-md">
+    <div className="justify-center items-center p-4 my-2.5 w-full bg-white rounded-md shadow-md">
       <p className="text-base">
         id: {id} HTMLにはポータルという便利な要素がある
       </p>
-      <div className="mt-4 text-sm flex justify-start items-center">
+      <div className="flex justify-start items-center mt-4 text-sm">
         <Image
           src="/Avatar.png"
           alt="ユーザー写真"
