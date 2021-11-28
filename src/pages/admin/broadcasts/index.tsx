@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
-import { Broadcasts } from 'components/Broadcasts'
+import { AdminLink, Broadcasts } from 'components/Broadcasts'
 import RecoilProvider from 'components/RecoilProvider'
-import Link from 'next/link'
 
 const BroadcastsIndex: NextPage = () => {
   return (
@@ -10,6 +9,7 @@ const BroadcastsIndex: NextPage = () => {
       <Head>
         <title>放送一覧ページ</title>
       </Head>
+      <AdminLink />
       <Broadcasts />
     </>
   )
