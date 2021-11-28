@@ -20,9 +20,10 @@ const Layout: VFC<Props> = (props) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user != null) {
+        const uid = user.uid
         const email = user.email
         const photoURL = user.photoURL
-        setLoginUser({ email, photoURL })
+        setLoginUser({ uid, email, photoURL })
       } else {
         resetStatus()
       }
