@@ -5,6 +5,7 @@ import { NextPage } from 'next'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
+  getLayoutScroll?: (page: ReactElement) => ReactNode
 }
 
 type AppPropsWithLayout = AppProps & {
@@ -12,8 +13,17 @@ type AppPropsWithLayout = AppProps & {
 }
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const getLayout = Component.getLayout ?? ((page) => page)
-  return getLayout(<Component {...pageProps} />)
+  if (Component.getLayout !== undefined) {
+    const getLayout = Component.getLayout ?? ((page) => page)
+    return getLayout(<Component {...pageProps} />)
+  }
+
+  if (Component.getLayoutScroll !== undefined) {
+    const getLayoutScroll = Component.getLayoutScroll ?? ((page) => page)
+    return getLayoutScroll(<Component {...pageProps} />)
+  }
+
+  return <Component {...pageProps} />
 }
 
 export default MyApp
