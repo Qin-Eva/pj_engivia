@@ -7,7 +7,11 @@ import Link from 'next/link'
 
 export const initialState: TCard[] = []
 
-export const Broadcasts: React.VFC = () => {
+type Props = {
+  isAdmin: boolean
+}
+
+export const Broadcasts: React.VFC<Props> = ({ isAdmin }) => {
   const [castsArray, setCastsArray] = useState<TCard[]>([])
 
   // 放送の一覧取得
@@ -32,27 +36,26 @@ export const Broadcasts: React.VFC = () => {
   }, [])
 
   return (
-    <div className="h-[calc(100vh-64px-5rem)]">
-      <div className="mx-auto w-3/5">
-        <ul className="overflow-y-auto h-[calc(100vh-64px-150px)]">
-          {castsArray.map((item) => {
-            return (
-              <li key={item.id} className="mt-[2px]">
-                <BroadcastCard {...item} />
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+    <div className="mx-auto w-[700px]">
+      {isAdmin ? adminTitle() : userTitle()}
+      <ul className="overflow-y-auto h-[calc(100vh-64px-150px)]">
+        {castsArray.map((item) => {
+          return (
+            <li key={item.id} className="mt-[2px]">
+              <BroadcastCard {...item} />
+            </li>
+          )
+        })}
+      </ul>
     </div>
   )
 }
 
-export const AdminLink: React.VFC = () => {
+export const adminTitle: React.VFC = () => {
   return (
-    <div className="flex justify-center bg-gray-200">
-      <div className="mb-[30px] w-[48%] text-4xl">放送一覧</div>
-      <div className="py-[13px] px-[25px] w-[162px] h-[50px] text-[16px] text-white bg-[#0284C7] rounded-md">
+    <div className="flex justify-between mb-[30px] bg-gray-200">
+      <div className="text-4xl">放送一覧</div>
+      <div className="py-[7px] px-[10px] text-[14px] text-white bg-[#0284C7] rounded-md">
         <Link href="/admin/broadcasts/create">
           <a>放送を作成する</a>
         </Link>
@@ -61,7 +64,7 @@ export const AdminLink: React.VFC = () => {
   )
 }
 
-export const UserLink: React.VFC = () => {
+export const userTitle: React.VFC = () => {
   return (
     <div className="flex justify-center bg-gray-200">
       <div className="mb-[30px] w-3/5 text-4xl">放送一覧</div>

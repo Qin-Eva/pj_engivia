@@ -9,8 +9,7 @@ const BroadcastsIndex: NextPage = () => {
       <Head>
         <title>放送一覧ページ</title>
       </Head>
-      <UserLink />
-      <Broadcasts />
+      <Broadcasts isAdmin={false} />
     </>
   )
 }
