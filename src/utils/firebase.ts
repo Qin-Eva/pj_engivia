@@ -13,7 +13,8 @@ import {
   FirestoreError,
   QuerySnapshot,
   Timestamp,
-  addDoc,
+  doc,
+  setDoc,
   getDocs,
   query,
   orderBy,
@@ -68,7 +69,7 @@ export const LoginWithGithub = async (): Promise<void> => {
         id = Number(doc.data().id) + 1
       })
       // users追加
-      await addDoc(collection(db, 'users'), {
+      await setDoc(doc(collection(db, 'users'), result.user.uid), {
         created_at: Timestamp.fromDate(new Date()),
         id: id === 0 ? 1 : id,
         name: result.user.displayName,
@@ -94,7 +95,7 @@ export const Logout = (): void => {
       window.location.reload()
     })
     .catch((error) => {
-      const errorMessage = error.errorMessage
+      console.error(error.errorMessage)
     })
 }
 

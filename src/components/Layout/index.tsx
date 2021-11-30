@@ -8,10 +8,11 @@ import { auth } from 'utils/firebase'
 
 type Props = {
   children: ReactNode
+  layout: string
 }
 
 const Layout: VFC<Props> = (props) => {
-  const { children } = props
+  const { children, layout } = props
 
   const setLoginUser = useSetRecoilState(loginUserState)
   const resetStatus = useResetRecoilState(loginUserState)
@@ -20,7 +21,9 @@ const Layout: VFC<Props> = (props) => {
     onAuthStateChanged(auth, (user) => {
       if (user != null) {
         const uid = user.uid
-        setLoginUser(uid)
+        const email = user.email
+        const photoURL = user.photoURL
+        setLoginUser({ uid, email, photoURL })
       } else {
         resetStatus()
       }
@@ -36,7 +39,12 @@ const Layout: VFC<Props> = (props) => {
       </Head>
       <main>
         <Header />
-        <div className="py-10 bg-gray-200">{children}</div>
+        <div
+          className={`py-10 bg-gray-200
+          ${layout === 'normal' ? 'h-[calc(100vh-64px)]' : ''}`}
+        >
+          {children}
+        </div>
       </main>
     </>
   )
