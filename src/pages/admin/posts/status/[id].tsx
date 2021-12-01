@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React, { useState } from 'react'
 import {
   DndContext,
@@ -138,9 +137,6 @@ const AdminAll = () => {
 
   return (
     <>
-      <Head>
-        <title>放送ステータスページ</title>
-      </Head>
       <div className="mx-auto w-[1200px]">
         <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
         <div className="mt-[32px]">
@@ -174,5 +170,6 @@ const AdminAll = () => {
 export default AdminAll
 
 AdminAll.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  const content = '放送ステータスページ';
+  return <RecoilProvider content={content}>{page}</RecoilProvider>
 }

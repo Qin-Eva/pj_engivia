@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { Button } from 'components/Button'
 import React, { useCallback, useState } from 'react'
 import { TitleWithLabel } from 'components/TitleWithLabel'
@@ -25,9 +24,6 @@ const Post: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>投稿作成ページ</title>
-      </Head>
       <div className="mx-auto w-[700px]">
         <Toaster />
         <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
@@ -56,5 +52,6 @@ const Post: NextPage = () => {
 export default Post
 
 Post.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  const content = '投稿作成ページ'
+  return <RecoilProvider content={content}>{page}</RecoilProvider>
 }

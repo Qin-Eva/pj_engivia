@@ -1,3 +1,4 @@
+import RecoilProvider from 'components/RecoilProvider'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { LoginWithGithub } from 'utils/firebase'
@@ -54,3 +55,8 @@ const Login: NextPage = () => {
 }
 
 export default Login
+
+Login.getLayout = (page) => {
+  const content = 'ログインページ'
+  return <RecoilProvider content={content}>{page}</RecoilProvider>
+}

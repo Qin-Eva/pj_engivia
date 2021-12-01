@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React from 'react'
 import { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
@@ -9,9 +8,6 @@ import RecoilProvider from 'components/RecoilProvider'
 const PostDetail: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>放送作成ページ</title>
-      </Head>
       <div className="mx-auto w-[700px]">
         <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
         <div className="p-8 mt-[32px] bg-white">
@@ -51,5 +47,6 @@ const PostDetail: NextPage = () => {
 export default PostDetail
 
 PostDetail.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  const content = '放送作成ページ'
+  return <RecoilProvider content={content}>{page}</RecoilProvider>
 }

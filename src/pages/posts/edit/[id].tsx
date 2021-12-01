@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React, { useState } from 'react'
 import { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
@@ -11,9 +10,6 @@ const PostEdit: NextPage = () => {
   )
   return (
     <>
-      <Head>
-        <title>投稿編集ページ</title>
-      </Head>
       <div className="mx-auto w-[700px]">
         <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
         <form className="block mt-[32px] w-full bg-white">
@@ -47,5 +43,6 @@ const PostEdit: NextPage = () => {
 export default PostEdit
 
 PostEdit.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  const content = '投稿編集ページ'
+  return <RecoilProvider content={content}>{page}</RecoilProvider>
 }

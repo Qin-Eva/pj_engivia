@@ -1,5 +1,4 @@
 import { Post } from 'components/Post'
-import Head from 'next/head'
 import type { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import { FirestoreCollection } from 'utils/firebase'
@@ -14,9 +13,6 @@ const Posts: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>投稿一覧ページ</title>
-      </Head>
       <div className="min-h-screen">
         <div className="flex flex-col items-center">
           <TitleWithLabel title="第n回エンジビアの泉" is_streamed={1} />
@@ -47,5 +43,6 @@ const Posts: NextPage = () => {
 export default Posts
 
 Posts.getLayoutScroll = (page) => {
-  return <RecoilProvider layoutType="scroll">{page}</RecoilProvider>
+  const content = '投稿一覧ページ'
+  return <RecoilProvider layoutType="scroll" content={content}>{page}</RecoilProvider>
 }

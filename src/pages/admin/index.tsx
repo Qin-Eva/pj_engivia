@@ -168,5 +168,6 @@ const AdminAll = () => {
 export default AdminAll
 
 AdminAll.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  const content = '投稿エンジニア確認ページ'
+  return <RecoilProvider content={content}>{page}</RecoilProvider>
 }
