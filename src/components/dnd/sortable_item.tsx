@@ -10,9 +10,7 @@ type Props = {
 export const Item: VFC<Props> = ({ id }) => {
   return (
     <div className="justify-center items-center p-4 my-2.5 w-full bg-white rounded-md shadow-md">
-      <p className="text-base">
-        id: {id} HTMLにはポータルという便利な要素がある
-      </p>
+      <p className="text-base">{id}</p>
       <div className="flex justify-start items-center mt-4 text-sm">
         <Image
           src="/Avatar.png"

@@ -11,3 +11,9 @@ export const loginUserState = atom<UserState>({
   default: { uid: null, email: null, photoURL: null },
   dangerouslyAllowMutability: true
 })
+
+export const isFeatureState = atom<boolean>({
+  key: 'isFeature',
+  default: false,
+  dangerouslyAllowMutability: true
+})

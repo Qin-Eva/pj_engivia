@@ -1,47 +1,12 @@
-import { addDoc, collection, doc, setDoc, Timestamp } from '@firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  setDoc,
+  Timestamp,
+  updateDoc
+} from '@firebase/firestore'
 import { db } from 'utils/firebase'
-
-const apiUrl = 'https://jsonplaceholder.typicode.com/posts'
-
-type PostType = {
-  uid: number
-  id: number
-  title: string
-  body: string
-  created_at: number
-}
-
-// 一覧取得データ
-// ソートは日付の降順（すなわち新しい日付の放送が上）
-export const getAllPostsData = async () => {
-  const res = await fetch(apiUrl)
-  const posts = await res.json()
-  const filteredPosts = posts.sort(
-    (a: PostType, b: PostType) => b.created_at - a.created_at
-  )
-  return filteredPosts
-}
-
-// データのIDを一覧取得
-export const getAllPostIds = async () => {
-  const res = await fetch(apiUrl)
-  const posts = await res.json()
-
-  return posts.map((post: PostType) => {
-    return {
-      params: {
-        id: String(post.id)
-      }
-    }
-  })
-}
-
-// IDから特定のデータを取得
-export const getPostData = async (id: string) => {
-  const res = await fetch(`${apiUrl}/${id}/`)
-  const post = await res.json()
-  return post
-}
 
 export const createPostData = async (
   content: string,
@@ -52,10 +17,22 @@ export const createPostData = async (
     user_id: 1,
     stream_id: 1,
     content: content,
+    is_featured: '1',
     created_at: new Date(),
     updated_at: new Date(),
     created_by: user,
     updated_by: user
+  })
+}
+
+export const UpdatePost = async (
+  docId: string,
+  id: string,
+  is_featured: string
+): Promise<void> => {
+  await updateDoc(doc(db, 'posts', docId), {
+    id,
+    is_featured
   })
 }
 
