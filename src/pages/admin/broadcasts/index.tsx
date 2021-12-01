@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import type { NextPage } from 'next'
-import { Broadcasts, UserLink } from 'components/Broadcasts'
+import { Broadcasts } from 'components/Broadcasts'
 import RecoilProvider from 'components/RecoilProvider'
 
 const BroadcastsIndex: NextPage = () => {
@@ -9,7 +9,7 @@ const BroadcastsIndex: NextPage = () => {
       <Head>
         <title>放送一覧ページ</title>
       </Head>
-      <Broadcasts isAdmin={false} />
+      <Broadcasts isAdmin={true} />
     </>
   )
 }
@@ -17,5 +17,5 @@ const BroadcastsIndex: NextPage = () => {
 export default BroadcastsIndex
 
 BroadcastsIndex.getLayout = (page) => {
-  return <RecoilProvider layoutType="normal">{page}</RecoilProvider>
+  return <RecoilProvider>{page}</RecoilProvider>
 }
