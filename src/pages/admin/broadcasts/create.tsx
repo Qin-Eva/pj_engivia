@@ -74,7 +74,7 @@ const CreateBroadcast: NextPage = () => {
               保存する
             </Button>
           </div>
-          <div>
+          <div className="py-[13px] px-[25px] w-[130px] h-[50px] text-[#0369A1] bg-[#EDF2FD] rounded-md">
             <Link href="/broadcasts">
               <a>キャンセル</a>
             </Link>
