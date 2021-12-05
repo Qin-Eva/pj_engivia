@@ -13,6 +13,5 @@ const BroadcastsIndex: NextPage = () => {
 export default BroadcastsIndex
 
 BroadcastsIndex.getLayout = (page) => {
-  const content = '放送一覧ページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="放送一覧ページ">{page}</RecoilProvider>
 }

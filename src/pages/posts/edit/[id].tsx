@@ -43,6 +43,5 @@ const PostEdit: NextPage = () => {
 export default PostEdit
 
 PostEdit.getLayout = (page) => {
-  const content = '投稿編集ページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="投稿編集ページ">{page}</RecoilProvider>
 }

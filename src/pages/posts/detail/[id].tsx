@@ -47,6 +47,5 @@ const PostDetail: NextPage = () => {
 export default PostDetail
 
 PostDetail.getLayout = (page) => {
-  const content = '放送作成ページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="放送作成ページ">{page}</RecoilProvider>
 }

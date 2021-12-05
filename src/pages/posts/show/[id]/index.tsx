@@ -58,6 +58,5 @@ const PostStandBy: NextPage = () => {
 export default PostStandBy
 
 PostStandBy.getLayout = (page) => {
-  const content = '投稿詳細ページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="投稿詳細ページ">{page}</RecoilProvider>
 }

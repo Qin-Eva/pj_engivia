@@ -84,6 +84,5 @@ const CreateBroadcast: NextPage = () => {
 export default CreateBroadcast
 
 CreateBroadcast.getLayout = (page) => {
-  const content = '放送ステータスページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="放送ステータスページ">{page}</RecoilProvider>
 }

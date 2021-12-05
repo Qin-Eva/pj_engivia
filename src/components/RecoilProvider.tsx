@@ -5,16 +5,16 @@ import Layout from './Layout'
 type Props = {
   children: ReactNode
   layoutType?: string
-  content: string
+  title: string
 }
 
-const RecoilProvider: VFC<Props> = ({ children, layoutType, content }) => {
+const RecoilProvider: VFC<Props> = ({ children, layoutType, title }) => {
   let layout = 'normal'
   if (layoutType === 'scroll') layout = 'scroll'
 
   return (
     <RecoilRoot>
-      <Layout layout={layout} content={content}>{children}</Layout>
+      <Layout layout={layout} title={title}>{children}</Layout>
     </RecoilRoot>
   )
 }

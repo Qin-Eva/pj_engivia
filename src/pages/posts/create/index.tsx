@@ -52,6 +52,5 @@ const Post: NextPage = () => {
 export default Post
 
 Post.getLayout = (page) => {
-  const content = '投稿作成ページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="投稿作成ページ">{page}</RecoilProvider>
 }

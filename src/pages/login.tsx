@@ -57,6 +57,5 @@ const Login: NextPage = () => {
 export default Login
 
 Login.getLayout = (page) => {
-  const content = 'ログインページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="ログインページ">{page}</RecoilProvider>
 }

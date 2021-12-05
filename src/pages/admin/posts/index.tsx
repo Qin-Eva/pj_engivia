@@ -76,6 +76,5 @@ const AdminPostPage: NextPage = () => {
 export default AdminPostPage
 
 AdminPostPage.getLayout = (page) => {
-  const content = '投稿一覧ページ'
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="投稿一覧ページ">{page}</RecoilProvider>
 }

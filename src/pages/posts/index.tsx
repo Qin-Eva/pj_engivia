@@ -44,5 +44,5 @@ export default Posts
 
 Posts.getLayoutScroll = (page) => {
   const content = '投稿一覧ページ'
-  return <RecoilProvider layoutType="scroll" content={content}>{page}</RecoilProvider>
+  return <RecoilProvider layoutType="scroll" title="投稿一覧ページ">{page}</RecoilProvider>
 }

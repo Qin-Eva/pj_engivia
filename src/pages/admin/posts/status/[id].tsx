@@ -170,6 +170,5 @@ const AdminAll = () => {
 export default AdminAll
 
 AdminAll.getLayout = (page) => {
-  const content = '放送ステータスページ';
-  return <RecoilProvider content={content}>{page}</RecoilProvider>
+  return <RecoilProvider title="放送ステータスページ">{page}</RecoilProvider>
 }
