@@ -55,7 +55,7 @@ export const postUrl = async (url: string, docId: string): Promise<void> => {
 
 export const getPost = async (
   streamDocId: string,
-  userDocId: string
+  userDocId: string | undefined
 ): Promise<DocumentData> => {
   const q = query(
     collection(db, 'posts'),
