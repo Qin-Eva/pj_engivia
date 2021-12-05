@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useMemo, VFC } from 'react'
 
 type Props = {
@@ -23,6 +24,7 @@ export const TitleWithLabel: VFC<Props> = (props) => {
           text: '放送済み',
           color: 'bg-gray-200 text-gray-900'
         }
+      default:
     }
   }, [props.is_streamed])
 

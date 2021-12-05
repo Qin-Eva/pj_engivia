@@ -1,32 +1,39 @@
-import React, { useState } from 'react'
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import Link from 'next/link'
+import Head from 'next/head'
+import { useSetRecoilState } from 'recoil'
+import { isFeatureState } from 'store/auth'
+import { usePostsData } from 'hooks/usePostsData'
+import { UpdatePost } from 'lib/posts'
 import {
-  DndContext,
-  DragOverlay,
-  closestCorners,
-  KeyboardSensor,
-  PointerSensor,
+  useSensors,
   useSensor,
-  useSensors
+  PointerSensor,
+  KeyboardSensor,
+  DragOverEvent,
+  DragEndEvent,
+  DndContext
 } from '@dnd-kit/core'
-import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import { NextPage } from 'next'
+import React, { useEffect } from 'react'
 import { Container } from 'components/dnd/container'
-import { Item } from 'components/dnd/sortable_item'
 import RecoilProvider from 'components/RecoilProvider'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 
-type Items = {
-  root: string[]
-  container1: string[]
-  container2: string[]
-}
+const AdminAll: NextPage = () => {
+  const { items, loading, error } = usePostsData(2)
+  const setIsFeature = useSetRecoilState(isFeatureState)
 
-const AdminAll = () => {
-  const [items, setItems] = useState<Items>({
-    root: ['1', '2', '3'],
-    container1: ['4', '5', '6'],
-    container2: ['7', '8', '9']
-  })
-  const [activeId, setActiveId] = useState<string | null>(null)
+  useEffect(() => {
+    if (items[2].length) {
+      setIsFeature(true)
+    } else {
+      setIsFeature(false)
+    }
+  }, [items, setIsFeature])
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -35,132 +42,94 @@ const AdminAll = () => {
     })
   )
 
-  const findContainer = (id: number) => {
-    if (id in items) {
-      return id
-    }
-
-    return Object.keys(items).find((key) =>
-      items[key as keyof Items].includes(String(id))
-    )
-  }
-
-  const handleDragStart = (event: any) => {
-    const { active } = event
-    const { id } = active
-    setActiveId(id)
-  }
-
-  const handleDragOver = (event: any) => {
-    const { active, over, draggingRect } = event
-    const { id } = active
-    const { id: overId } = over
-    const Rect = event.over.rect
-
-    // Find the containers
-    const activeContainer = findContainer(id) as keyof Items
-    const overContainer = findContainer(overId) as keyof Items
-
-    if (
-      !activeContainer ||
-      !overContainer ||
-      activeContainer === overContainer
-    ) {
+  const handleDragOver = ({ active, over }: DragOverEvent): void => {
+    const overId = over?.id
+    if (!overId) {
       return
     }
 
-    setItems((prev) => {
-      const activeItems = prev[activeContainer]
-      const overItems = prev[overContainer]
+    const activeContainer = active.data.current?.sortable.containerId
+    const overContainer = over.data.current?.sortable.containerId
 
-      // Find the indexes for the items
-      const activeIndex = activeItems.indexOf(id)
-      const overIndex = overItems.indexOf(overId)
+    if (!overContainer) {
+      return
+    }
 
-      let newIndex
-      if (overId in prev) {
-        // We're at the root droppable of a container
-        newIndex = overItems.length + 1
+    if (activeContainer !== overContainer) {
+      const activeDoc =
+        items[activeContainer]?.filter(
+          (item) => item.docContent === active.id
+        ) ?? []
+      const activeDocId = activeDoc[0]?.docId
+      const activePostId = activeDoc[0]?.docPostId
+      UpdatePost(activeDocId, activePostId, overContainer)
+    }
+  }
+
+  const handleDragEnd = ({ over, active }: DragEndEvent): void => {
+    if (!over) {
+      return
+    }
+
+    if (active.id !== over.id) {
+      const activeContainer = active.data.current?.sortable.containerId
+      const overContainer = over.data.current?.sortable.containerId || over.id
+
+      if (activeContainer === overContainer) {
+        const activeDoc =
+          items[activeContainer]?.filter(
+            (item) => item.docContent === active.id
+          ) ?? []
+        const activeDocId = activeDoc[0]?.docId
+        const activePostId = activeDoc[0]?.docPostId
+
+        const overDoc =
+          items[overContainer]?.filter((item) => item.docContent === over.id) ??
+          []
+        const overDocId = overDoc[0]?.docId
+        const overPostId = overDoc[0]?.docPostId
+
+        UpdatePost(activeDocId, overPostId, activeContainer)
+        UpdatePost(overDocId, activePostId, activeContainer)
       } else {
-        const isBelowLastItem =
-          over &&
-          overIndex === overItems.length - 1 &&
-          Rect.offsetTop > over.rect.offsetTop + over.rect.height
+        const activeDoc =
+          items[activeContainer]?.filter(
+            (item) => item.docContent === active.id
+          ) ?? []
+        const activeDocId = activeDoc[0]?.docId
+        const activePostId = activeDoc[0]?.docPostId
 
-        const modifier = isBelowLastItem ? 1 : 0
-
-        newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1
+        UpdatePost(activeDocId, activePostId, overContainer)
       }
-
-      return {
-        ...prev,
-        [activeContainer]: [
-          ...prev[activeContainer].filter((item) => item !== active.id)
-        ],
-        [overContainer]: [
-          ...prev[overContainer].slice(0, newIndex),
-          items[activeContainer][activeIndex],
-          ...prev[overContainer].slice(newIndex, prev[overContainer].length)
-        ]
-      }
-    })
+    }
   }
 
-  const handleDragEnd = (event: any) => {
-    const { active, over } = event
-    const { id } = active
-    const { id: overId } = over
-
-    const activeContainer = findContainer(id) as keyof Items
-    const overContainer = findContainer(overId) as keyof Items
-
-    if (
-      !activeContainer ||
-      !overContainer ||
-      activeContainer !== overContainer
-    ) {
-      return
-    }
-
-    const activeIndex = items[activeContainer].indexOf(active.id)
-    const overIndex = items[overContainer].indexOf(overId)
-
-    if (activeIndex !== overIndex) {
-      setItems((items) => ({
-        ...items,
-        [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex)
-      }))
-    }
-
-    setActiveId(null)
+  if (loading) {
+    return <div>loading...</div>
   }
 
   return (
     <>
       <div className="mx-auto w-[1200px]">
         <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
-        <div className="mt-[32px]">
-          <div className="flex flex-row">
-            <DndContext
-              sensors={sensors}
-              collisionDetection={(e) => closestCorners(e)}
-              onDragStart={(e) => handleDragStart(e)}
-              onDragOver={(e) => handleDragOver(e)}
-              onDragEnd={(e) => handleDragEnd(e)}
-            >
-              <Container id="root" items={items.root} title="フィーチャー前" />
-              <Container
-                id="container1"
-                items={items.container1}
-                title="フィーチャー中"
-              />
-              <Container
-                id="container2"
-                items={items.container2}
-                title="フィーチャー後"
-              />
-            </DndContext>
-          </div>
+        <div className="object-right absolute right-0 z-10">
+          <Link href="/">
+            <a className="py-3 px-6 m-4 text-[#0369A1] bg-[#E0F2FE] rounded-md">
+              放送を終了する
+            </a>
+          </Link>
+        </div>
+
+        <div className="flex flex-row mt-8">
+          <DndContext
+            sensors={sensors}
+            onDragOver={handleDragOver}
+            onDragEnd={handleDragEnd}
+          >
+            <Container id="1" items={items[1]} title="フィーチャー前" />
+            <Container id="2" items={items[2]} title="フィーチャー中" />
+            <Container id="3" items={items[3]} title="フィーチャー後" />
+          </DndContext>
         </div>
       </div>
     </>
