@@ -1,6 +1,12 @@
 import { collection, addDoc, getDocs, query } from 'firebase/firestore'
 import { db } from 'utils/firebase'
-import { QuerySnapshot, DocumentData, Timestamp } from '@firebase/firestore'
+import {
+  QuerySnapshot,
+  DocumentData,
+  Timestamp,
+  updateDoc,
+  doc
+} from '@firebase/firestore'
 
 export type TStream = {
   hee_count: number
@@ -25,5 +31,18 @@ export const addStream = async (data: TStream): void => {
     await addDoc(collection(db, 'streams'), data)
   } catch (e: Error) {
     throw new Error('放送は登録できませんでした。')
+  }
+}
+
+export const updateStreamStatus = async (
+  is_streamed: number,
+  id: string
+): Promise<void> => {
+  try {
+    await updateDoc(doc(db, 'streams', id), {
+      is_streamed
+    })
+  } catch (e: Error) {
+    throw new Error('放送の状態を更新できませんでした。')
   }
 }

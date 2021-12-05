@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import Link from 'next/link'
 import Head from 'next/head'
 import { useSetRecoilState } from 'recoil'
 import { isFeatureState } from 'store/auth'
@@ -22,8 +21,16 @@ import React, { useEffect } from 'react'
 import { Container } from 'components/dnd/container'
 import RecoilProvider from 'components/RecoilProvider'
 import { TitleWithLabel } from 'components/TitleWithLabel'
+import { BroadcastStatusButton } from 'components/BroadcastStatusButton'
+import { useStream } from 'hooks/useStream'
 
 const AdminAll: NextPage = () => {
+  const {
+    item: streamItem,
+    loading: stramLoading,
+    error: streamError
+  } = useStream('YinLMdrhzKvLiCZ0aL9o')
+
   const { items, loading, error } = usePostsData(2)
   const setIsFeature = useSetRecoilState(isFeatureState)
 
@@ -104,7 +111,7 @@ const AdminAll: NextPage = () => {
     }
   }
 
-  if (loading) {
+  if (loading || stramLoading) {
     return <div>loading...</div>
   }
 
@@ -113,16 +120,12 @@ const AdminAll: NextPage = () => {
       <Head>
         <title>放送ステータスページ</title>
       </Head>
-      <div className="mx-auto w-[1200px]">
-        <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
-        <div className="object-right absolute right-0 z-10">
-          <Link href="/">
-            <a className="py-3 px-6 m-4 text-[#0369A1] bg-[#E0F2FE] rounded-md">
-              放送を終了する
-            </a>
-          </Link>
-        </div>
-
+      <div className="relative mx-auto w-[1200px]">
+        <TitleWithLabel
+          title="第4回エンジビアの泉"
+          is_streamed={streamItem?.is_streamed}
+        />
+        <BroadcastStatusButton is_streamed={streamItem?.is_streamed} />
         <div className="flex flex-row mt-8">
           <DndContext
             sensors={sensors}
