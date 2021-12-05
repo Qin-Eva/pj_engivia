@@ -158,5 +158,5 @@ const AdminAll: NextPage = () => {
 export default AdminAll
 
 AdminAll.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider title="放送ステータスページ">{page}</RecoilProvider>
 }

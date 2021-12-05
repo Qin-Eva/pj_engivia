@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { Post } from 'components/Post'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import { NextPage } from 'next'
@@ -7,6 +6,7 @@ import React, { useState } from 'react'
 import { Button } from 'components/Button'
 import { postUrl } from 'lib/posts'
 import toast, { Toaster } from 'react-hot-toast'
+import RecoilProvider from 'components/RecoilProvider'
 
 const AdminPostPage: NextPage = () => {
   const { value, loading, error } = FirestoreCollection('tests')
@@ -25,9 +25,6 @@ const AdminPostPage: NextPage = () => {
   }
   return (
     <>
-      <Head>
-        <title>投稿一覧ページ</title>
-      </Head>
       <div className="min-h-screen">
         <Toaster />
         <div className="flex flex-col items-center">
@@ -77,3 +74,7 @@ const AdminPostPage: NextPage = () => {
 }
 
 export default AdminPostPage
+
+AdminPostPage.getLayout = (page) => {
+  return <RecoilProvider title="投稿一覧ページ">{page}</RecoilProvider>
+}
