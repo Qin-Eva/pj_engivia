@@ -110,9 +110,6 @@ const AdminAll: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>放送ステータスページ</title>
-      </Head>
       <div className="mx-auto w-[1200px]">
         <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
         <div className="object-right absolute right-0 z-10">
@@ -142,5 +139,5 @@ const AdminAll: NextPage = () => {
 export default AdminAll
 
 AdminAll.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider title="放送ステータスページ">{page}</RecoilProvider>
 }
