@@ -8,14 +8,6 @@ type Props = {
 }
 
 export const BroadcastStatusButton: VFC<Props> = (props) => {
-  const router = useRouter()
-
-  const broadcastId = useMemo(() => {
-    const id = router.query.id as string
-
-    return id
-  }, [router.query.id])
-
   const statusChange = (): void => {
     const is_streamed = props.is_streamed + 1
     void updateStreamStatus(is_streamed, broadcastId)
