@@ -1,16 +1,16 @@
 import { updateStreamStatus } from 'lib/streamImpl'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useMemo, VFC } from 'react'
+import { VFC } from 'react'
 
 type Props = {
   is_streamed: number
+  id: string
 }
 
 export const BroadcastStatusButton: VFC<Props> = (props) => {
   const statusChange = (): void => {
     const is_streamed = props.is_streamed + 1
-    void updateStreamStatus(is_streamed, broadcastId)
+    void updateStreamStatus(is_streamed, props.id)
   }
 
   switch (props.is_streamed) {

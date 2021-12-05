@@ -127,7 +127,10 @@ const AdminAll: NextPage = () => {
           title="第4回エンジビアの泉"
           is_streamed={streamItem?.is_streamed}
         />
-        <BroadcastStatusButton is_streamed={streamItem?.is_streamed} />
+        <BroadcastStatusButton
+          is_streamed={streamItem?.is_streamed}
+          id={'YinLMdrhzKvLiCZ0aL9o'}
+        />
         <div className="flex flex-row mt-8">
           <DndContext
             sensors={sensors}
