@@ -123,6 +123,11 @@ const AdminAll: NextPage = () => {
     return <div>loading...</div>
   }
 
+  if (streamItem?.is_streamed === 3) {
+    alert('この放送は終了しています！')
+    router.push('/broadcasts')
+  }
+
   return (
     <>
       <Head>

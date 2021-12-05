@@ -1,5 +1,6 @@
 import { updateStreamStatus } from 'lib/streamImpl'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { VFC } from 'react'
 
 type Props = {
@@ -8,9 +9,13 @@ type Props = {
 }
 
 export const BroadcastStatusButton: VFC<Props> = (props) => {
+  const router = useRouter()
   const statusChange = (): void => {
     const is_streamed = props.is_streamed + 1
     void updateStreamStatus(is_streamed, props.id)
+    if (is_streamed === 3) {
+      void router.push('/admin/posts')
+    }
   }
 
   switch (props.is_streamed) {
