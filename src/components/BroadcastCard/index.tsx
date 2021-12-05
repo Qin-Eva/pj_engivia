@@ -5,7 +5,6 @@ import {
   faCalendarWeek,
   faGraduationCap
 } from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'next/router'
 
 export type TCard = {
   id: string
@@ -22,7 +21,6 @@ export const BroadcastCard: VFC<TCard> = ({
   stream_date,
   hee_count
 }) => {
-  const router = useRouter()
   const statusText = useMemo(() => {
     switch (is_streamed) {
       case 1:
@@ -34,20 +32,9 @@ export const BroadcastCard: VFC<TCard> = ({
     }
   }, [is_streamed])
 
-  const moveLink = (): void => {
-    // void router.replace(`/admin/posts/status/${id}`)
-    void router.push({
-      pathname: '/admin/posts/status/[id]',
-      query: { id }
-    })
-  }
-
   return (
     <Link href={`/admin/posts/status/${id}`} passHref>
-      <a
-        onClick={moveLink}
-        className="flex justify-between p-5 bg-white hover:opacity-50 transition duration-300"
-      >
+      <a className="flex justify-between p-5 bg-white hover:opacity-50 transition duration-300">
         <div className="">
           <h3 className="text-[14px] text-blue-400">{title}</h3>
           <div className="flex items-center mt-[8px]">
