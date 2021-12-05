@@ -17,7 +17,7 @@ import {
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { NextPage } from 'next'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'components/dnd/container'
 import RecoilProvider from 'components/RecoilProvider'
 import { TitleWithLabel } from 'components/TitleWithLabel'
@@ -28,8 +28,6 @@ import { useRouter } from 'next/router'
 const AdminAll: NextPage = () => {
   const router = useRouter()
   const id = router.query.id as string
-
-  // TODO: ページ遷移時にidを渡す
 
   const {
     item: streamItem,
@@ -105,6 +103,10 @@ const AdminAll: NextPage = () => {
         UpdatePost(activeDocId, overPostId, activeContainer)
         UpdatePost(overDocId, activePostId, activeContainer)
       } else {
+        if (streamItem?.is_streamed === 1) {
+          alert('放送を開始してください！')
+          return
+        }
         const activeDoc =
           items[activeContainer]?.filter(
             (item) => item.docContent === active.id
