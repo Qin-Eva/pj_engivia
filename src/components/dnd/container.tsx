@@ -22,7 +22,7 @@ export const Container: VFC<Props> = ({ id, items, title }) => {
   })
 
   return (
-    <div className="flex-1 p-2 m-2 bg-gray-100">
+    <div className="flex-1 p-2 m-2 ">
       <h3 className="flex justify-center items-center h-12 font-semibold bg-gray-300 rounded-md">
         {title}
       </h3>
