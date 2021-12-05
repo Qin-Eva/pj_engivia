@@ -17,7 +17,7 @@ import {
 } from '@dnd-kit/core'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { NextPage } from 'next'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Container } from 'components/dnd/container'
 import RecoilProvider from 'components/RecoilProvider'
 import { TitleWithLabel } from 'components/TitleWithLabel'
@@ -25,13 +25,15 @@ import { BroadcastStatusButton } from 'components/BroadcastStatusButton'
 import { useStream } from 'hooks/useStream'
 
 const AdminAll: NextPage = () => {
+  // TODO: ページ遷移時にidを渡すs
+
   const {
     item: streamItem,
     loading: stramLoading,
     error: streamError
   } = useStream('YinLMdrhzKvLiCZ0aL9o')
 
-  const { items, loading, error } = usePostsData(2)
+  const { items, loading, error } = usePostsData('YinLMdrhzKvLiCZ0aL9o')
   const setIsFeature = useSetRecoilState(isFeatureState)
 
   useEffect(() => {

@@ -33,7 +33,7 @@ type Posts = {
   error: FirestoreError | undefined
 }
 
-export const usePostsData = (stream_id: number): Posts => {
+export const usePostsData = (stream_id: string): Posts => {
   const [value, loading, error] = useCollection(
     query(
       collection(getFirestore(app), 'posts'),
