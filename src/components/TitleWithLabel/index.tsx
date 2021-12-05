@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useMemo, VFC } from 'react'
 
 type Props = {
@@ -7,7 +6,7 @@ type Props = {
 }
 
 export const TitleWithLabel: VFC<Props> = (props) => {
-  const status = useMemo(() => {
+  const status: { text: string; color: string } = useMemo(() => {
     switch (props.is_streamed) {
       case 1:
         return {
@@ -25,6 +24,10 @@ export const TitleWithLabel: VFC<Props> = (props) => {
           color: 'bg-gray-200 text-gray-900'
         }
       default:
+        return {
+          text: '',
+          color: ''
+        }
     }
   }, [props.is_streamed])
 
