@@ -9,6 +9,7 @@ import { getPost } from 'lib/posts'
 import router, { useRouter } from 'next/router'
 import { doc, DocumentData, Timestamp, updateDoc } from '@firebase/firestore'
 import { getStream } from 'lib/streamImpl'
+import { Input } from 'components/Input'
 
 const PostEdit: NextPage = () => {
   const [text, setText] = useState<string>()
@@ -59,14 +60,10 @@ const PostEdit: NextPage = () => {
           is_streamed={stream?.is_streamed}
         />
         <form className="block mt-[32px] w-full bg-white">
-          <textarea
-            className="block text-[36px] textarea"
-            placeholder="エンジビアを入力する"
+          <Input
+            areaType="text"
+            onChange={(e) => setText(e.target.value)}
             value={text}
-            rows={2}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setText(e.target.value)
-            }
           />
         </form>
         <div className="flex justify-center mt-[32px]">

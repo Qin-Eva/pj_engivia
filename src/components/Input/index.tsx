@@ -48,8 +48,8 @@ const inputType = (props: Props, placeholder?: string): JSX.Element => {
 const inputTextArea = (props: Props, placeholder?: string): JSX.Element => {
   return (
     <textarea
-      rows={3}
-      className={`text-[24px] font-bold placeholder-gray-500 placeholder-opacity-30 textarea ${
+      rows={2}
+      className={`text-[36px] placeholder-gray-500 placeholder-opacity-30 textarea ${
         props.style ?? ''
       }`}
       value={props.value}
