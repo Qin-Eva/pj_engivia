@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import { UserCard } from 'components/UserCard'
 import type { TUserCard } from 'components/UserCard'
@@ -27,9 +26,6 @@ const UserCardData: TUserCard[] = [
 const PostStandBy: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>投稿詳細ページ</title>
-      </Head>
       <div className="mx-auto w-[704px]">
         <div className="relative">
           <TitleWithLabel title="第4回エンジビアの泉" is_streamed={2} />
@@ -62,5 +58,5 @@ const PostStandBy: NextPage = () => {
 export default PostStandBy
 
 PostStandBy.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider title="投稿詳細ページ">{page}</RecoilProvider>
 }

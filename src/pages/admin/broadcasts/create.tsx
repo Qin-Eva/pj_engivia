@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { Button } from 'components/Button'
@@ -29,9 +28,6 @@ const CreateBroadcast: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>放送作成ページ</title>
-      </Head>
       <div>
         <div className="mx-auto mb-[30px] w-3/5 text-4xl font-medium">
           放送を作成
@@ -88,5 +84,5 @@ const CreateBroadcast: NextPage = () => {
 export default CreateBroadcast
 
 CreateBroadcast.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider title="放送ステータスページ">{page}</RecoilProvider>
 }
