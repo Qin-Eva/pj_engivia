@@ -1,11 +1,10 @@
-import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
 import Image from 'next/image'
 import Button from 'components/Button'
 import RecoilProvider from 'components/RecoilProvider'
-import router, { useRouter } from 'next/router'
+import router from 'next/router'
 import { deleteDoc, doc, DocumentData } from '@firebase/firestore'
 import { db, firebaseUser } from 'utils/firebase'
 import { getPost } from 'lib/posts'
@@ -13,7 +12,7 @@ import { getStream } from 'lib/streamImpl'
 import { getLoginUser } from 'lib/users'
 
 const PostDetail: NextPage = () => {
-  const streamDocId = useRouter().query.id as string
+  const streamDocId = router.query.id as string
   const [stream, setStream] = useState<DocumentData>()
   const [post, setPost] = useState<DocumentData>()
   const [user, setUser] = useState<DocumentData>()
@@ -53,9 +52,6 @@ const PostDetail: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>投稿詳細ページ</title>
-      </Head>
       <div className="mx-auto w-[700px]">
         <TitleWithLabel
           title={stream?.title}
@@ -98,5 +94,5 @@ const PostDetail: NextPage = () => {
 export default PostDetail
 
 PostDetail.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider title="放送作成ページ">{page}</RecoilProvider>
 }

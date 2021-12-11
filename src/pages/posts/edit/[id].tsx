@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { TitleWithLabel } from 'components/TitleWithLabel'
@@ -6,14 +5,14 @@ import Button from 'components/Button'
 import RecoilProvider from 'components/RecoilProvider'
 import { db, firebaseUser } from 'utils/firebase'
 import { getPost } from 'lib/posts'
-import router, { useRouter } from 'next/router'
+import router from 'next/router'
 import { doc, DocumentData, Timestamp, updateDoc } from '@firebase/firestore'
 import { getStream } from 'lib/streamImpl'
 import { Input } from 'components/Input'
 
 const PostEdit: NextPage = () => {
   const [text, setText] = useState<string>()
-  const streamDocId = useRouter().query.id as string
+  const streamDocId = router.query.id as string
   const [stream, setStream] = useState<DocumentData>()
 
   const savePost = async (): Promise<void> => {
@@ -51,9 +50,6 @@ const PostEdit: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>投稿編集ページ</title>
-      </Head>
       <div className="mx-auto w-[700px]">
         <TitleWithLabel
           title={stream?.title}
@@ -86,5 +82,5 @@ const PostEdit: NextPage = () => {
 export default PostEdit
 
 PostEdit.getLayout = (page) => {
-  return <RecoilProvider>{page}</RecoilProvider>
+  return <RecoilProvider title="投稿編集ページ">{page}</RecoilProvider>
 }
