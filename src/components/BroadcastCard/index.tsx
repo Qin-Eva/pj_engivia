@@ -33,7 +33,7 @@ export const BroadcastCard: VFC<TCard> = ({
   }, [is_streamed])
 
   return (
-    <Link href={`/admin/posts/status/${id}`} passHref>
+    <Link href={`/posts/detail/${id}`}>
       <a className="flex justify-between p-5 bg-white hover:opacity-50 transition duration-300">
         <div className="">
           <h3 className="text-[14px] text-blue-400">{title}</h3>

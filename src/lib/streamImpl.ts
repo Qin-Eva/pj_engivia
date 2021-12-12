@@ -5,7 +5,8 @@ import {
   DocumentData,
   Timestamp,
   updateDoc,
-  doc
+  doc,
+  getDoc
 } from '@firebase/firestore'
 
 export type TStream = {
@@ -26,7 +27,7 @@ export const getStreams = async (): Promise<QuerySnapshot<DocumentData>> => {
   }
 }
 
-export const addStream = async (data: TStream): void => {
+export const addStream = async (data: TStream): Promise<void> => {
   try {
     await addDoc(collection(db, 'streams'), data)
   } catch (e: Error) {
@@ -45,4 +46,13 @@ export const updateStreamStatus = async (
   } catch (e: Error) {
     throw new Error('放送の状態を更新できませんでした。')
   }
+}
+
+export const getStream = async (streamDocId: string): Promise<DocumentData> => {
+  const docRef = doc(db, 'streams', streamDocId)
+  const docSnap = await getDoc(docRef)
+  if (!docSnap.exists()) {
+    throw new Error('放送を取得できませんでした。')
+  }
+  return docSnap.data()
 }
