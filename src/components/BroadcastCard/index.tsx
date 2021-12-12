@@ -50,9 +50,9 @@ export const BroadcastCard: VFC<TCard> = ({
         <div className="flex flex-col items-end">
           <span
             className={`text-[12px] rounded-full px-2 py-1 float-righ
-              ${is_streamed === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
-              ${is_streamed === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
-              ${is_streamed === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
+          ${is_streamed === 1 ? 'bg-[#FFEDD5] text-[#C2410C]' : ''}
+          ${is_streamed === 2 ? 'bg-[#E5E7EB] text-[#111827]' : ''}
+          ${is_streamed === 3 ? 'bg-[#D1FAE5] text-[#047857]' : ''}`}
           >
             {statusText}
           </span>

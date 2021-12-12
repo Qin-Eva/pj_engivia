@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import Link from 'next/link'
 import Head from 'next/head'
 import { useSetRecoilState } from 'recoil'
 import { isFeatureState } from 'store/auth'
@@ -22,9 +21,21 @@ import React, { useEffect } from 'react'
 import { Container } from 'components/dnd/container'
 import RecoilProvider from 'components/RecoilProvider'
 import { TitleWithLabel } from 'components/TitleWithLabel'
+import { BroadcastStatusButton } from 'components/BroadcastStatusButton'
+import { useStream } from 'hooks/useStream'
+import { useRouter } from 'next/router'
 
 const AdminAll: NextPage = () => {
-  const { items, loading, error } = usePostsData(2)
+  const router = useRouter()
+  const id = router.query.id as string
+
+  const {
+    item: streamItem,
+    loading: stramLoading,
+    error: streamError
+  } = useStream(id)
+
+  const { items, loading, error } = usePostsData(id)
   const setIsFeature = useSetRecoilState(isFeatureState)
 
   useEffect(() => {
@@ -92,6 +103,10 @@ const AdminAll: NextPage = () => {
         UpdatePost(activeDocId, overPostId, activeContainer)
         UpdatePost(overDocId, activePostId, activeContainer)
       } else {
+        if (streamItem?.is_streamed === 1) {
+          alert('放送を開始してください！')
+          return
+        }
         const activeDoc =
           items[activeContainer]?.filter(
             (item) => item.docContent === active.id
@@ -104,22 +119,26 @@ const AdminAll: NextPage = () => {
     }
   }
 
-  if (loading) {
+  if (loading || stramLoading) {
     return <div>loading...</div>
+  }
+
+  if (streamItem?.is_streamed === 3) {
+    alert('この放送は終了しています！')
+    router.push('/broadcasts')
   }
 
   return (
     <>
-      <div className="mx-auto w-[1200px]">
-        <TitleWithLabel title="第4回エンジビアの泉" is_streamed={1} />
-        <div className="object-right absolute right-0 z-10">
-          <Link href="/">
-            <a className="py-3 px-6 m-4 text-[#0369A1] bg-[#E0F2FE] rounded-md">
-              放送を終了する
-            </a>
-          </Link>
-        </div>
-
+      <Head>
+        <title>放送ステータスページ</title>
+      </Head>
+      <div className="relative mx-auto w-[1200px]">
+        <TitleWithLabel
+          title={streamItem?.title}
+          is_streamed={streamItem?.is_streamed}
+        />
+        <BroadcastStatusButton is_streamed={streamItem?.is_streamed} id={id} />
         <div className="flex flex-row mt-8">
           <DndContext
             sensors={sensors}
