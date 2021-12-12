@@ -2,9 +2,14 @@ import {
   addDoc,
   collection,
   doc,
+  DocumentData,
+  getDocs,
+  limit,
+  query,
   setDoc,
   Timestamp,
-  updateDoc
+  updateDoc,
+  where
 } from '@firebase/firestore'
 import { db } from 'utils/firebase'
 
@@ -46,4 +51,20 @@ export const postUrl = async (url: string, docId: string): Promise<void> => {
     },
     { merge: true }
   )
+}
+
+export const getPost = async (
+  streamDocId: string,
+  userDocId: string | undefined
+): Promise<DocumentData> => {
+  const q = query(
+    collection(db, 'posts'),
+    where('stream_id', '==', streamDocId),
+    where('created_by', '==', userDocId),
+    limit(1)
+  )
+
+  const querySnapshot = await getDocs(q)
+  const docs = querySnapshot.docs.map((doc: DocumentData) => doc)
+  return docs[0]
 }

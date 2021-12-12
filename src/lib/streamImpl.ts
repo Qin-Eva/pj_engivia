@@ -1,6 +1,12 @@
 import { collection, addDoc, getDocs, query } from 'firebase/firestore'
 import { db } from 'utils/firebase'
-import { QuerySnapshot, DocumentData, Timestamp } from '@firebase/firestore'
+import {
+  QuerySnapshot,
+  DocumentData,
+  Timestamp,
+  doc,
+  getDoc
+} from '@firebase/firestore'
 
 export type TStream = {
   hee_count: number
@@ -26,4 +32,13 @@ export const addStream = async (data: TStream): void => {
   } catch (e: Error) {
     throw new Error('放送は登録できませんでした。')
   }
+}
+
+export const getStream = async (streamDocId: string): Promise<DocumentData> => {
+  const docRef = doc(db, 'streams', streamDocId)
+  const docSnap = await getDoc(docRef)
+  if (!docSnap.exists()) {
+    throw new Error('放送を取得できませんでした。')
+  }
+  return docSnap.data()
 }
