@@ -12,18 +12,13 @@ import toast from 'react-hot-toast'
 const CreateBroadcast: NextPage = () => {
   const [title, setTitle] = useState<string>('')
   const [date, setDate] = useState<string>('')
-  const notify = (): void => {
-    if (title === '') {
-      toast.error('タイトルを入力して下さい')
-      return
-    }
-    toast.success('保存できました')
-  }
 
   const clickHandler = useCallback(async (): void => {
     if (title === '' || date === '') {
+      toast.error('タイトルもしくは日にちを入力出来ていません')
       return
     }
+    toast.success('保存できました!')
     const data: TStream = {
       hee_count: 0,
       is_streamed: 1,
@@ -76,7 +71,6 @@ const CreateBroadcast: NextPage = () => {
             <Button
               type="primary"
               onClick={() => {
-                notify()
                 clickHandler()
               }}
             >
