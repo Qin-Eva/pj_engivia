@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Broadcasts, UserLink } from 'components/Broadcasts'
+import { Broadcasts } from 'components/Broadcasts'
 import RecoilProvider from 'components/RecoilProvider'
 
 const BroadcastsIndex: NextPage = () => {

@@ -6,6 +6,7 @@ import type { TStream } from 'lib/streamImpl'
 import { ChangeEvent, useCallback, useState } from 'react'
 import RecoilProvider from 'components/RecoilProvider'
 import { Timestamp } from '@firebase/firestore'
+import toast from 'react-hot-toast'
 
 const CreateBroadcast: NextPage = () => {
   const [title, setTitle] = useState<string>('')
@@ -13,8 +14,10 @@ const CreateBroadcast: NextPage = () => {
 
   const clickHandler = useCallback(async (): void => {
     if (title === '' || date === '') {
+      toast.error('タイトルもしくは日にちを入力出来ていません')
       return
     }
+    toast.success('保存できました!')
     const data: TStream = {
       hee_count: 0,
       is_streamed: 1,
@@ -70,7 +73,7 @@ const CreateBroadcast: NextPage = () => {
               保存する
             </Button>
           </div>
-          <div>
+          <div className="py-[13px] px-[25px] w-[130px] h-[50px] text-[#0369A1] bg-[#EDF2FD] rounded-md">
             <Link href="/broadcasts">
               <a>キャンセル</a>
             </Link>

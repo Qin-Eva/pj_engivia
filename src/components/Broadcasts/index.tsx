@@ -66,7 +66,7 @@ export const adminTitle: React.VFC = () => {
 
 export const userTitle: React.VFC = () => {
   return (
-    <div className="flex justify-center bg-gray-200">
+    <div className="bg-gray-200">
       <div className="mb-[30px] w-3/5 text-4xl">放送一覧</div>
     </div>
   )
