@@ -15,14 +15,20 @@ const RecoilProvider: VFC<Props> = ({ children, layoutType }) => {
 
   return (
     <RecoilRoot>
-      <LoginCheck>
-        {layout !== null ? (
-          <Layout layout={layout}>{children}</Layout>
-        ) : (
-          <>{children}</>
-        )}
-      </LoginCheck>
+      <LoginCheck>{showLayout({ layout, children })}</LoginCheck>
     </RecoilRoot>
+  )
+}
+
+type showLayoutProps = {
+  layout: string | null
+}
+
+const showLayout: JSX.Element<showLayoutProps> = ({ layout, children }) => {
+  return layout !== null ? (
+    <Layout layout={layout}>{children}</Layout>
+  ) : (
+    <>{children}</>
   )
 }
 

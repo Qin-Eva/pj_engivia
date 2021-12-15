@@ -1,8 +1,6 @@
-import { ReactNode, useEffect, VFC, useState } from 'react'
+import { ReactNode, useEffect, VFC } from 'react'
 import Head from 'next/head'
 import { Header } from 'components/Header'
-import { useRecoilValue } from 'recoil'
-import { loginUserState } from 'store/auth'
 
 type Props = {
   children: ReactNode
@@ -11,14 +9,6 @@ type Props = {
 
 const Layout: VFC<Props> = (props) => {
   const { children, layout } = props
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const userState = useRecoilValue(loginUserState)
-
-  useEffect(() => {
-    if (userState.uid !== null) {
-      setIsLoaded(true)
-    }
-  }, [userState, setIsLoaded])
 
   return (
     <>
@@ -28,19 +18,13 @@ const Layout: VFC<Props> = (props) => {
         <link rel="icon" href="/Icon.svg" />
       </Head>
       <main>
-        {isLoaded ? (
-          <>
-            <Header />
-            <div
-              className={`py-10 bg-gray-200
-                ${layout === 'normal' ? 'h-[calc(100vh-64px)]' : ''}`}
-            >
-              {children}
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
+        <Header />
+        <div
+          className={`py-10 bg-gray-200
+            ${layout === 'normal' ? 'h-[calc(100vh-64px)]' : ''}`}
+        >
+          {children}
+        </div>
       </main>
     </>
   )
