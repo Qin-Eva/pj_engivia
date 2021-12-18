@@ -11840,6 +11840,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typesaurus@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/typesaurus/-/typesaurus-7.2.0.tgz#e0d581b27000f0af728b8b9e07be18f67dda08e7"
+  integrity sha512-qngW0ECsnEoPmX/nI2hNarmkQKGDH7R48InIZWsxmQa07NHVICutUZUkY2HdJX4LvcdDWZdcBedh0wudNMu1NA==
+
 typescript@4.4.4:
   version "4.4.4"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.4.tgz"
